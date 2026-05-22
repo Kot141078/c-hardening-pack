@@ -1,0 +1,43 @@
+{
+  "package": "c_hardening_pack_v0_1",
+  "generated_at": "2026-05-22",
+  "author": "Ivan Kotov",
+  "files": [
+    {
+      "name": "README_c_hardening_pack_v0_1.md",
+      "bytes": 4585
+    },
+    {
+      "name": "CLAIM_TO_EVIDENCE_AND_TEST_MATRIX_v0_1.md",
+      "bytes": 8752
+    },
+    {
+      "name": "DOC_TO_RUNTIME_TRACEABILITY_MATRIX_v0_1.md",
+      "bytes": 7371
+    },
+    {
+      "name": "L4_Runtime_Enforcement_Profile_v0_1.md",
+      "bytes": 9269
+    },
+    {
+      "name": "Memory_Continuity_and_Semantic_Drift_Profile_v0_1.md",
+      "bytes": 9878
+    },
+    {
+      "name": "LHWAI_Implementation_Pack_Index_and_Extraction_Plan_v0_1.md",
+      "bytes": 6362
+    },
+    {
+      "name": "Human_Anchor_Drift_and_Post_Anchor_Profile_v0_1.md",
+      "bytes": 8969
+    },
+    {
+      "name": "Ninety_Day_Continuity_Evidence_Pack_v0_1.md",
+      "bytes": 6706
+    },
+    {
+      "name": "Public_Red_Team_Response_Register_v0_1.md",
+      "bytes": 6362
+    }
+  ]
+}

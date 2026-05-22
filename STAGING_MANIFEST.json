@@ -1,0 +1,341 @@
+{
+  "repository_staging_name": "github_public_staging_c_hardening_pack_v0_1",
+  "intended_future_github_repository_name": "c-hardening-pack",
+  "intended_future_repository_visibility": "Public",
+  "status": "local GitHub staging candidate",
+  "generated_at_utc": "2026-05-22T09:56:36.056434+00:00",
+  "path_policy": "relative paths only; local filesystem paths are intentionally omitted",
+  "sha256sums_policy": "SHA256SUMS.txt excludes itself to avoid recursive self-hash.",
+  "counts": {
+    "total_files": 36,
+    "markdown_files": 18,
+    "pdf_files": 10,
+    "additional_notice_files": 4
+  },
+  "files": [
+    {
+      "relative_path": "CITATION.cff",
+      "filename": "CITATION.cff",
+      "extension": ".cff",
+      "size_bytes": 315,
+      "sha256": "66FF1792990E4C31C4D7A344F4BD41FA7A961F6664436D0A05357E0E13120E9F",
+      "category": "root_metadata",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "COMMERCIAL_AND_NON_IMPLEMENTATION_NOTICE.md",
+      "filename": "COMMERCIAL_AND_NON_IMPLEMENTATION_NOTICE.md",
+      "extension": ".md",
+      "size_bytes": 587,
+      "sha256": "81F55C8EF9BE894AE3507DA5FB2D6FF2E7B73B034C6CD7FA24FA5199591B7994",
+      "category": "root_metadata",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "docs/CLAIM_TO_EVIDENCE_AND_TEST_MATRIX_v0_1.md",
+      "filename": "CLAIM_TO_EVIDENCE_AND_TEST_MATRIX_v0_1.md",
+      "extension": ".md",
+      "size_bytes": 8752,
+      "sha256": "C624326C461BE2114641A1BBBCCED16C5EA9A1BBA354488BF660531C3162C37D",
+      "category": "markdown",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "docs/DOC_TO_RUNTIME_TRACEABILITY_MATRIX_v0_1.md",
+      "filename": "DOC_TO_RUNTIME_TRACEABILITY_MATRIX_v0_1.md",
+      "extension": ".md",
+      "size_bytes": 7371,
+      "sha256": "7C3337FA2C03DAF0F3F80629BBBFF97D6231E0495BFF38E6CB91392211C905EE",
+      "category": "markdown",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "docs/Human_Anchor_Drift_and_Post_Anchor_Profile_v0_1.md",
+      "filename": "Human_Anchor_Drift_and_Post_Anchor_Profile_v0_1.md",
+      "extension": ".md",
+      "size_bytes": 8969,
+      "sha256": "FC18F6B3394256644A3A09D1440CB055061C887F56B3A27F5850003CF5B34FD3",
+      "category": "markdown",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "docs/L4_Runtime_Enforcement_Profile_v0_1.md",
+      "filename": "L4_Runtime_Enforcement_Profile_v0_1.md",
+      "extension": ".md",
+      "size_bytes": 9269,
+      "sha256": "3F3C90DB1A4C34601626D70C082A84F2A7E5F7E1C894BB9786D87C77289C674E",
+      "category": "markdown",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "docs/LHWAI_Implementation_Pack_Index_and_Extraction_Plan_v0_1.md",
+      "filename": "LHWAI_Implementation_Pack_Index_and_Extraction_Plan_v0_1.md",
+      "extension": ".md",
+      "size_bytes": 6362,
+      "sha256": "309FC7F0781CD0F2F416EA9133138AA875DC8632CDFD02BD184B4ADA86C4F02C",
+      "category": "markdown",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "docs/Long_Horizon_Witness_Anchoring_and_Interpretation_Profile_v0_1_1.md",
+      "filename": "Long_Horizon_Witness_Anchoring_and_Interpretation_Profile_v0_1_1.md",
+      "extension": ".md",
+      "size_bytes": 65140,
+      "sha256": "5E49CA15883E1BF25DDB57C1EB8225BCD5D0AF469384A71B37060B2E65886AF0",
+      "category": "markdown",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "docs/Memory_Continuity_and_Semantic_Drift_Profile_v0_1.md",
+      "filename": "Memory_Continuity_and_Semantic_Drift_Profile_v0_1.md",
+      "extension": ".md",
+      "size_bytes": 9878,
+      "sha256": "F19385164856EA20BC63988BFC4FA445EA8306D78417885B4A068AE3969F79B4",
+      "category": "markdown",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "docs/Ninety_Day_Continuity_Evidence_Pack_v0_1.md",
+      "filename": "Ninety_Day_Continuity_Evidence_Pack_v0_1.md",
+      "extension": ".md",
+      "size_bytes": 6706,
+      "sha256": "5FFB2D0450122BAE14480036880E5C981EA3B8FD91F70D7778C7DD3F705C0C24",
+      "category": "markdown",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "docs/Public_Red_Team_Response_Register_v0_1.md",
+      "filename": "Public_Red_Team_Response_Register_v0_1.md",
+      "extension": ".md",
+      "size_bytes": 6362,
+      "sha256": "89246A2E27D155B37D7AAB26EBD3AFC5140EB11458F30EF684C74FC5A11E02FF",
+      "category": "markdown",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "LICENSE.md",
+      "filename": "LICENSE.md",
+      "extension": ".md",
+      "size_bytes": 951,
+      "sha256": "04B6F09F0F69D68A4ECFE3BDB3AB947D41CD59D9C4AF5D28C0900C06ED263097",
+      "category": "root_metadata",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "manifest.json",
+      "filename": "manifest.json",
+      "extension": ".json",
+      "size_bytes": 972,
+      "sha256": "EA58A298853F9BFE6F8DDEE051B3C6F4911F0B0A2978B0029AB95E14C53D1435",
+      "category": "root_metadata",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "manifests/FILE_LIST.csv",
+      "filename": "FILE_LIST.csv",
+      "extension": ".csv",
+      "size_bytes": 6025,
+      "sha256": "DCEC5E2C1DF6F665BAB2C04AF9BD61B0495B5DE9F79CF739D9C7918151777C1F",
+      "category": "package_manifest",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "manifests/PACKAGE_MANIFEST.json",
+      "filename": "PACKAGE_MANIFEST.json",
+      "extension": ".json",
+      "size_bytes": 13183,
+      "sha256": "D6B5922B7CC3DB5842745345FE9BD83C62F40B783DBA3200253441A363E6250B",
+      "category": "package_manifest",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "manifests/SHA256SUMS.txt",
+      "filename": "SHA256SUMS.txt",
+      "extension": ".txt",
+      "size_bytes": 3261,
+      "sha256": "DD69642F62F590449CC38B9553B7DA763BBD3E1696A5042E22ED0F76E018AAA9",
+      "category": "package_manifest",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "NO_PRIVATE_MATERIALS_INCLUDED.md",
+      "filename": "NO_PRIVATE_MATERIALS_INCLUDED.md",
+      "extension": ".md",
+      "size_bytes": 437,
+      "sha256": "C0986EF522A56644F4DA55BD9600057FBEFDCA6A431E282703AEE668E8BBECED",
+      "category": "staging_notice",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "PACKAGE_BOUNDARY_NOTICE.md",
+      "filename": "PACKAGE_BOUNDARY_NOTICE.md",
+      "extension": ".md",
+      "size_bytes": 267,
+      "sha256": "7FCDCFFFFCE97A2E13703B0D40C3CD34BE66312BD9893BEEF019FC4828013C4F",
+      "category": "staging_notice",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "pdf/CLAIM_TO_EVIDENCE_AND_TEST_MATRIX_v0_1.pdf",
+      "filename": "CLAIM_TO_EVIDENCE_AND_TEST_MATRIX_v0_1.pdf",
+      "extension": ".pdf",
+      "size_bytes": 136441,
+      "sha256": "66E351C3EC5C9E9DC41D279897A4BBEA22B8C3F4CF4D3FB34C0013BEE54AB04E",
+      "category": "pdf",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "pdf/DOC_TO_RUNTIME_TRACEABILITY_MATRIX_v0_1.pdf",
+      "filename": "DOC_TO_RUNTIME_TRACEABILITY_MATRIX_v0_1.pdf",
+      "extension": ".pdf",
+      "size_bytes": 133055,
+      "sha256": "637CDF9E57C20D5551D8D34980CB82E1824B445159C10EB557BBEC59CC47F2DA",
+      "category": "pdf",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "pdf/Human_Anchor_Drift_and_Post_Anchor_Profile_v0_1.pdf",
+      "filename": "Human_Anchor_Drift_and_Post_Anchor_Profile_v0_1.pdf",
+      "extension": ".pdf",
+      "size_bytes": 142956,
+      "sha256": "E9C919AB7D769A0B36B240307BBCD27347D9526278AE91A82A88E306BDF4E134",
+      "category": "pdf",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "pdf/L4_Runtime_Enforcement_Profile_v0_1.pdf",
+      "filename": "L4_Runtime_Enforcement_Profile_v0_1.pdf",
+      "extension": ".pdf",
+      "size_bytes": 138970,
+      "sha256": "177D6FFFA51353DF71DAF4C0110F9771C67863691C256175493A0E9E1D18D89F",
+      "category": "pdf",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "pdf/LHWAI_Implementation_Pack_Index_and_Extraction_Plan_v0_1.pdf",
+      "filename": "LHWAI_Implementation_Pack_Index_and_Extraction_Plan_v0_1.pdf",
+      "extension": ".pdf",
+      "size_bytes": 122940,
+      "sha256": "BBA2881AE6088BC749509A61EA95F90D5AAFBEAC6C24E04EB30303061EAB7FB3",
+      "category": "pdf",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "pdf/Long_Horizon_Witness_Anchoring_and_Interpretation_Profile_v0_1_1.pdf",
+      "filename": "Long_Horizon_Witness_Anchoring_and_Interpretation_Profile_v0_1_1.pdf",
+      "extension": ".pdf",
+      "size_bytes": 282516,
+      "sha256": "6B401EDE7ACEEA3A38C9D82777FBB2D7143489E7AF35C8F4E1713285371F98FD",
+      "category": "pdf",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "pdf/Memory_Continuity_and_Semantic_Drift_Profile_v0_1.pdf",
+      "filename": "Memory_Continuity_and_Semantic_Drift_Profile_v0_1.pdf",
+      "extension": ".pdf",
+      "size_bytes": 145569,
+      "sha256": "DA2C837C25D9D1BDFA203CE1B537A0FCE90D4235281E0BFA4A0A2403DEABA6D5",
+      "category": "pdf",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "pdf/Ninety_Day_Continuity_Evidence_Pack_v0_1.pdf",
+      "filename": "Ninety_Day_Continuity_Evidence_Pack_v0_1.pdf",
+      "extension": ".pdf",
+      "size_bytes": 138419,
+      "sha256": "F46126DEB2ADDD4E1955DF21DF62E088B6BE54B21DC564CD4EAE6F4289BBBD09",
+      "category": "pdf",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "pdf/Public_Red_Team_Response_Register_v0_1.pdf",
+      "filename": "Public_Red_Team_Response_Register_v0_1.pdf",
+      "extension": ".pdf",
+      "size_bytes": 121671,
+      "sha256": "AC83D15CAE2F6495F4C529958F3F5701E8736CD14C98776F80EC1F9AEC5EDD10",
+      "category": "pdf",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "pdf/README_c_hardening_pack_v0_1.pdf",
+      "filename": "README_c_hardening_pack_v0_1.pdf",
+      "extension": ".pdf",
+      "size_bytes": 97625,
+      "sha256": "1CC7E007D2199B0945CCE559DD62962A9B6AFB69DB150605DE61C8D398077D84",
+      "category": "pdf",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "PUBLICATION_STATUS.md",
+      "filename": "PUBLICATION_STATUS.md",
+      "extension": ".md",
+      "size_bytes": 259,
+      "sha256": "BE2945D7104AD1EA0EE984AC800CC94E1E80CC77D28E773EE1A1C166DD658082",
+      "category": "staging_notice",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "README.md",
+      "filename": "README.md",
+      "extension": ".md",
+      "size_bytes": 1006,
+      "sha256": "7FD32FF6030196BA217F28AD5E1AD3C684BE0D583DE2435FDAD1CECA01160954",
+      "category": "staging_notice",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "README_c_hardening_pack_v0_1.md",
+      "filename": "README_c_hardening_pack_v0_1.md",
+      "extension": ".md",
+      "size_bytes": 3004,
+      "sha256": "17E6D23EA395F6FAE97362772A4DEB72BAE591D74400D0A1D6930BE1D6E391F5",
+      "category": "root_metadata",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "RELEASE_NOTES.md",
+      "filename": "RELEASE_NOTES.md",
+      "extension": ".md",
+      "size_bytes": 568,
+      "sha256": "4B14DF0480227E0CF832CA249548C4484DB62614848D0FF0A3E71FFC4DEE00FD",
+      "category": "root_metadata",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "reports/PACKAGE_ASSEMBLY_REPORT.json",
+      "filename": "PACKAGE_ASSEMBLY_REPORT.json",
+      "extension": ".json",
+      "size_bytes": 6464,
+      "sha256": "D3EA973667650C5BF0DB525A242E030C63CF2C6F9526AAFD61CCFC044141DB94",
+      "category": "package_report",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "reports/PACKAGE_ASSEMBLY_REPORT.md",
+      "filename": "PACKAGE_ASSEMBLY_REPORT.md",
+      "extension": ".md",
+      "size_bytes": 827,
+      "sha256": "9C7D74CB53CA6950BA3E2D259517DEEE733394815756ADC545AE1D2F95994281",
+      "category": "package_report",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "SHA256SUMS.txt",
+      "filename": "SHA256SUMS.txt",
+      "extension": ".txt",
+      "size_bytes": null,
+      "sha256": null,
+      "category": "staging_manifest",
+      "manifest_note": "self-hash excluded; SHA256SUMS cannot cover itself"
+    },
+    {
+      "relative_path": "STAGING_MANIFEST.json",
+      "filename": "STAGING_MANIFEST.json",
+      "extension": ".json",
+      "size_bytes": null,
+      "sha256": null,
+      "category": "staging_manifest",
+      "manifest_note": "generated staging manifest; exact hash is recorded in SHA256SUMS after manifest generation"
+    }
+  ]
+}

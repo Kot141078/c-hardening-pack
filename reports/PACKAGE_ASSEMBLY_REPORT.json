@@ -1,0 +1,135 @@
+{
+  "package": "c_hardening_pack_v0_1_PUBLICATION_CANDIDATE",
+  "output_directory": "_package_publication_candidate_v0_1",
+  "files_copied": {
+    "markdown": [
+      {
+        "source": "Downloads/Long_Horizon_Witness_Anchoring_and_Interpretation_Profile_v0_1_1.md",
+        "destination": "docs/Long_Horizon_Witness_Anchoring_and_Interpretation_Profile_v0_1_1.md",
+        "sha256": "5E49CA15883E1BF25DDB57C1EB8225BCD5D0AF469384A71B37060B2E65886AF0"
+      },
+      {
+        "source": "Downloads/CLAIM_TO_EVIDENCE_AND_TEST_MATRIX_v0_1.md",
+        "destination": "docs/CLAIM_TO_EVIDENCE_AND_TEST_MATRIX_v0_1.md",
+        "sha256": "C624326C461BE2114641A1BBBCCED16C5EA9A1BBA354488BF660531C3162C37D"
+      },
+      {
+        "source": "Downloads/DOC_TO_RUNTIME_TRACEABILITY_MATRIX_v0_1.md",
+        "destination": "docs/DOC_TO_RUNTIME_TRACEABILITY_MATRIX_v0_1.md",
+        "sha256": "7C3337FA2C03DAF0F3F80629BBBFF97D6231E0495BFF38E6CB91392211C905EE"
+      },
+      {
+        "source": "Downloads/L4_Runtime_Enforcement_Profile_v0_1.md",
+        "destination": "docs/L4_Runtime_Enforcement_Profile_v0_1.md",
+        "sha256": "3F3C90DB1A4C34601626D70C082A84F2A7E5F7E1C894BB9786D87C77289C674E"
+      },
+      {
+        "source": "Downloads/Memory_Continuity_and_Semantic_Drift_Profile_v0_1.md",
+        "destination": "docs/Memory_Continuity_and_Semantic_Drift_Profile_v0_1.md",
+        "sha256": "F19385164856EA20BC63988BFC4FA445EA8306D78417885B4A068AE3969F79B4"
+      },
+      {
+        "source": "Downloads/LHWAI_Implementation_Pack_Index_and_Extraction_Plan_v0_1.md",
+        "destination": "docs/LHWAI_Implementation_Pack_Index_and_Extraction_Plan_v0_1.md",
+        "sha256": "309FC7F0781CD0F2F416EA9133138AA875DC8632CDFD02BD184B4ADA86C4F02C"
+      },
+      {
+        "source": "Downloads/Human_Anchor_Drift_and_Post_Anchor_Profile_v0_1.md",
+        "destination": "docs/Human_Anchor_Drift_and_Post_Anchor_Profile_v0_1.md",
+        "sha256": "FC18F6B3394256644A3A09D1440CB055061C887F56B3A27F5850003CF5B34FD3"
+      },
+      {
+        "source": "Downloads/Ninety_Day_Continuity_Evidence_Pack_v0_1.md",
+        "destination": "docs/Ninety_Day_Continuity_Evidence_Pack_v0_1.md",
+        "sha256": "5FFB2D0450122BAE14480036880E5C981EA3B8FD91F70D7778C7DD3F705C0C24"
+      },
+      {
+        "source": "Downloads/Public_Red_Team_Response_Register_v0_1.md",
+        "destination": "docs/Public_Red_Team_Response_Register_v0_1.md",
+        "sha256": "89246A2E27D155B37D7AAB26EBD3AFC5140EB11458F30EF684C74FC5A11E02FF"
+      }
+    ],
+    "pdf": [
+      {
+        "source": "titlepage_patch/Long_Horizon_Witness_Anchoring_and_Interpretation_Profile_v0_1_1.pdf",
+        "destination": "pdf/Long_Horizon_Witness_Anchoring_and_Interpretation_Profile_v0_1_1.pdf",
+        "sha256": "6B401EDE7ACEEA3A38C9D82777FBB2D7143489E7AF35C8F4E1713285371F98FD"
+      },
+      {
+        "source": "titlepage_patch/README_c_hardening_pack_v0_1.pdf",
+        "destination": "pdf/README_c_hardening_pack_v0_1.pdf",
+        "sha256": "1CC7E007D2199B0945CCE559DD62962A9B6AFB69DB150605DE61C8D398077D84"
+      },
+      {
+        "source": "titlepage_patch/CLAIM_TO_EVIDENCE_AND_TEST_MATRIX_v0_1.pdf",
+        "destination": "pdf/CLAIM_TO_EVIDENCE_AND_TEST_MATRIX_v0_1.pdf",
+        "sha256": "66E351C3EC5C9E9DC41D279897A4BBEA22B8C3F4CF4D3FB34C0013BEE54AB04E"
+      },
+      {
+        "source": "titlepage_patch/DOC_TO_RUNTIME_TRACEABILITY_MATRIX_v0_1.pdf",
+        "destination": "pdf/DOC_TO_RUNTIME_TRACEABILITY_MATRIX_v0_1.pdf",
+        "sha256": "637CDF9E57C20D5551D8D34980CB82E1824B445159C10EB557BBEC59CC47F2DA"
+      },
+      {
+        "source": "titlepage_patch/L4_Runtime_Enforcement_Profile_v0_1.pdf",
+        "destination": "pdf/L4_Runtime_Enforcement_Profile_v0_1.pdf",
+        "sha256": "177D6FFFA51353DF71DAF4C0110F9771C67863691C256175493A0E9E1D18D89F"
+      },
+      {
+        "source": "titlepage_patch/Memory_Continuity_and_Semantic_Drift_Profile_v0_1.pdf",
+        "destination": "pdf/Memory_Continuity_and_Semantic_Drift_Profile_v0_1.pdf",
+        "sha256": "DA2C837C25D9D1BDFA203CE1B537A0FCE90D4235281E0BFA4A0A2403DEABA6D5"
+      },
+      {
+        "source": "titlepage_patch/LHWAI_Implementation_Pack_Index_and_Extraction_Plan_v0_1.pdf",
+        "destination": "pdf/LHWAI_Implementation_Pack_Index_and_Extraction_Plan_v0_1.pdf",
+        "sha256": "BBA2881AE6088BC749509A61EA95F90D5AAFBEAC6C24E04EB30303061EAB7FB3"
+      },
+      {
+        "source": "titlepage_patch/Human_Anchor_Drift_and_Post_Anchor_Profile_v0_1.pdf",
+        "destination": "pdf/Human_Anchor_Drift_and_Post_Anchor_Profile_v0_1.pdf",
+        "sha256": "E9C919AB7D769A0B36B240307BBCD27347D9526278AE91A82A88E306BDF4E134"
+      },
+      {
+        "source": "titlepage_patch/Ninety_Day_Continuity_Evidence_Pack_v0_1.pdf",
+        "destination": "pdf/Ninety_Day_Continuity_Evidence_Pack_v0_1.pdf",
+        "sha256": "F46126DEB2ADDD4E1955DF21DF62E088B6BE54B21DC564CD4EAE6F4289BBBD09"
+      },
+      {
+        "source": "titlepage_patch/Public_Red_Team_Response_Register_v0_1.pdf",
+        "destination": "pdf/Public_Red_Team_Response_Register_v0_1.pdf",
+        "sha256": "AC83D15CAE2F6495F4C529958F3F5701E8736CD14C98776F80EC1F9AEC5EDD10"
+      }
+    ],
+    "manifest_json": "manifest.json"
+  },
+  "files_generated": [
+    "README_c_hardening_pack_v0_1.md",
+    "LICENSE.md",
+    "CITATION.cff",
+    "RELEASE_NOTES.md",
+    "COMMERCIAL_AND_NON_IMPLEMENTATION_NOTICE.md",
+    "manifests/PACKAGE_MANIFEST.json",
+    "manifests/FILE_LIST.csv",
+    "manifests/SHA256SUMS.txt"
+  ],
+  "readme_source_status": "generated as real package source artifact at package root",
+  "pdf_count": 10,
+  "markdown_count": 13,
+  "sha_status": "SHA256SUMS generated",
+  "zip_path": "c_hardening_pack_v0_1_PUBLICATION_CANDIDATE.zip",
+  "scan_results": {
+    "local_path_secret_hits": 0,
+    "positive_forbidden_claim_hits": 0,
+    "negative_non_claim_hits": 68
+  },
+  "warnings": [
+    "Local publication candidate only; not yet GitHub-published and not yet Zenodo-published.",
+    "Package is public/research-safe only under the included non-implementation and non-claim boundaries."
+  ],
+  "blockers": [],
+  "recommendation": "Package assembled locally. Review package contents before any separate publication contract.",
+  "explicit_statement": "No original source Markdown files were modified. No publication was performed. No Git commit was created. No Zenodo upload was performed.",
+  "total_files": 30,
+  "total_bytes": 1620499
+}
