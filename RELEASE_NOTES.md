@@ -2,10 +2,13 @@
 
 c Hardening Pack v0.1
 
-Status: local publication candidate.
+Status: public GitHub package with Zenodo archive.
 
-This package is not yet GitHub-published.
-This package is not yet Zenodo-published.
+## Zenodo archive
+
+- Zenodo version DOI: https://doi.org/10.5281/zenodo.20348436
+- Zenodo concept DOI: https://doi.org/10.5281/zenodo.20348435
+- Zenodo record: https://zenodo.org/records/20348436
 
 It contains source Markdown files and academic PDFs with title pages and metadata.
 

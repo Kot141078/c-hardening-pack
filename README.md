@@ -6,6 +6,12 @@ The package is a hardening / evidence / runtime bridge for the authored c = a + 
 
 - [README_c_hardening_pack_v0_1.md](README_c_hardening_pack_v0_1.md)
 
+## Archive and citation
+
+- Zenodo version DOI: https://doi.org/10.5281/zenodo.20348436
+- Zenodo concept DOI: https://doi.org/10.5281/zenodo.20348435
+- Zenodo record: https://zenodo.org/records/20348436
+
 ## Main Topics
 
 - Claim-to-evidence matrix
@@ -37,7 +43,3 @@ The package is a hardening / evidence / runtime bridge for the authored c = a + 
 Public reading and citation are allowed under the package license.
 
 Commercial implementation rights are not granted.
-
-## Archive and citation
-
-A Zenodo DOI will be added after the GitHub Release is archived by Zenodo.

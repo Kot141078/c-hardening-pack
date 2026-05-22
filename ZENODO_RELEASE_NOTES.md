@@ -2,6 +2,12 @@
 
 This release archives the public/research-safe c Hardening Pack v0.1.
 
+## DOI
+
+- Zenodo version DOI: https://doi.org/10.5281/zenodo.20348436
+- Zenodo concept DOI: https://doi.org/10.5281/zenodo.20348435
+- Zenodo record: https://zenodo.org/records/20348436
+
 It includes:
 - Claim-to-Evidence-and-Test Matrix;
 - Document-to-Runtime Traceability Matrix;

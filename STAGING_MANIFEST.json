@@ -2,8 +2,15 @@
   "repository_staging_name": "github_public_staging_c_hardening_pack_v0_1",
   "intended_future_github_repository_name": "c-hardening-pack",
   "intended_future_repository_visibility": "Public",
-  "status": "Zenodo compatibility metadata improved",
-  "generated_at_utc": "2026-05-22T19:33:59.170336+00:00",
+  "status": "Zenodo DOI propagated",
+  "generated_at_utc": "2026-05-22T20:17:34.082528+00:00",
+  "doi": {
+    "version_doi": "10.5281/zenodo.20348436",
+    "version_doi_url": "https://doi.org/10.5281/zenodo.20348436",
+    "concept_doi": "10.5281/zenodo.20348435",
+    "concept_doi_url": "https://doi.org/10.5281/zenodo.20348435",
+    "zenodo_record": "https://zenodo.org/records/20348436"
+  },
   "path_policy": "relative paths only; local filesystem paths are intentionally omitted",
   "scope_policy": "manifest covers tracked release files only; local-only ignored reports are excluded",
   "sha256sums_policy": "Root and manifests SHA256SUMS files exclude both checksum files to avoid recursive and cross-recursive hash instability.",
@@ -26,8 +33,8 @@
       "relative_path": "CITATION.cff",
       "filename": "CITATION.cff",
       "extension": ".cff",
-      "size_bytes": 340,
-      "sha256": "925A4F5DFBAFDEFB65B29ECDF451401458EF8F2831C3CA5E2D0AB9486B6A26B0",
+      "size_bytes": 369,
+      "sha256": "699DA04E89271332C591E56EEAC3AFCC4E141DE60D88705298EEF1C8DEC291B1",
       "category": "root_metadata",
       "manifest_note": ""
     },
@@ -287,8 +294,8 @@
       "relative_path": "README.md",
       "filename": "README.md",
       "extension": ".md",
-      "size_bytes": 1107,
-      "sha256": "17FE0BE0429FFCF63A0FC790C729074FC8F31E32843B1A4C902EC1CACF0E1BFC",
+      "size_bytes": 1209,
+      "sha256": "D3EF1D379721B028E8CDD2B87C973E72819B9DFBE4AEADBDFE00F33AB43C44DC",
       "category": "release_metadata",
       "manifest_note": ""
     },
@@ -314,8 +321,8 @@
       "relative_path": "RELEASE_NOTES.md",
       "filename": "RELEASE_NOTES.md",
       "extension": ".md",
-      "size_bytes": 568,
-      "sha256": "4B14DF0480227E0CF832CA249548C4484DB62614848D0FF0A3E71FFC4DEE00FD",
+      "size_bytes": 694,
+      "sha256": "25167CF30C9DEADE5A7E8C52EEFF15EFDE500A587205F00869B8217150D85291",
       "category": "root_metadata",
       "manifest_note": ""
     },
@@ -359,8 +366,8 @@
       "relative_path": "ZENODO_RELEASE_NOTES.md",
       "filename": "ZENODO_RELEASE_NOTES.md",
       "extension": ".md",
-      "size_bytes": 1054,
-      "sha256": "336E7E310A36837C654CECE8DE82A031DDDF77A7651BF1941BE54D0AC7097A0B",
+      "size_bytes": 1240,
+      "sha256": "E256CCABD02528AB2DF24051C39A6EF7F974C63223308D0101A39414C91A442A",
       "category": "release_metadata",
       "manifest_note": ""
     }
