@@ -1,7 +1,7 @@
 {
   "title": "c Hardening Pack v0.1",
   "upload_type": "publication",
-  "publication_type": "technicalnote",
+  "publication_type": "other",
   "description": "Public research and technical hardening package for the c = a + b corpus. The package connects class claims to evidence, runtime surfaces, test matrices, L4 runtime enforcement, memory continuity, semantic drift control, long-horizon witness anchoring, human-anchor drift handling, and 90-day continuity evidence planning. It is not an implementation-ready package, not a deployment package, not product certification, and does not grant commercial implementation rights.",
   "creators": [
     {

@@ -1,6 +1,7 @@
 cff-version: 1.2.0
 message: "Cite this package when referring to c = a + b hardening, L4 runtime enforcement, memory continuity, long-horizon witness anchoring, and claim-to-evidence traceability."
 title: "c Hardening Pack v0.1"
+license: CC-BY-NC-ND-4.0
 authors:
   - family-names: "Kotov"
     given-names: "Ivan"

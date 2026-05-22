@@ -2,24 +2,23 @@
   "repository_staging_name": "github_public_staging_c_hardening_pack_v0_1",
   "intended_future_github_repository_name": "c-hardening-pack",
   "intended_future_repository_visibility": "Public",
-  "status": "GitHub release and Zenodo DOI metadata prepared",
-  "generated_at_utc": "2026-05-22T10:17:28.976814+00:00",
+  "status": "Zenodo compatibility metadata improved",
+  "generated_at_utc": "2026-05-22T19:33:59.170336+00:00",
   "path_policy": "relative paths only; local filesystem paths are intentionally omitted",
-  "scope_policy": "manifest covers tracked release files plus newly added release metadata files; local-only ignored reports are excluded",
+  "scope_policy": "manifest covers tracked release files only; local-only ignored reports are excluded",
   "sha256sums_policy": "Root and manifests SHA256SUMS files exclude both checksum files to avoid recursive and cross-recursive hash instability.",
   "counts": {
     "total_release_files": 39,
     "markdown_files": 20,
-    "pdf_files": 10,
-    "new_release_metadata_files": 3
+    "pdf_files": 10
   },
   "files": [
     {
       "relative_path": ".zenodo.json",
       "filename": ".zenodo.json",
       "extension": ".json",
-      "size_bytes": 1077,
-      "sha256": "A023E5818D701D2C319BE32FE4391405E6667A45428AE6ADE8EB511270A0BED1",
+      "size_bytes": 1069,
+      "sha256": "62138140D880071213E9186E8E5D87CFCF6D7866898BF19DBDE7ABEFD9E9C9A9",
       "category": "release_metadata",
       "manifest_note": ""
     },
@@ -27,8 +26,8 @@
       "relative_path": "CITATION.cff",
       "filename": "CITATION.cff",
       "extension": ".cff",
-      "size_bytes": 315,
-      "sha256": "66FF1792990E4C31C4D7A344F4BD41FA7A961F6664436D0A05357E0E13120E9F",
+      "size_bytes": 340,
+      "sha256": "925A4F5DFBAFDEFB65B29ECDF451401458EF8F2831C3CA5E2D0AB9486B6A26B0",
       "category": "root_metadata",
       "manifest_note": ""
     },
