@@ -2,17 +2,27 @@
   "repository_staging_name": "github_public_staging_c_hardening_pack_v0_1",
   "intended_future_github_repository_name": "c-hardening-pack",
   "intended_future_repository_visibility": "Public",
-  "status": "local GitHub staging candidate",
-  "generated_at_utc": "2026-05-22T09:56:36.056434+00:00",
+  "status": "GitHub release and Zenodo DOI metadata prepared",
+  "generated_at_utc": "2026-05-22T10:17:28.976814+00:00",
   "path_policy": "relative paths only; local filesystem paths are intentionally omitted",
-  "sha256sums_policy": "SHA256SUMS.txt excludes itself to avoid recursive self-hash.",
+  "scope_policy": "manifest covers tracked release files plus newly added release metadata files; local-only ignored reports are excluded",
+  "sha256sums_policy": "Root and manifests SHA256SUMS files exclude both checksum files to avoid recursive and cross-recursive hash instability.",
   "counts": {
-    "total_files": 36,
-    "markdown_files": 18,
+    "total_release_files": 39,
+    "markdown_files": 20,
     "pdf_files": 10,
-    "additional_notice_files": 4
+    "new_release_metadata_files": 3
   },
   "files": [
+    {
+      "relative_path": ".zenodo.json",
+      "filename": ".zenodo.json",
+      "extension": ".json",
+      "size_bytes": 1077,
+      "sha256": "A023E5818D701D2C319BE32FE4391405E6667A45428AE6ADE8EB511270A0BED1",
+      "category": "release_metadata",
+      "manifest_note": ""
+    },
     {
       "relative_path": "CITATION.cff",
       "filename": "CITATION.cff",
@@ -152,10 +162,10 @@
       "relative_path": "manifests/SHA256SUMS.txt",
       "filename": "SHA256SUMS.txt",
       "extension": ".txt",
-      "size_bytes": 3261,
-      "sha256": "DD69642F62F590449CC38B9553B7DA763BBD3E1696A5042E22ED0F76E018AAA9",
+      "size_bytes": null,
+      "sha256": null,
       "category": "package_manifest",
-      "manifest_note": ""
+      "manifest_note": "generated checksum file; excluded from exact embedded hash to avoid recursive or cross-recursive hashes"
     },
     {
       "relative_path": "NO_PRIVATE_MATERIALS_INCLUDED.md",
@@ -163,7 +173,7 @@
       "extension": ".md",
       "size_bytes": 437,
       "sha256": "C0986EF522A56644F4DA55BD9600057FBEFDCA6A431E282703AEE668E8BBECED",
-      "category": "staging_notice",
+      "category": "release_metadata",
       "manifest_note": ""
     },
     {
@@ -172,7 +182,7 @@
       "extension": ".md",
       "size_bytes": 267,
       "sha256": "7FCDCFFFFCE97A2E13703B0D40C3CD34BE66312BD9893BEEF019FC4828013C4F",
-      "category": "staging_notice",
+      "category": "release_metadata",
       "manifest_note": ""
     },
     {
@@ -271,16 +281,16 @@
       "extension": ".md",
       "size_bytes": 259,
       "sha256": "BE2945D7104AD1EA0EE984AC800CC94E1E80CC77D28E773EE1A1C166DD658082",
-      "category": "staging_notice",
+      "category": "release_metadata",
       "manifest_note": ""
     },
     {
       "relative_path": "README.md",
       "filename": "README.md",
       "extension": ".md",
-      "size_bytes": 1006,
-      "sha256": "7FD32FF6030196BA217F28AD5E1AD3C684BE0D583DE2435FDAD1CECA01160954",
-      "category": "staging_notice",
+      "size_bytes": 1107,
+      "sha256": "17FE0BE0429FFCF63A0FC790C729074FC8F31E32843B1A4C902EC1CACF0E1BFC",
+      "category": "release_metadata",
       "manifest_note": ""
     },
     {
@@ -290,6 +300,15 @@
       "size_bytes": 3004,
       "sha256": "17E6D23EA395F6FAE97362772A4DEB72BAE591D74400D0A1D6930BE1D6E391F5",
       "category": "root_metadata",
+      "manifest_note": ""
+    },
+    {
+      "relative_path": "RELEASE_CHECKLIST_ZENODO.md",
+      "filename": "RELEASE_CHECKLIST_ZENODO.md",
+      "extension": ".md",
+      "size_bytes": 343,
+      "sha256": "0CCF73A24B6F183812C68F250A128995CC75B7329C20264CEB9D4649D7918D0A",
+      "category": "release_metadata",
       "manifest_note": ""
     },
     {
@@ -326,7 +345,7 @@
       "size_bytes": null,
       "sha256": null,
       "category": "staging_manifest",
-      "manifest_note": "self-hash excluded; SHA256SUMS cannot cover itself"
+      "manifest_note": "generated checksum file; excluded from exact embedded hash to avoid recursive or cross-recursive hashes"
     },
     {
       "relative_path": "STAGING_MANIFEST.json",
@@ -335,7 +354,16 @@
       "size_bytes": null,
       "sha256": null,
       "category": "staging_manifest",
-      "manifest_note": "generated staging manifest; exact hash is recorded in SHA256SUMS after manifest generation"
+      "manifest_note": "generated staging manifest; exact hash is recorded in checksum files after manifest generation"
+    },
+    {
+      "relative_path": "ZENODO_RELEASE_NOTES.md",
+      "filename": "ZENODO_RELEASE_NOTES.md",
+      "extension": ".md",
+      "size_bytes": 1054,
+      "sha256": "336E7E310A36837C654CECE8DE82A031DDDF77A7651BF1941BE54D0AC7097A0B",
+      "category": "release_metadata",
+      "manifest_note": ""
     }
   ]
 }

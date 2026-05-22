@@ -37,3 +37,7 @@ The package is a hardening / evidence / runtime bridge for the authored c = a + 
 Public reading and citation are allowed under the package license.
 
 Commercial implementation rights are not granted.
+
+## Archive and citation
+
+A Zenodo DOI will be added after the GitHub Release is archived by Zenodo.
