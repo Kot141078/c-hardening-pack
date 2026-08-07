@@ -1,0 +1,42 @@
+{
+  "schema_version": "checksum-domain.v1",
+  "document_id": "c-hardening-pack-v0.1-checksum-domain",
+  "last_verified": "2026-08-07",
+  "repository": "https://github.com/Kot141078/c-hardening-pack",
+  "observed_head_commit": "08d9e36e7f27cc1d573a7aa86fdbe212b59c122e",
+  "scope": "Interpretation layer for the two preserved standalone v0.1 checksum manifests. It does not alter either manifest or any DOI-bound byte.",
+  "authority_rule": "The preserved manifests record release-package byte representations. Git checkout line-ending normalization is not evidence of content corruption when the declared canonicalization reproduces the recorded digest.",
+  "claim_boundary": "A checksum match establishes byte identity in the declared hash domain only; it is not implementation, conformance, safety, legal, certification, or deployment evidence.",
+  "manifests": [
+    {
+      "path": "SHA256SUMS.txt",
+      "hash_algorithm": "sha256",
+      "default_mode": "raw_bytes",
+      "path_modes": {
+        "crlf_text_bytes": [
+          "manifests/FILE_LIST.csv",
+          "manifests/PACKAGE_MANIFEST.json",
+          "STAGING_MANIFEST.json"
+        ]
+      },
+      "expected_entries": 37
+    },
+    {
+      "path": "manifests/SHA256SUMS.txt",
+      "hash_algorithm": "sha256",
+      "default_mode": "raw_bytes",
+      "path_modes": {
+        "crlf_text_bytes": [
+          "manifests/FILE_LIST.csv",
+          "manifests/PACKAGE_MANIFEST.json",
+          "STAGING_MANIFEST.json"
+        ]
+      },
+      "expected_entries": 37
+    }
+  ],
+  "verification": {
+    "command": "python3 tools/verify_checksum_domain.py",
+    "normalization_rule": "For crlf_text_bytes only, an LF checkout is transformed to CRLF before hashing. Existing CRLF bytes are hashed unchanged; mixed or bare-CR input is rejected."
+  }
+}
