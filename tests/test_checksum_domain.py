@@ -212,7 +212,11 @@ class ConfigParsingTest(unittest.TestCase):
         self.config = (ROOT / checksum.CONFIG_RELATIVE).read_bytes()
 
     def test_duplicate_json_key_rejected(self) -> None:
-        needle = b'  "protected_git_baseline": "9a33e3866cde19939be22a903967bc94f566db76",\n'
+        newline = b"\r\n" if b"\r\n" in self.config else b"\n"
+        needle = (
+            b'  "protected_git_baseline": "9a33e3866cde19939be22a903967bc94f566db76",'
+            + newline
+        )
         duplicate = needle + needle
         self.assertIn(needle, self.config)
         with self.assertRaisesRegex(checksum.ChecksumDomainError, "Duplicate JSON object key"):
