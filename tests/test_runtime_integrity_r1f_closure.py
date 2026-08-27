@@ -47,6 +47,21 @@ class RuntimeIntegrityR1FClosureTest(unittest.TestCase):
         )
         self.assertEqual(0, proc.returncode, f"{proc.stdout}\n{proc.stderr}")
         self.assertIn("scenarios=62 recovered=62 unrecovered=0 pass=62 fail=0", proc.stdout)
+        expected_categories = {
+            "BOUNDARY_PROBE": 8,
+            "CONSEQUENCE_GRAPH": 12,
+            "CONTINUITY_L4": 7,
+            "EARTH_BUNDLE": 6,
+            "EXTERNAL_INTAKE": 5,
+            "JUDGE": 4,
+            "MEMORY_RELIANCE": 8,
+            "NON_EFFECT": 12,
+        }
+        for category, count in expected_categories.items():
+            self.assertIn(
+                f"category={category} scenarios={count} pass={count} fail=0",
+                proc.stdout,
+            )
 
     def test_strict_json_domain_rejects_ambiguous_inputs(self) -> None:
         invalid = (
@@ -97,6 +112,44 @@ class RuntimeIntegrityR1FClosureTest(unittest.TestCase):
                 path.write_bytes(payload)
                 with self.subTest(name=name), self.assertRaises((self.validator.JSONDomainError, UnicodeDecodeError)):
                     self.validator.uniform_text_to_lf_sha256(path)
+
+    def test_create_then_revert_is_not_non_effect(self) -> None:
+        witness = self.load("positive/non_effect_witness_valid.json")
+        original = self.validator.resolve_registered_evidence
+
+        def create_then_revert(ref_id, registry):
+            result = original(ref_id, registry)
+            if ref_id == "evidence:event-log-42" and result is not None:
+                artifact = copy.deepcopy(result[0])
+                artifact["events"] = [
+                    {
+                        "event_id": "event:create-target-state",
+                        "observed_at": "2026-08-27T10:03:10+02:00",
+                        "surface_id": "target-state",
+                        "operation": "CREATE",
+                    },
+                    {
+                        "event_id": "event:revert-target-state",
+                        "observed_at": "2026-08-27T10:03:20+02:00",
+                        "surface_id": "target-state",
+                        "operation": "REVERT",
+                    },
+                ]
+                return artifact, self.validator.jcs_sha256(artifact)
+            return result
+
+        with mock.patch.object(
+            self.validator,
+            "resolve_registered_evidence",
+            side_effect=create_then_revert,
+        ):
+            codes = {
+                item.code for item in self.validator.validate_registered_evidence(
+                    witness,
+                    self.manifest["evidence_registry"],
+                )
+            }
+        self.assertIn("non_effect_event_log_unresolved", codes)
 
     def test_changed_target_basis_and_transition_time_fail_closed(self) -> None:
         commit = self.load("positive/consequence_commit_retry_b_valid.json")

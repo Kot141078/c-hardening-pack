@@ -9,6 +9,86 @@
     {"round":3,"original_filename":"third_round_probes.py","original_sha256":"cb045fcebba100945d74181e9c60fc9655898c176553369ea37d5e73a5d93092","candidate_path":"tests/adversarial/probes/round_3.py","scenario_count":14},
     {"round":4,"original_filename":"final_round_probes.py","original_sha256":"ec3c9e9305c0f771f6f520e0681d52b62fb263bf0aa6594e2f6e5db356dc6ca7","candidate_path":"tests/adversarial/probes/round_4.py","scenario_count":16}
   ],
+  "category_scenarios": {
+    "BOUNDARY_PROBE": [
+      "boundary_counts_contradict_signals",
+      "boundary_reversed_window",
+      "boundary_empty_provider_aggregation",
+      "boundary_surface_mismatch",
+      "boundary_unknown_budget_allow",
+      "boundary_budget_hash_tamper",
+      "memory_probe_without_lineage",
+      "zero_query_nonzero_participants"
+    ],
+    "CONSEQUENCE_GRAPH": [
+      "commit_duplicate_missing_preconditions",
+      "commit_memory_influence_disappears",
+      "commit_conditions_hash_substituted_from_basis",
+      "decision_basis_duplicate_logical_policy_id",
+      "commit_witness_hash_tamper",
+      "record_registry_alias_rejected",
+      "witness_content_tamper_rejected",
+      "bound_commit_with_non_effect_witness",
+      "current_conditions_blocking_state_drift",
+      "commit_linked_memory_authority_unresolved",
+      "commit_grounding_ref_forged",
+      "decision_grant_valid_after_expiry"
+    ],
+    "CONTINUITY_L4": [
+      "continuity_resume_without_transition_evidence",
+      "continuity_required_case_pairs_missing",
+      "continuity_archive_false_resume",
+      "l4_degradation_identity_rejected",
+      "fork_same_lineage",
+      "carry_non_object_dimension",
+      "continuity_non_object"
+    ],
+    "EARTH_BUNDLE": [
+      "earth_positive_control",
+      "earth_outer_contract_missing",
+      "earth_commit_not_revalidated_at_execution",
+      "planning_permission_revoked_at_0900",
+      "earth_retry_and_claim_inflation",
+      "earth_non_object"
+    ],
+    "EXTERNAL_INTAKE": [
+      "external_formal_dependency_without_frozen_hash_or_dependency_proof",
+      "external_empty_required_evidence_fields",
+      "formal_dependency_without_dependency_assertion",
+      "elevated_source_metadata_relabelled",
+      "markdown_target_fragment_missing"
+    ],
+    "JUDGE": [
+      "judge_same_instance_masquerades_as_reviewers",
+      "judge_passport_path_escape",
+      "judge_evidence_path_escape",
+      "dangling_divergence_evidence"
+    ],
+    "MEMORY_RELIANCE": [
+      "memory_unknown_states_unrestricted_use",
+      "bounded_memory_unrestricted_use",
+      "memory_evaluator_hash_collision",
+      "memory_evaluator_result_promotion",
+      "memory_current_authority_unresolved",
+      "memory_limits_dropped",
+      "held_memory_binds_limited_open",
+      "duplicate_evaluator_result"
+    ],
+    "NON_EFFECT": [
+      "non_effect_reversed_observation_window",
+      "non_effect_duplicate_logical_inventory",
+      "non_effect_global_narrative_inflation",
+      "non_effect_zero_duration",
+      "non_effect_dangling_route",
+      "non_effect_scope_hash_tamper",
+      "non_effect_dangling_collector",
+      "surface_measurements_unattested",
+      "route_window_unbound",
+      "extra_open_route_state",
+      "wrong_effect_target_observed",
+      "surface_kind_and_coverage_drift"
+    ]
+  },
   "scenarios": [
     {"round":1,"id":"commit_duplicate_missing_preconditions","expected_valid":false,"expected_issue_codes":["schema"]},
     {"round":1,"id":"commit_memory_influence_disappears","expected_valid":false,"expected_issue_codes":["schema"]},

@@ -37,12 +37,30 @@ def main() -> int:
     scenarios = manifest["scenarios"]
     ids = [item["id"] for item in scenarios]
     failures: list[str] = []
+    failed_ids: set[str] = set()
     if len(scenarios) != 62 or manifest.get("recovered_scenario_count") != 62 or manifest.get("unrecovered_scenario_count") != 0:
         failures.append("manifest must declare recovered=62 and unrecovered=0")
     duplicates = sorted(item for item, count in Counter(ids).items() if count > 1)
     if duplicates:
         failures.append(f"duplicate scenario IDs: {duplicates}")
     expected = {item["id"]: item for item in scenarios}
+    categories = manifest.get("category_scenarios")
+    if not isinstance(categories, dict) or not categories:
+        failures.append("manifest must declare non-empty category_scenarios")
+        categories = {}
+    category_ids = [
+        scenario_id
+        for values in categories.values()
+        if isinstance(values, list)
+        for scenario_id in values
+    ]
+    duplicate_category_ids = sorted(item for item, count in Counter(category_ids).items() if count > 1)
+    if duplicate_category_ids or set(category_ids) != set(ids):
+        failures.append(
+            "category inventory mismatch "
+            f"duplicates={duplicate_category_ids} missing={sorted(set(ids) - set(category_ids))} "
+            f"extra={sorted(set(category_ids) - set(ids))}"
+        )
     observed: dict[str, set[str]] = {}
     for source in manifest["source_provenance"]:
         round_number = source["round"]
@@ -57,6 +75,7 @@ def main() -> int:
         )
         if proc.returncode != 0:
             failures.append(f"round {round_number} exited {proc.returncode}: {proc.stderr.strip()}")
+            failed_ids.update(item["id"] for item in scenarios if item["round"] == round_number)
         round_ids = []
         for line in proc.stdout.splitlines():
             parsed = parse_line(line)
@@ -65,14 +84,17 @@ def main() -> int:
             scenario_id, codes = parsed
             if scenario_id in observed:
                 failures.append(f"duplicate runtime scenario output: {scenario_id}")
+                failed_ids.add(scenario_id)
             observed[scenario_id] = codes
             round_ids.append(scenario_id)
         if len(round_ids) != source["scenario_count"]:
             failures.append(f"round {round_number} emitted {len(round_ids)} scenarios, expected {source['scenario_count']}")
+            failed_ids.update(item["id"] for item in scenarios if item["round"] == round_number)
     missing = sorted(set(expected) - set(observed))
     extra = sorted(set(observed) - set(expected))
     if missing or extra:
         failures.append(f"scenario inventory mismatch missing={missing} extra={extra}")
+        failed_ids.update(missing)
     for scenario_id, entry in expected.items():
         if scenario_id not in observed:
             continue
@@ -80,10 +102,23 @@ def main() -> int:
         actual = observed[scenario_id]
         if not required.issubset(actual):
             failures.append(f"{scenario_id}: required={sorted(required)} observed={sorted(actual)}")
+            failed_ids.add(scenario_id)
         if entry["expected_valid"] is True and actual:
             failures.append(f"{scenario_id}: positive control emitted issues {sorted(actual)}")
+            failed_ids.add(scenario_id)
         if entry["expected_valid"] is False and not actual:
             failures.append(f"{scenario_id}: invalid mutation was accepted")
+            failed_ids.add(scenario_id)
+    for category in sorted(categories):
+        values = categories[category]
+        if not isinstance(values, list):
+            failures.append(f"category {category!r} must be a scenario-ID array")
+            continue
+        category_failures = len(set(values) & failed_ids)
+        print(
+            f"RUNTIME_ADVERSARIAL_CATEGORY category={category} scenarios={len(values)} "
+            f"pass={len(values) - category_failures} fail={category_failures}"
+        )
     print(f"RUNTIME_ADVERSARIAL_R1 scenarios=62 recovered=62 unrecovered=0 pass={62 - len(failures)} fail={len(failures)}")
     for failure in failures:
         print(failure, file=sys.stderr)

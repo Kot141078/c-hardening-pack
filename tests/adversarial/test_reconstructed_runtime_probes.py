@@ -35,6 +35,13 @@ class ReconstructedRuntimeProbes(unittest.TestCase):
             raise AssertionError("adversarial manifest must contain exactly 62 unique scenario IDs")
         if MANIFEST.get("recovered_scenario_count") != 62 or MANIFEST.get("unrecovered_scenario_count") != 0:
             raise AssertionError("adversarial recovery accounting must be 62 recovered / 0 unrecovered")
+        category_ids = [
+            scenario_id
+            for values in MANIFEST.get("category_scenarios", {}).values()
+            for scenario_id in values
+        ]
+        if len(category_ids) != 62 or len(set(category_ids)) != 62 or set(category_ids) != set(ids):
+            raise AssertionError("every adversarial scenario must belong to exactly one semantic category")
         for source in MANIFEST["source_provenance"]:
             proc = subprocess.run(
                 [sys.executable, str(ROOT / source["candidate_path"])],
