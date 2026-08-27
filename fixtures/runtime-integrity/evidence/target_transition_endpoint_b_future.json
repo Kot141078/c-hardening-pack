@@ -4,6 +4,8 @@
   "evidence_kind": "TARGET_TRANSITION",
   "consequence_lineage_id": "consequence-lineage:earth-deploy-42",
   "effect_id": "deploy:staging:A-to-B",
+  "effect_class": "HIGH",
+  "reversibility": "REVERSIBLE_WITH_COST",
   "previous_record_id": "consequence-commit-deploy-42",
   "current_record_id": "negative-change-future-transition",
   "previous_target_ref": "endpoint:A",

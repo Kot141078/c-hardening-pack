@@ -40,7 +40,7 @@
     "new_consequence_commit_ref": {
       "artifact_id": "consequence-commit-deploy-43",
       "version": "0.1.1",
-      "hash": "46dd493a193715c1a9a091887f7bb4620cd17131060d823f09c7fdeaf66615a2"
+      "hash": "8349dfb5ec386c8c3c3947130836bca027e417b09b375270dff04d9436da273f"
     },
     "new_permission_grant_ref": {
       "artifact_id": "CLI_AGENT_PERMISSION_GRANT:grant-43",
@@ -55,7 +55,7 @@
     "target_transition_evidence_ref": {
       "artifact_id": "target-transition:earth-42-A-to-B",
       "version": "0.1",
-      "hash": "000f1a8b38083626dbdb10e413ac08257dae2b2c73ceb9032d9513c92091adcc"
+      "hash": "84e99a93c143574becc67b2657e47438c077e6a1c18d0c6e4e3066931e7b033f"
     }
   },
   "claim_boundary": "This symbolic fixture proves the declared repository-level 10:00/10:02/10:03 combination and linked evidence rules only; it does not execute CGAM, TAP-SEC, a deployment, or an external API call."

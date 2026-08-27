@@ -116,7 +116,7 @@
   "target_transition_evidence_ref": {
     "artifact_id": "target-transition:earth-42-A-to-B",
     "version": "0.1",
-    "hash": "000f1a8b38083626dbdb10e413ac08257dae2b2c73ceb9032d9513c92091adcc"
+    "hash": "84e99a93c143574becc67b2657e47438c077e6a1c18d0c6e4e3066931e7b033f"
   },
   "current_conditions_ref": {
     "artifact_id": "current-conditions:earth-retry-b",

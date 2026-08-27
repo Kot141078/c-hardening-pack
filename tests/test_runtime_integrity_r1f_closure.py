@@ -187,6 +187,23 @@ class RuntimeIntegrityR1FClosureTest(unittest.TestCase):
             )}
         self.assertIn("target_transition_time_invalid", codes)
 
+        for field, downgraded in (
+            ("effect_class", "LOW"),
+            ("reversibility", "REVERSIBLE"),
+        ):
+            commit = self.load("positive/consequence_commit_retry_b_valid.json")
+            commit["target_effect"][field] = downgraded
+            with self.subTest(effect_intent_field=field):
+                codes = {
+                    item.code for item in self.validator.validate_registered_links(
+                        commit,
+                        self.manifest["record_registry"],
+                        evidence_registry=self.manifest["evidence_registry"],
+                    )
+                }
+                self.assertIn("previous_commit_effect_intent_mismatch", codes)
+                self.assertIn("target_transition_evidence_unresolved", codes)
+
     def test_judge_context_is_external_and_timestamp_strict(self) -> None:
         record = self.load("positive/judge_deliberation_valid.json")
         context = self.validator.load_json(self.root / "review-context/runtime-integrity-r1f.json")
@@ -243,6 +260,20 @@ class RuntimeIntegrityR1FClosureTest(unittest.TestCase):
         _, issues = self.validator.validate_previous_commit_dag({"earlier":"x","later":"y"}, {"earlier":earlier,"later":later})
         codes = {item.code for item in issues}
         self.assertTrue({"previous_graph_timestamp_nonmonotonic","previous_graph_lineage_mismatch","previous_graph_effect_intent_mismatch"}.issubset(codes))
+
+        for field, downgraded in (
+            ("effect_class", "LOW"),
+            ("reversibility", "REVERSIBLE"),
+        ):
+            predecessor = node(f"{field}-predecessor", "2026-08-27T10:00:00Z")
+            successor = node(f"{field}-successor", "2026-08-27T10:01:00Z", ref(predecessor))
+            successor["target_effect"][field] = downgraded
+            with self.subTest(dag_effect_intent_field=field):
+                _, issues = self.validator.validate_previous_commit_dag(
+                    {predecessor["record_id"]: "x", successor["record_id"]: "y"},
+                    {predecessor["record_id"]: predecessor, successor["record_id"]: successor},
+                )
+                self.assertIn("previous_graph_effect_intent_mismatch", {item.code for item in issues})
 
         duplicate = copy.deepcopy(a)
         _, issues = self.validator.validate_previous_commit_dag({"a":"x","alias":"y"}, {"a":a,"alias":duplicate})

@@ -1798,7 +1798,11 @@ def semantic_earth_bundle(
             "hash": jcs_sha256(commit),
         }
         or retry_commit.get("consequence_lineage_id") != commit.get("consequence_lineage_id")
-        or (retry_commit.get("target_effect") or {}).get("effect_id") != (commit.get("target_effect") or {}).get("effect_id")
+        or any(
+            (retry_commit.get("target_effect") or {}).get(field)
+            != (commit.get("target_effect") or {}).get(field)
+            for field in ("effect_id", "effect_class", "reversibility")
+        )
         or (retry_commit.get("target_effect") or {}).get("target_ref") != "endpoint:B"
         or retry_commit.get("authorized_target_ref") != "endpoint:B"
         or retry_commit.get("task_endpoint_ref") != "endpoint:B"
@@ -2042,8 +2046,12 @@ def validate_registered_links(
                     issues.append(issue("previous_commit_lineage_mismatch", "A predecessor and successor must share the explicit consequence_lineage_id."))
                 previous_effect = previous.get("target_effect") or {}
                 current_effect = data.get("target_effect") or {}
-                if previous_effect.get("effect_id") != current_effect.get("effect_id"):
-                    issues.append(issue("previous_commit_effect_intent_mismatch", "A linked reevaluation cannot switch effect intent inside one predecessor edge."))
+                effect_intent_fields = ("effect_id", "effect_class", "reversibility")
+                if any(previous_effect.get(field) != current_effect.get(field) for field in effect_intent_fields):
+                    issues.append(issue(
+                        "previous_commit_effect_intent_mismatch",
+                        "A linked reevaluation must preserve effect_id, effect_class, and reversibility; target_ref may change only through the explicit target-transition path.",
+                    ))
                 previous_target = previous_effect.get("target_ref")
                 current_target = current_effect.get("target_ref")
                 transition = resolve_artifact_ref_evidence(
@@ -2054,6 +2062,8 @@ def validate_registered_links(
                     "evidence_kind": "TARGET_TRANSITION",
                     "consequence_lineage_id": data.get("consequence_lineage_id"),
                     "effect_id": current_effect.get("effect_id"),
+                    "effect_class": current_effect.get("effect_class"),
+                    "reversibility": current_effect.get("reversibility"),
                     "previous_record_id": previous.get("record_id"),
                     "current_record_id": data.get("record_id"),
                     "previous_target_ref": previous_target,
@@ -2065,7 +2075,7 @@ def validate_registered_links(
                     "current_task_contract_ref": data.get("task_contract_ref"),
                 }
                 if transition is None or any(transition_data.get(key) != value for key, value in expected_transition.items()):
-                    issues.append(issue("target_transition_evidence_unresolved", "Target-transition evidence must bind both immutable record IDs, lineage/effect, old/new targets, reason, and old/new grant/task references."))
+                    issues.append(issue("target_transition_evidence_unresolved", "Target-transition evidence must bind both immutable record IDs, lineage, effect ID/class/reversibility, old/new targets, reason, and old/new grant/task references."))
                 transition_time = parse_timestamp(transition_data.get("observed_at"))
                 if (
                     previous_time is None
@@ -2172,7 +2182,11 @@ def validate_previous_commit_dag(
             issues.append(issue("previous_graph_timestamp_nonmonotonic", f"Predecessor {predecessor_id!r} is not strictly earlier than {record_id!r}."))
         if predecessor.get("consequence_lineage_id") != record.get("consequence_lineage_id"):
             issues.append(issue("previous_graph_lineage_mismatch", f"{record_id!r} changes consequence_lineage_id across its predecessor edge."))
-        if (predecessor.get("target_effect") or {}).get("effect_id") != (record.get("target_effect") or {}).get("effect_id"):
+        if any(
+            (predecessor.get("target_effect") or {}).get(field)
+            != (record.get("target_effect") or {}).get(field)
+            for field in ("effect_id", "effect_class", "reversibility")
+        ):
             issues.append(issue("previous_graph_effect_intent_mismatch", f"{record_id!r} changes effect intent across its predecessor edge."))
 
     state: dict[str, int] = {}

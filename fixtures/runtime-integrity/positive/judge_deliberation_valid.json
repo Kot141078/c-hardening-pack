@@ -6,14 +6,14 @@
   "review_context_ref": {
     "artifact_id": "review-context:runtime-integrity-r1f",
     "version": "0.1.1",
-    "hash": "f207ff502bbee49e9200eeace2fb0d83560dc6c3bf46b4b0ba356a0f1d6d7bdd",
+    "hash": "13abbb982f76036e1c10ca474ce81f202695262a7c36464f1b8f804b2b465254",
     "uri": "review-context/runtime-integrity-r1f.json"
   },
   "identity_attestations_are_symbolic": true,
   "corpus_passport_ref": {
     "artifact_id": "corpus-passport:c-integrity-r1f",
     "version": "0.1.1",
-    "hash": "d9e600c5cc5a09c06680b3ab47f8413c297193ea202673fb1e4b1b3cebca9904"
+    "hash": "8c110ee7f3e27e09509b838107e198a942e140a6bef312371228d16266fc8e9a"
   },
   "corpus_passport_path": "fixtures/runtime-integrity/evidence/corpus_passport_c_integrity_r0.json",
   "query_hash": "da94f3b74d32a4594260552b23d3b57b78ef9e4b81b9f713dd58565e74c40a85",

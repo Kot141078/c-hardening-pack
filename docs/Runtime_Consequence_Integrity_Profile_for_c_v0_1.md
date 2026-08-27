@@ -188,7 +188,7 @@ changed condition
   -> old record remains immutable
 ```
 
-Every consequence commit carries a stable `consequence_lineage_id`. A changed target additionally requires a new current permission grant, a new current task contract, a new decision basis captured no later than the commit, and exact transition evidence binding both record IDs, both targets, lineage, effect intent, reason, grants, tasks, and an observed time strictly after the predecessor and no later than the successor. The complete trusted predecessor registry must be an acyclic graph.
+Every consequence commit carries a stable `consequence_lineage_id`. Across a predecessor edge, effect intent is exactly the tuple `(effect_id, effect_class, reversibility)`; `target_ref` is deliberately separate because an authorized H14 transition may change it. A changed target additionally requires a new current permission grant, a new current task contract, a new decision basis captured no later than the commit, and exact transition evidence binding both record IDs, both targets, lineage, the full effect-intent tuple, reason, grants, tasks, and an observed time strictly after the predecessor and no later than the successor. The complete trusted predecessor registry must be an acyclic graph.
 
 ### I12. External influence must be artifact-specific
 
@@ -298,7 +298,7 @@ Relations are typed:
 - `CODE_REUSE`;
 - `NO_DEPENDENCY`.
 
-Code reuse and formal dependency require verified source freeze and explicit license clearance.
+Formal dependency requires a verified source freeze, exact dependency/removal proof, and a manual gate without implying code reuse. Code reuse additionally requires applicable license clearance; interface adaptation requires it where applicable.
 
 Each relation has a distinct proof contract. A functional analog requires exact resolvable mappings and independent implementation. Interface adaptation requires exact surface transformation and applicable license evidence. Formal dependency requires exact local-dependency and removal-break evidence plus a relation-and-target-bound manual gate. Code reuse requires exact source-code identities, reused boundaries, transformation and provenance records, applicable license evidence, and a relation-and-target-bound manual gate. The supplied elevated examples are synthetic structural fixtures only; they do not establish any real external provenance or dependency.
 

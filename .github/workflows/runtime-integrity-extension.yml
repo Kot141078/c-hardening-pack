@@ -20,7 +20,7 @@ jobs:
         python: ["3.10", "3.12"]
     env:
       EXPECTED_EVENT_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
-      RUNTIME_REVIEW_CONTEXT_SHA256: "f207ff502bbee49e9200eeace2fb0d83560dc6c3bf46b4b0ba356a0f1d6d7bdd"
+      RUNTIME_REVIEW_CONTEXT_SHA256: "13abbb982f76036e1c10ca474ce81f202695262a7c36464f1b8f804b2b465254"
       RUNTIME_EXPECTED_REPOSITORY: "https://github.com/Kot141078/c-hardening-pack"
       RUNTIME_EXPECTED_BASE_SHA: "9a33e3866cde19939be22a903967bc94f566db76"
       RUNTIME_EXPECTED_REVIEWED_PARENT_SHA: "ead3fe6c69d99aafb84b8db98d3df4329ea3c918"
