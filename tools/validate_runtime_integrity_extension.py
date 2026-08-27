@@ -317,7 +317,7 @@ def parse_timestamp(value: Any) -> Fraction | None:
             else Fraction(0)
         )
         return Fraction(whole_seconds) + fractional_seconds
-    except ValueError:
+    except (ValueError, OverflowError):
         return None
 
 
@@ -418,7 +418,7 @@ def semantic_decision_basis(data: dict[str, Any]) -> list[ValidationIssue]:
     basis = data.get("basis") or {}
     created = parse_timestamp(data.get("created_at"))
     captured = parse_timestamp(basis.get("captured_at"))
-    if created and captured and created < captured:
+    if created is not None and captured is not None and created < captured:
         issues.append(issue("decision_created_before_basis_capture", "Decision record created_at must not precede basis.captured_at."))
     issues.extend(duplicate_artifact_ref_issues(
         basis,
@@ -767,9 +767,9 @@ def semantic_commit(data: dict[str, Any]) -> list[ValidationIssue]:
     checked = parse_timestamp(data.get("permission_checked_at"))
     task_checked = parse_timestamp(data.get("task_contract_checked_at"))
     created = parse_timestamp(data.get("created_at"))
-    if checked and created and checked != created:
+    if checked is not None and created is not None and checked != created:
         issues.append(issue("permission_check_not_at_commit", "permission_checked_at must equal the consequence-commit timestamp."))
-    if task_checked and created and task_checked != created:
+    if task_checked is not None and created is not None and task_checked != created:
         issues.append(issue("task_contract_check_not_at_commit", "task_contract_checked_at must equal the consequence-commit timestamp."))
     if binding_outcome:
         if data.get("permission_status") != "VALID":
@@ -780,7 +780,7 @@ def semantic_commit(data: dict[str, Any]) -> list[ValidationIssue]:
                 "A binding commit requires a CURRENT task contract whose endpoint matches the consequence target.",
             ))
         valid_until = parse_timestamp(data.get("permission_valid_until"))
-        if valid_until and created and valid_until < created:
+        if valid_until is not None and created is not None and valid_until < created:
             issues.append(issue("current_permission_expired", "A binding commit cannot use a grant expired before created_at."))
         if data.get("permission_subject_ref") != agent:
             issues.append(issue("permission_subject_mismatch", "The current permission subject must be the declared executor."))
@@ -1710,7 +1710,7 @@ def semantic_earth_bundle(
     decision_created = parse_timestamp(decision.get("created_at"))
     basis_captured = parse_timestamp((decision.get("basis") or {}).get("captured_at"))
     memory_created = parse_timestamp(memory.get("created_at"))
-    if planning_time and any(
+    if planning_time is not None and any(
         timestamp is None or timestamp > planning_time
         for timestamp in (decision_created, basis_captured, memory_created)
     ):
@@ -2517,7 +2517,7 @@ def validate_registered_evidence(
             changed_at = parse_timestamp(changed.get("observed_at"))
             captured_at = parse_timestamp(current.get("captured_at"))
             ordered_condition_times = False
-            if planning_at and changed_at and captured_at:
+            if planning_at is not None and changed_at is not None and captured_at is not None:
                 try:
                     ordered_condition_times = planning_at < changed_at < captured_at
                 except TypeError:

@@ -6,7 +6,7 @@
   "corpus_passport_ref": {
     "artifact_id": "corpus-passport:c-integrity-r1f",
     "version": "0.1.1",
-    "hash": "4e03759656837cb439b26d39a6b79b6eab67ef8fc62518fb8ebd6bfc5923946f"
+    "hash": "3b986e155c33e9c76f3937148108617218e70a170f357fe8a3b7ef60a19f7d00"
   },
   "corpus_passport_path": "fixtures/runtime-integrity/evidence/corpus_passport_c_integrity_r0.json",
   "query_hash": "1111111111111111111111111111111111111111111111111111111111111111",
@@ -71,7 +71,7 @@
   "review_context_ref": {
     "artifact_id": "review-context:runtime-integrity-r1f",
     "version": "0.1.1",
-    "hash": "78e8e3023aa804b0288bfa0f70e6b087efce2f0cb52eaa4162ae17d2a24c8080",
+    "hash": "9566c15230259ead49bca93774c9819f9be82a5f627775e9a471558c3761c4aa",
     "uri": "review-context/runtime-integrity-r1f.json"
   },
   "identity_attestations_are_symbolic": true

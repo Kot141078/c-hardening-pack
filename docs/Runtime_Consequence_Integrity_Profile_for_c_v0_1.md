@@ -124,7 +124,7 @@ For high-impact paths, a stronger claim that the effect did not form requires a 
 
 A non-effect witness must state its observation window, surfaces, coverage, and claim boundary.
 
-When a high-assurance `NOT_BOUND` commit relies on that witness, the commit's existing `created_at` field is the consequence-attempt time and must fall inside the linked observation interval, inclusively. The comparison retains every declared fractional-second digit rather than truncating to platform microsecond precision. A later observation may remain valid for its own declared scope, but it cannot prove non-effect for an earlier attempt.
+When a high-assurance `NOT_BOUND` commit relies on that witness, the commit's existing `created_at` field is the consequence-attempt time and must fall inside the linked observation interval, inclusively. The comparison retains every declared fractional-second digit rather than truncating to platform microsecond precision. Epoch zero remains an ordinary timestamp rather than a missing value. Inputs whose declared offset would place the UTC instant outside years 0001 through 9999 are outside this strict profile and fail closed. A later observation may remain valid for its own declared scope, but it cannot prove non-effect for an earlier attempt.
 
 ```text
 no effect observed within declared scope

@@ -70,6 +70,44 @@ class RuntimeIntegrityR2ClosureTest(unittest.TestCase):
             validator.parse_timestamp(later_start["start"]),
         )
 
+    def test_r2_c1_epoch_is_not_treated_as_missing(self) -> None:
+        validator = self.interval_probe.load_validator()
+        decision = json.loads(
+            (
+                self.root
+                / "fixtures/runtime-integrity/positive/decision_basis_valid.json"
+            ).read_text(encoding="utf-8")
+        )
+        decision["created_at"] = "1970-01-01T00:00:00Z"
+        decision["basis"]["captured_at"] = "1970-01-01T00:00:01Z"
+        decision["basis_hash"] = validator.jcs_sha256(decision["basis"])
+        decision_codes = {
+            item.code for item in validator.semantic_decision_basis(decision)
+        }
+        self.assertIn("decision_created_before_basis_capture", decision_codes)
+
+        commit = json.loads(
+            (
+                self.root
+                / "fixtures/runtime-integrity/positive/consequence_commit_denied_valid.json"
+            ).read_text(encoding="utf-8")
+        )
+        commit["created_at"] = "1970-01-01T00:00:00Z"
+        commit["permission_checked_at"] = "1970-01-01T00:00:01Z"
+        commit["task_contract_checked_at"] = "1970-01-01T00:00:01Z"
+        commit_codes = {item.code for item in validator.semantic_commit(commit)}
+        self.assertIn("permission_check_not_at_commit", commit_codes)
+        self.assertIn("task_contract_check_not_at_commit", commit_codes)
+
+    def test_r2_c1_out_of_range_utc_conversion_fails_closed(self) -> None:
+        validator = self.interval_probe.load_validator()
+        self.assertIsNone(
+            validator.parse_timestamp("9999-12-31T23:59:59-23:59")
+        )
+        self.assertIsNone(
+            validator.parse_timestamp("0001-01-01T00:00:00+23:59")
+        )
+
     def test_r2_c2_unique_failed_scenario_count_is_not_diagnostic_count(self) -> None:
         real_run = self.runner.subprocess.run
 
