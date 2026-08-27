@@ -1,6 +1,6 @@
 
 #!/usr/bin/env python3
-"""Fail closed unless every external runtime-workflow action uses an accepted immutable SHA."""
+"""Fail closed unless every tracked workflow Action uses an accepted immutable SHA."""
 
 from __future__ import annotations
 
@@ -10,7 +10,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW_ROOT = ROOT / ".github" / "workflows"
-RUNTIME_WORKFLOW = WORKFLOW_ROOT / "runtime-integrity-extension.yml"
+EXPECTED_WORKFLOW_PATHS = (
+    ".github/workflows/integrity.yml",
+    ".github/workflows/runtime-integrity-extension.yml",
+)
 EXPECTED_ACTION_SHAS = {
     "actions/checkout": "11d5960a326750d5838078e36cf38b85af677262",
     "actions/setup-python": "a26af69be951a213d495a4c3e4e4022e16d87065",
@@ -88,18 +91,47 @@ def validate_workflow_text(text: str, *, path: str = "<memory>") -> tuple[list[s
     return issues, seen
 
 
-def audit_repository(root: Path | None = None) -> tuple[list[str], int, int]:
-    # R3 is a runtime-only successor.  The checksum-owned integrity workflow is
-    # an explicit forbidden path and remains outside this verifier's authority.
-    workflows = [RUNTIME_WORKFLOW] if root is None else sorted({*root.glob("*.yml"), *root.glob("*.yaml")})
+def audit_repository(
+    root: Path | None = None,
+    workflow_inventory: tuple[str, ...] | list[str] | None = None,
+) -> tuple[list[str], int, int]:
+    repository_root = ROOT if root is None else root.resolve()
+    inventory = list(EXPECTED_WORKFLOW_PATHS if workflow_inventory is None else workflow_inventory)
     issues: list[str] = []
+    canonical_inventory: list[str] = []
+    for item in inventory:
+        normalized = Path(item).as_posix()
+        if normalized != item or item.startswith("/") or ".." in Path(item).parts:
+            issues.append(f"non-canonical workflow inventory entry: {item}")
+        canonical_inventory.append(normalized)
+    if len(canonical_inventory) != len(set(canonical_inventory)):
+        issues.append("duplicate workflow inventory entries")
+    if len({item.casefold() for item in canonical_inventory}) != len(canonical_inventory):
+        issues.append("case-ambiguous workflow inventory entries")
+
+    workflow_root = repository_root / ".github" / "workflows"
+    tracked = sorted(
+        path.relative_to(repository_root).as_posix()
+        for pattern in ("*.yml", "*.yaml")
+        for path in workflow_root.glob(pattern)
+        if path.is_file()
+    )
+    declared = sorted(set(canonical_inventory))
+    omitted = sorted(set(tracked) - set(declared))
+    missing = sorted(set(declared) - set(tracked))
+    if omitted:
+        issues.append(f"tracked workflows omitted from audit inventory: {omitted}")
+    if missing:
+        issues.append(f"audit inventory entries are missing from the repository: {missing}")
+
     seen: set[str] = set()
     external_refs = 0
+    workflows = [repository_root / item for item in declared if item in tracked]
     for workflow in workflows:
         text = workflow.read_text(encoding="utf-8")
         workflow_issues, workflow_seen = validate_workflow_text(
             text,
-            path=workflow.relative_to(ROOT).as_posix(),
+            path=workflow.relative_to(repository_root).as_posix(),
         )
         issues.extend(workflow_issues)
         seen.update(workflow_seen)
@@ -109,9 +141,9 @@ def audit_repository(root: Path | None = None) -> tuple[list[str], int, int]:
             for value in uses_values(line)
             if not value.startswith("./")
         ])
-    missing = sorted(set(EXPECTED_ACTION_SHAS) - seen)
-    if missing:
-        issues.append(f"required accepted Actions are absent from the workflow set: {missing}")
+    missing_actions = sorted(set(EXPECTED_ACTION_SHAS) - seen)
+    if missing_actions:
+        issues.append(f"required accepted Actions are absent from the workflow set: {missing_actions}")
     return issues, len(workflows), external_refs
 
 

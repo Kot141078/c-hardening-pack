@@ -23,13 +23,15 @@ jobs:
       PROTECTED_BASELINE: 9a33e3866cde19939be22a903967bc94f566db76
     steps:
       - name: Check out exact candidate head
-        uses: actions/checkout@v4
+        # actions/checkout immutable v4 commit observed in accepted checksum source run 33065653024
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        # actions/setup-python immutable v5 commit observed in accepted checksum source run 33065653024
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: "3.12"
 
@@ -40,6 +42,12 @@ jobs:
           printf 'expected_head=%s\nactual_head=%s\n' "$EXPECTED_HEAD" "$actual"
           test "$actual" = "$EXPECTED_HEAD"
           test -z "$(git status --porcelain=v1)"
+
+      - name: Verify immutable Actions across both tracked workflows
+        run: python tools/verify_github_actions_pins.py
+
+      - name: Verify R4A integration lineage and scope
+        run: python tools/verify_r4a_integration.py
 
       - name: Verify exact Git blobs and protected baseline
         shell: bash
