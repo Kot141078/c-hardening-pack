@@ -13,7 +13,7 @@ Each new object must close a specific residual gap while leaving the parent laye
 | Requirement | Native antecedent | Residual gap | Extension object or fixture | Failure test |
 |---|---|---|---|---|
 | Revalidate at consequence commit | AGL; Initiation Gates | No compact final machine record | `consequence_commit_record` | stale authority plus `OPEN` must fail |
-| Prove scoped absence of effect | L4 Witness; CGAM refusal semantics | `DENY` alone does not inspect downstream state | `non_effect_witness_record` | open alternate route plus no-effect conclusion must fail |
+| Prove scoped absence of effect | L4 Witness; CGAM refusal semantics | `DENY` alone does not inspect downstream state | `non_effect_witness_record` linked to the commit attempt | open alternate route or an observation interval excluding the commit `created_at` attempt must fail |
 | Bind exact rule and authority basis | AGL; CGAM permission; witness refs | Source provenance does not freeze the decision rule basis | `decision_basis_record` | mismatched canonical basis hash must fail |
 | Requalify memory at use time | Memory Gate; CGAM memory record | Admission does not establish present purpose, consent, freshness or authority | `memory_reliance_record` | revoked memory plus `USE` must fail |
 | Distinguish endpoint similarity from lineage | Beacon; SER; Continuity Bundle | No paired machine fixture proving snapshot insufficiency | `continuity_history_cases.json` | endpoint-equal histories must retain different classifications |

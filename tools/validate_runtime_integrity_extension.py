@@ -1848,7 +1848,39 @@ KNOWN_EXPECTED_ISSUE_CODES = {
     "previous_commit_lineage_mismatch", "target_transition_evidence_unresolved",
     "target_transition_time_invalid", "target_transition_new_grant_required",
     "target_transition_new_task_required", "target_transition_current_authority_mismatch",
+    "non_effect_witness_interval_excludes_attempt",
 }
+
+
+def linked_witness_interval_contains_attempt(
+    commit: dict[str, Any],
+    witness: dict[str, Any],
+) -> bool:
+    """Return whether the witness interval inclusively contains the commit attempt."""
+    attempt_time = parse_timestamp(commit.get("created_at"))
+    window = witness.get("observation_window")
+    if not isinstance(window, dict):
+        return False
+    start = parse_timestamp(window.get("start"))
+    end = parse_timestamp(window.get("end"))
+    if attempt_time is None or start is None or end is None:
+        return False
+    try:
+        return start <= attempt_time <= end
+    except TypeError:
+        return False
+
+
+def linked_witness_interval_issues(
+    commit: dict[str, Any],
+    witness: dict[str, Any],
+) -> list[ValidationIssue]:
+    if linked_witness_interval_contains_attempt(commit, witness):
+        return []
+    return [issue(
+        "non_effect_witness_interval_excludes_attempt",
+        "A linked high-assurance NOT_BOUND witness interval must inclusively contain the consequence commit created_at attempt time.",
+    )]
 
 
 def validate_registered_links(
@@ -2008,7 +2040,7 @@ def validate_registered_links(
         witness_ref = data.get("non_effect_witness_ref")
         if witness_ref:
             witness = resolve(witness_ref.get("artifact_id")) if isinstance(witness_ref, dict) else None
-            if (
+            witness_link_invalid = (
                 witness is None
                 or witness.get("record_type") != "non_effect_witness_record"
                 or witness_ref.get("version") != record_version(witness)
@@ -2018,8 +2050,11 @@ def validate_registered_links(
                 or witness.get("effect_target_ref") != (data.get("target_effect") or {}).get("target_ref")
                 or data.get("effect_state") != "NOT_BOUND"
                 or witness.get("conclusion") != "NO_EFFECT_OBSERVED_WITHIN_DECLARED_SCOPE"
-            ):
+            )
+            if witness_link_invalid:
                 issues.append(issue("graph_witness_link_invalid", "Consequence commit has no reciprocal strongest scoped non-effect witness bound to the same effect and target."))
+            elif witness is not None:
+                issues.extend(linked_witness_interval_issues(data, witness))
         previous_ref = data.get("previous_commit_record_ref")
         if previous_ref:
             previous = resolve(previous_ref.get("artifact_id")) if isinstance(previous_ref, dict) else None
@@ -2111,7 +2146,7 @@ def validate_registered_links(
 
     if record_type == "non_effect_witness_record":
         commit = resolve(data.get("gate_record_ref"))
-        if (
+        witness_link_invalid = (
             commit is None
             or commit.get("record_type") != "consequence_commit_record"
             or not isinstance(commit.get("non_effect_witness_ref"), dict)
@@ -2122,8 +2157,11 @@ def validate_registered_links(
             or (commit.get("target_effect") or {}).get("target_ref") != data.get("effect_target_ref")
             or commit.get("effect_state") != "NOT_BOUND"
             or data.get("conclusion") != "NO_EFFECT_OBSERVED_WITHIN_DECLARED_SCOPE"
-        ):
+        )
+        if witness_link_invalid:
             issues.append(issue("graph_witness_link_invalid", "Non-effect witness has no reciprocal NOT_BOUND commit bound to the same effect and target."))
+        elif commit is not None:
+            issues.extend(linked_witness_interval_issues(commit, data))
     return issues
 
 
