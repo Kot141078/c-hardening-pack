@@ -1,0 +1,129 @@
+{
+  "schema_version": "c-consequence-commit-record-0.1.1",
+  "record_type": "consequence_commit_record",
+  "record_id": "negative-change-future-transition",
+  "created_at": "2026-08-27T10:06:00+02:00",
+  "consequence_lineage_id": "consequence-lineage:earth-deploy-42",
+  "governing_entity_id": "c:ester",
+  "human_anchor_ref": "a:ivan-kotov",
+  "agent_ref": "agent:deployment-worker",
+  "task_contract_ref": {
+    "artifact_id": "task-contract:deploy-43",
+    "version": "0.1",
+    "hash": "74d57e8e95e50e86ce56f47cc987cc08a63fa03324604448dda84636d8cf3c9b"
+  },
+  "permission_grant_ref": {
+    "artifact_id": "CLI_AGENT_PERMISSION_GRANT:grant-43",
+    "version": "0.1",
+    "hash": "c43c67c775c8cce6d62d4fe26d3d6000a9e9da10e723deaeac3c69c81646c2f5"
+  },
+  "permission_status": "VALID",
+  "permission_checked_at": "2026-08-27T10:06:00+02:00",
+  "permission_valid_until": "2026-08-27T11:00:00+02:00",
+  "permission_issuer_ref": "a:ivan-kotov",
+  "permission_subject_ref": "agent:deployment-worker",
+  "authorized_target_ref": "endpoint:B",
+  "task_contract_status": "CURRENT",
+  "task_contract_checked_at": "2026-08-27T10:06:00+02:00",
+  "task_endpoint_ref": "endpoint:B",
+  "continuity_approver_ref": "a:ivan-kotov",
+  "memory_influence_state": "NONE",
+  "memory_reliance_refs": [],
+  "decision_basis_ref": {
+    "artifact_id": "decision-basis-retry-b-43",
+    "version": "0.1.1",
+    "hash": "d641f6bf7630480bac9a7b57a94c6d4949cea27c4f2f3fd05f6f5fc5a8d91c22"
+  },
+  "source_grounding_ref": {
+    "ref_id": "AGL:grounding:retry-b",
+    "captured_at": "2026-08-27T10:05:00+02:00",
+    "hash": "1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "continuity_evidence_ref": {
+    "ref_id": "Beacon:continuity:entity-ester",
+    "captured_at": "2026-08-27T10:05:00+02:00",
+    "hash": "2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "l4_state_ref": {
+    "ref_id": "L4:state:retry-sufficient",
+    "captured_at": "2026-08-27T10:05:00+02:00",
+    "hash": "3333333333333333333333333333333333333333333333333333333333333333"
+  },
+  "target_effect": {
+    "effect_id": "deploy:staging:A-to-B",
+    "effect_class": "HIGH",
+    "target_ref": "endpoint:B",
+    "reversibility": "REVERSIBLE_WITH_COST"
+  },
+  "precondition_results": [
+    {
+      "name": "SOURCE_GROUNDING",
+      "status": "PASS",
+      "evidence_ref": "AGL:grounding:retry-b"
+    },
+    {
+      "name": "IDENTITY_CONTINUITY",
+      "status": "PASS",
+      "evidence_ref": "Beacon:continuity:entity-ester"
+    },
+    {
+      "name": "CURRENT_AUTHORITY",
+      "status": "PASS",
+      "evidence_ref": "CLI_AGENT_PERMISSION_GRANT:grant-43"
+    },
+    {
+      "name": "PERIMETER",
+      "status": "PASS",
+      "evidence_ref": "perimeter:declared-surfaces-b"
+    },
+    {
+      "name": "TIME_WINDOW",
+      "status": "PASS",
+      "evidence_ref": "evidence:fresh-retry-b"
+    },
+    {
+      "name": "L4_BUDGET",
+      "status": "PASS",
+      "evidence_ref": "L4:state:retry-sufficient"
+    },
+    {
+      "name": "MEMORY_RELIANCE",
+      "status": "PASS",
+      "evidence_ref": "memory-influence:none"
+    },
+    {
+      "name": "WITNESS_READINESS",
+      "status": "PASS",
+      "evidence_ref": "witness:ready-retry-b"
+    },
+    {
+      "name": "BLOCKING_STATE",
+      "status": "PASS",
+      "evidence_ref": "queue:clear-retry-b"
+    }
+  ],
+  "commit_outcome": "OPEN",
+  "effect_state": "BOUND",
+  "effect_artifact_hash": "7777777777777777777777777777777777777777777777777777777777777777",
+  "non_effect_witness_ref": null,
+  "previous_commit_record_ref": {
+    "artifact_id": "consequence-commit-deploy-42",
+    "version": "0.1.1",
+    "hash": "5b98405b977d9b28079ac690dd5ef03bc77e370de2b97e4dc9fb67d4fe3a3d3b"
+  },
+  "change_reason_code": "ENDPOINT_REPLACED",
+  "change_reason": "Endpoint B received a new task contract and a new current grant after the immutable endpoint A denial.",
+  "target_transition_evidence_ref": {
+    "artifact_id": "target-transition:earth-42-A-to-B-future",
+    "version": "0.1",
+    "hash": "f8828cc9f5b57140984a54400029e8e9f95621b36ccbd1a5b43633efec430425"
+  },
+  "current_conditions_ref": {
+    "artifact_id": "current-conditions:earth-retry-b",
+    "version": "0.1",
+    "hash": "5c35e4fe8153540e1d993cd84341529c4bca05dad81d27099280d6614c07e749"
+  },
+  "current_conditions_hash": "5c35e4fe8153540e1d993cd84341529c4bca05dad81d27099280d6614c07e749",
+  "witness_chain_head": "8888888888888888888888888888888888888888888888888888888888888888",
+  "claim_boundary": "This symbolic fixture demonstrates a separately authorized endpoint B retry linked to immutable endpoint A history; it does not execute a consequence."
+}

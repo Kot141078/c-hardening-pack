@@ -1,0 +1,6 @@
+{
+  "schema_version": "c-clock-evidence-0.1",
+  "evidence_ids": ["clock:monotonic-utc-42"],
+  "clock_kind": "MONOTONIC_WITH_UTC_CORRELATION",
+  "correlation_window": {"start":"2026-08-27T10:03:00+02:00","end":"2026-08-27T10:03:30+02:00"}
+}

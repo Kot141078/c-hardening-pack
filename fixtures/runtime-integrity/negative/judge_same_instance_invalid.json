@@ -1,0 +1,78 @@
+{
+  "schema_version": "c-judge-deliberation-record-0.1.1",
+  "record_type": "judge_deliberation_record",
+  "record_id": "judge-same-instance",
+  "created_at": "2026-08-27T10:03:00+02:00",
+  "corpus_passport_ref": {
+    "artifact_id": "corpus-passport:c-integrity-r1f",
+    "version": "0.1.1",
+    "hash": "d9e600c5cc5a09c06680b3ab47f8413c297193ea202673fb1e4b1b3cebca9904"
+  },
+  "corpus_passport_path": "fixtures/runtime-integrity/evidence/corpus_passport_c_integrity_r0.json",
+  "query_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+  "reviewers": [
+    {
+      "reviewer_id": "reviewer-same",
+      "role": "ANCHOR",
+      "model_family": "family-A",
+      "provider_id": "provider-alias-A",
+      "model_instance_id": "instance-same",
+      "isolated": true,
+      "report_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+      "evidence_refs": [
+        "docs/Runtime_Consequence_Integrity_Profile_for_c_v0_1.md"
+      ]
+    },
+    {
+      "reviewer_id": "reviewer-same",
+      "role": "CHALLENGER",
+      "model_family": "family-B",
+      "provider_id": "provider-alias-B",
+      "model_instance_id": "instance-same",
+      "isolated": true,
+      "report_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+      "evidence_refs": [
+        "docs/Runtime_Integrity_Traceability_Matrix_v0_1.md"
+      ]
+    },
+    {
+      "reviewer_id": "reviewer-same",
+      "role": "COUNTEREXAMPLE",
+      "model_family": "family-C",
+      "provider_id": "provider-alias-C",
+      "model_instance_id": "instance-same",
+      "isolated": true,
+      "report_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+      "evidence_refs": [
+        "case:clone-vs-continuation"
+      ]
+    }
+  ],
+  "independence_evidence_ref": "tests/test_runtime_integrity_extension.py",
+  "family_concentration": "BALANCED",
+  "confidence_state": "NORMAL",
+  "aggregation_mode": "EVIDENCE_BOUND_WITH_DIVERGENCE_PRESERVATION",
+  "shared_supported_core": [],
+  "unresolved_divergence": [],
+  "minority_objections": [
+    "Preserve the objection that provider aliases remain insufficient without external attestation."
+  ],
+  "missing_evidence": [
+    "independent model-instance attestation"
+  ],
+  "recommended_tests": [
+    "resolve provider and instance identities through the corpus passport"
+  ],
+  "majority_vote_used": false,
+  "outputs_fed_back_to_reviewers": false,
+  "execution_authority_granted": false,
+  "witness_chain_head": "3333333333333333333333333333333333333333333333333333333333333333",
+  "claim_boundary": "This negative record grants no authority and isolates one instance masquerading under several reviewer roles.",
+  "review_context_ref": {
+    "artifact_id": "review-context:runtime-integrity-r1f",
+    "version": "0.1.1",
+    "hash": "f207ff502bbee49e9200eeace2fb0d83560dc6c3bf46b4b0ba356a0f1d6d7bdd",
+    "uri": "review-context/runtime-integrity-r1f.json"
+  },
+  "identity_attestations_are_symbolic": true
+}

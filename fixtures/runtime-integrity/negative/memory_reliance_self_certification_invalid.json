@@ -1,0 +1,64 @@
+{
+  "schema_version": "c-memory-reliance-record-0.1.1",
+  "record_type": "memory_reliance_record",
+  "record_id": "memory-self-certification",
+  "created_at": "2026-08-27T10:03:00+02:00",
+  "memory_item_ref": {
+    "artifact_id": "memory:self",
+    "version": "0.1",
+    "hash": "1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "admission_record_ref": {
+    "artifact_id": "memory:self",
+    "version": "0.1",
+    "hash": "2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "current_task_ref": {
+    "artifact_id": "task:current",
+    "version": "0.1",
+    "hash": "3333333333333333333333333333333333333333333333333333333333333333"
+  },
+  "current_purpose": "Use only for the current bounded test purpose.",
+  "current_role": "bounded-reviewer",
+  "current_authority_ref": {
+    "artifact_id": "memory:self",
+    "version": "0.1",
+    "hash": "4444444444444444444444444444444444444444444444444444444444444444"
+  },
+  "qualification_registry_ref": {
+    "artifact_id": "memory-qualification-registry:42",
+    "version": "0.1",
+    "hash": "9fd81c12c89fdeffef79dcc274a82bdc73c598bcc75ae2f9b769485c6c1bc42a",
+    "uri": "fixtures/runtime-integrity/evidence/memory_qualification_registry_42.json"
+  },
+  "freshness_evaluator_ref": {
+    "artifact_id": "memory:self",
+    "version": "0.1",
+    "hash": "1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "provenance_evaluator_ref": {
+    "artifact_id": "memory:self",
+    "version": "0.1",
+    "hash": "1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "contamination_evaluator_ref": {
+    "artifact_id": "memory:self",
+    "version": "0.1",
+    "hash": "1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "revocation_source_ref": {
+    "artifact_id": "memory:self",
+    "version": "0.1",
+    "hash": "1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "provenance_state": "VERIFIED",
+  "freshness_state": "CURRENT",
+  "revocation_state": "NOT_REVOKED",
+  "consent_state": "VALID",
+  "conflict_state": "CLEAR",
+  "contamination_state": "CLEAR",
+  "consequence_class": "HIGH_IMPACT",
+  "verdict": "USE",
+  "witness_chain_head": "9999999999999999999999999999999999999999999999999999999999999999",
+  "claim_boundary": "This negative fixture isolates a memory item that claims to certify its own admission, provenance, freshness, contamination, revocation, and authority."
+}

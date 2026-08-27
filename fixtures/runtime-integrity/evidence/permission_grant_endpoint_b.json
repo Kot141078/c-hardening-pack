@@ -1,0 +1,12 @@
+{
+  "artifact_id": "CLI_AGENT_PERMISSION_GRANT:grant-43",
+  "version": "0.1",
+  "issuer_ref": "a:ivan-kotov",
+  "subject_ref": "agent:deployment-worker",
+  "authorized_target_ref": "endpoint:B",
+  "valid_until": "2026-08-27T11:00:00+02:00",
+  "status_history": [
+    {"status":"VALID","effective_at":"2026-08-27T10:04:00+02:00"}
+  ],
+  "claim_boundary": "This symbolic repository fixture models a newly issued grant for endpoint B; it is not live authority."
+}

@@ -1,0 +1,11 @@
+{
+  "artifact_id": "taxonomy-transformation:0.1",
+  "version": "0.1",
+  "evidence_kind": "TRANSFORMATION",
+  "source_artifact_id": "synthetic-taxonomy-source:0.1",
+  "adapted_interface_surface": "synthetic-input-to-local-record",
+  "source_code_identity": "synthetic-taxonomy-source:0.1#example_function",
+  "local_boundary": "tools/validate_runtime_integrity_extension.py#semantic_external_intake",
+  "evidence_scope": "SYNTHETIC_POSITIVE_RELATION_TAXONOMY_ONLY",
+  "claim_boundary": "Fixture-only transformation evidence; no real interface adaptation is asserted."
+}

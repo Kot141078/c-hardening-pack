@@ -1,0 +1,11 @@
+{
+  "artifact_id": "synthetic-external-source:code-reuse-test",
+  "version": "0.1",
+  "evidence_scope": "SYNTHETIC_NEGATIVE_FIXTURE_ONLY",
+  "author": "Synthetic Review Fixture",
+  "title": "Synthetic code-reuse dependency used only to test the manual-review stop",
+  "published_at": "2026-08-27T10:00:00+02:00",
+  "persistent_id": null,
+  "license": "SYNTHETIC_TEST_ONLY",
+  "content": "def synthetic_dependency(): return 'fixture-only'"
+}

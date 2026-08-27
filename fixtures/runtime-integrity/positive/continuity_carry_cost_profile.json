@@ -1,5 +1,5 @@
 {
-  "schema_version": "c-continuity-carry-cost-profile-0.1",
+  "schema_version": "c-continuity-carry-cost-profile-0.1.1",
   "profile_id": "l4-continuity-carry-cost-default",
   "dimensions": [
     {"dimension":"idle_power","unit":"joule","identity_bearing":false},

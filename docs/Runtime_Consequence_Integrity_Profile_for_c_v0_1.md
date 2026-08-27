@@ -1,9 +1,12 @@
-# Runtime Consequence Integrity Profile for `c` v0.1
+# Runtime Consequence Integrity Profile for `c` v0.1.1
 
-**Status:** Development draft / non-normative extension  
-**Date:** 2026-08-27  
-**Author:** Ivan Kotov  
-**Repository role:** Cross-layer hardening extension for the authored `c = a + b` corpus  
+**Status:** R1F development candidate / non-normative extension
+
+**Date:** 2026-08-27
+
+**Author:** Ivan Kotov
+
+**Repository role:** Cross-layer hardening extension for the authored `c = a + b` corpus
 **Implementation claim:** Machine-readable schemas, deterministic fixtures, and a development validator are included. No production, certification, legal-compliance, or complete-conformance claim is made.
 
 ## 0. Executive definition
@@ -185,6 +188,8 @@ changed condition
   -> old record remains immutable
 ```
 
+Every consequence commit carries a stable `consequence_lineage_id`. A changed target additionally requires a new current permission grant, a new current task contract, a new decision basis captured no later than the commit, and exact transition evidence binding both record IDs, both targets, lineage, effect intent, reason, grants, tasks, and an observed time strictly after the predecessor and no later than the successor. The complete trusted predecessor registry must be an acyclic graph.
+
 ### I12. External influence must be artifact-specific
 
 Claims of comparison, inspiration, adaptation, dependency, or code reuse must identify:
@@ -216,6 +221,8 @@ Required functions:
 - effect state;
 - link to a non-effect witness when `NOT_BOUND`;
 - append-only link to a previous record when reevaluated.
+
+A linked commit also binds its predecessor by exact record version and RFC 8785 hash. A target change cannot be authorized by an old-target basis even when the new commit remains `DENY`/`NOT_BOUND`.
 
 The record does not create authority. It proves which declared authority and state were evaluated.
 
@@ -293,6 +300,8 @@ Relations are typed:
 
 Code reuse and formal dependency require verified source freeze and explicit license clearance.
 
+Each relation has a distinct proof contract. A functional analog requires exact resolvable mappings and independent implementation. Interface adaptation requires exact surface transformation and applicable license evidence. Formal dependency requires exact local-dependency and removal-break evidence plus a relation-and-target-bound manual gate. Code reuse requires exact source-code identities, reused boundaries, transformation and provenance records, applicable license evidence, and a relation-and-target-bound manual gate. The supplied elevated examples are synthetic structural fixtures only; they do not establish any real external provenance or dependency.
+
 ### 5.6 `boundary_probe_record`
 
 Purpose: detect adaptive reconstruction of protected policy boundaries through repeated use.
@@ -320,6 +329,8 @@ Minimum conditions:
 - no feedback into reviewers;
 - no majority-vote selection;
 - explicit divergence and missing evidence.
+
+Judge validation additionally requires a review context supplied by the caller, its expected JCS SHA-256, and independently supplied repository, base, reviewed-parent, candidate-scope, and trust-root bindings. A co-edited tracked context file is not its own trust root. Fixture identity attestations remain explicitly symbolic.
 
 ## 6. History-sensitive continuity test set
 
@@ -475,14 +486,19 @@ The development validator performs:
 4. negative fixture rejection;
 5. continuity non-entailment checks;
 6. continuity carry-cost separation checks.
+7. exact fixture/evidence registry inventory checks;
+8. complete predecessor-DAG checks;
+9. strict RFC 3339 timestamp checks;
+10. RFC 8785/I-JSON canonicalization checks.
 
-The initial pack includes:
+The reviewed-head baseline pack includes:
 
 - 8 schemas;
-- 18 fixture expectations;
+- 58 manifest-enumerated fixture expectations;
+- 62 exactly reconstructed adversarial scenarios (`62 recovered / 0 unrecovered`);
 - positive and negative cases;
 - deterministic validation;
-- a GitHub Actions workflow.
+- a four-cell Windows/Linux and Python 3.10/3.12 exact-event-head workflow with hash-locked dependencies.
 
 The validator proves only the declared fixture behavior. It is not a production monitor.
 
@@ -534,6 +550,8 @@ A serious system does not say, "the plan was approved."
 
 It rechecks the current grant, grounding, endpoint, evidence, L4 state, continuity line, and relevant memory. It denies the commit, cancels queued retries, closes alternate connectors, compares before and after target state, and emits a scoped non-effect witness.
 
+If work is later retried at endpoint B, the retry uses a new grant, task contract, decision basis, and consequence commit linked through exact target-transition evidence to the immutable endpoint-A denial. The old target, grant, task, basis, and commit do not silently become current.
+
 That is the difference between a governance document and an actual circuit breaker.
 
 ## 17. Status and claim boundary
@@ -555,4 +573,20 @@ It does not support the claim that:
 - external frameworks derive from this corpus or this corpus derives from them;
 - the extension is release-ready.
 
-The next acceptance step is independent reproduction against one CGAM action path and one TAP-SEC witness path.
+CGAM action-path binding and TAP-SEC witness-path binding were not started. Either requires a separate owner authorization after this candidate's owner-review gate; neither is an automatic next action.
+
+## 18. Exact construct classification
+
+Every R1F addition is classified exactly once in the allowed architecture vocabulary.
+
+| R1F addition | Classification |
+|---|---|
+| Eight `0.1.1` JSON Schema documents | schema |
+| Consequence lineage, predecessor reference, and target-transition evidence fields | runtime record |
+| Endpoint-B grant, task, decision, commit, transition, Earth, and negative mutation objects | fixture |
+| Complete predecessor-DAG, registry-inventory, strict timestamp, and current-basis checks | validator rule |
+| RFC 8785/I-JSON vectors, uniform-text projection checks, 62-scenario suite, dependency lock, and exact-head CI matrix | test profile |
+| Caller-supplied Judge review context and relation-specific external-intake proof contracts | governance boundary |
+| This profile, the traceability update, canonicalization profile, and bridge/status text | documentation bridge |
+
+No addition is a foundation, ontology, sovereign authority layer, or duplicate corpus component.

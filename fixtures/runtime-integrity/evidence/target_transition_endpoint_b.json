@@ -1,0 +1,34 @@
+{
+  "artifact_id": "target-transition:earth-42-A-to-B",
+  "version": "0.1",
+  "evidence_kind": "TARGET_TRANSITION",
+  "consequence_lineage_id": "consequence-lineage:earth-deploy-42",
+  "effect_id": "deploy:staging:A-to-B",
+  "previous_record_id": "consequence-commit-deploy-42",
+  "current_record_id": "consequence-commit-deploy-43",
+  "previous_target_ref": "endpoint:A",
+  "current_target_ref": "endpoint:B",
+  "reason_code": "ENDPOINT_REPLACED",
+  "previous_permission_grant_ref": {
+    "artifact_id": "CLI_AGENT_PERMISSION_GRANT:grant-42",
+    "version": "0.1",
+    "hash": "8a341ab84dfbe4bf006ed2ce14f1a97d4ef9b8a001d71dc04cff774421fb36c2"
+  },
+  "current_permission_grant_ref": {
+    "artifact_id": "CLI_AGENT_PERMISSION_GRANT:grant-43",
+    "version": "0.1",
+    "hash": "c43c67c775c8cce6d62d4fe26d3d6000a9e9da10e723deaeac3c69c81646c2f5"
+  },
+  "previous_task_contract_ref": {
+    "artifact_id": "task-contract:deploy-42",
+    "version": "0.1",
+    "hash": "198a74fe207e00a54fe84b4dcff3cb4429790233e692922ae97de08753d72795"
+  },
+  "current_task_contract_ref": {
+    "artifact_id": "task-contract:deploy-43",
+    "version": "0.1",
+    "hash": "74d57e8e95e50e86ce56f47cc987cc08a63fa03324604448dda84636d8cf3c9b"
+  },
+  "observed_at": "2026-08-27T10:05:00+02:00",
+  "claim_boundary": "This symbolic transition evidence links immutable target A history to a separately authorized target B retry; lineage continuity does not establish entity identity continuity."
+}

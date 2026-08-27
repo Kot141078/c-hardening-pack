@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ivan-kotov:c-runtime-integrity:judge-deliberation-record:0.1.1",
+  "title": "c Judge Deliberation Record v0.1.1",
+  "description": "Independent review-role topology with evidence binding and preserved divergence; not majority voting.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","record_type","record_id","created_at","review_context_ref","identity_attestations_are_symbolic","corpus_passport_ref","corpus_passport_path","query_hash","reviewers","independence_evidence_ref","family_concentration","confidence_state","aggregation_mode","shared_supported_core","unresolved_divergence","minority_objections","missing_evidence","recommended_tests","majority_vote_used","outputs_fed_back_to_reviewers","execution_authority_granted","witness_chain_head","claim_boundary"],
+  "properties": {
+    "schema_version": {"const": "c-judge-deliberation-record-0.1.1"},
+    "record_type": {"const": "judge_deliberation_record"},
+    "record_id": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/id"},
+    "created_at": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/timestamp"},
+    "review_context_ref": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/artifactRef"},
+    "identity_attestations_are_symbolic": {"const": true},
+    "corpus_passport_ref": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/artifactRef"},
+    "corpus_passport_path": {"type": "string", "minLength": 1, "maxLength": 1024},
+    "query_hash": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/sha256"},
+    "reviewers": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["reviewer_id","role","model_family","provider_id","model_instance_id","isolated","report_hash","evidence_refs"],
+        "properties": {
+          "reviewer_id": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/id"},
+          "role": {"type": "string", "enum": ["ANCHOR","CHALLENGER","PRIOR_ART_SCANNER","COUNTEREXAMPLE","BLIND_SPOT_PROBE","EVIDENCE_VERIFIER"]},
+          "model_family": {"type": "string", "minLength": 1, "maxLength": 256},
+          "provider_id": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/id"},
+          "model_instance_id": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/id"},
+          "isolated": {"const": true},
+          "report_hash": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/sha256"},
+          "evidence_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1, "maxLength": 1024}}
+        }
+      }
+    },
+    "independence_evidence_ref": {"type": "string", "minLength": 1, "maxLength": 1024},
+    "family_concentration": {"type": "string", "enum": ["BALANCED", "CONCENTRATED"]},
+    "confidence_state": {"type": "string", "enum": ["NORMAL", "DEGRADED_FOR_CONCENTRATION"]},
+    "aggregation_mode": {"const": "EVIDENCE_BOUND_WITH_DIVERGENCE_PRESERVATION"},
+    "shared_supported_core": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4000}},
+    "unresolved_divergence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["divergence_type","description","evidence_refs"],
+        "properties": {
+          "divergence_type": {"type": "string", "enum": ["CORPUS_AMBIGUITY","LOGICAL_CONTRADICTION","SCOPE_MISMATCH","TEMPORAL_CONFLICT","MODEL_FAMILY_DIVERGENCE"]},
+          "description": {"type": "string", "minLength": 1, "maxLength": 4000},
+          "evidence_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1, "maxLength": 1024}}
+        }
+      }
+    },
+    "minority_objections": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4000}},
+    "missing_evidence": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4000}},
+    "recommended_tests": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4000}},
+    "majority_vote_used": {"const": false},
+    "outputs_fed_back_to_reviewers": {"const": false},
+    "execution_authority_granted": {"const": false},
+    "witness_chain_head": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/sha256"},
+    "claim_boundary": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/claimBoundary"}
+  }
+}
