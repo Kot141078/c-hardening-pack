@@ -1,0 +1,12 @@
+{
+  "artifact_id": "taxonomy-manual-gate:0.1",
+  "version": "0.1",
+  "evidence_kind": "MANUAL_REVIEW_GATE",
+  "source_artifact_id": "synthetic-taxonomy-source:0.1",
+  "approved": true,
+  "approval_scope": "SYNTHETIC_FIXTURE_ONLY",
+  "approved_relations": ["FORMAL_DEPENDENCY", "CODE_REUSE"],
+  "approved_targets": ["tools/validate_runtime_integrity_extension.py#semantic_external_intake"],
+  "evidence_scope": "SYNTHETIC_POSITIVE_RELATION_TAXONOMY_ONLY",
+  "claim_boundary": "This fixture gate validates taxonomy mechanics only and grants no approval for any real external relation."
+}

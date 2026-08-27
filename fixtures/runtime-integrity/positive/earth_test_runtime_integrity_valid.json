@@ -1,0 +1,62 @@
+{
+  "schema_version": "c-runtime-integrity-earth-test-0.1.1",
+  "scenario_id": "earth-10-00-10-02-10-03",
+  "timeline": {
+    "planning_valid_at": "2026-08-27T10:00:00+02:00",
+    "conditions_changed_at": "2026-08-27T10:02:00+02:00",
+    "execution_attempt_at": "2026-08-27T10:03:00+02:00",
+    "planning_permission_status": "VALID",
+    "planning_evidence_state": "FRESH",
+    "planning_l4_budget_state": "SUFFICIENT",
+    "planning_endpoint_ref": "endpoint:A",
+    "current_endpoint_ref": "endpoint:B",
+    "permission_revoked": true,
+    "test_evidence_expired": true,
+    "l4_budget_exceeded": true,
+    "queued_retry_pending_before_attempt": true
+  },
+  "records": {
+    "decision_basis": "positive/decision_basis_valid.json",
+    "memory_reliance": "positive/memory_reliance_valid.json",
+    "consequence_commit": "positive/consequence_commit_denied_valid.json",
+    "non_effect_witness": "positive/non_effect_witness_valid.json",
+    "later_retry_decision_basis": "positive/decision_basis_retry_b_valid.json",
+    "later_retry_consequence_commit": "positive/consequence_commit_retry_b_valid.json"
+  },
+  "later_retry_policy": {
+    "requires_new_decision_basis": true,
+    "requires_new_consequence_commit": true,
+    "preserves_old_records": true,
+    "previous_commit_record_ref": "consequence-commit-deploy-42",
+    "old_decision_basis_hash": "cb29e6e3adb218704ee6eb08a67b27fbe2e3114cb990bc23eb1a48c10ff6d254",
+    "old_consequence_commit_hash": "5b98405b977d9b28079ac690dd5ef03bc77e370de2b97e4dc9fb67d4fe3a3d3b",
+    "endpoint_ref": "endpoint:B",
+    "retry_instantiated_at": "2026-08-27T10:06:00+02:00",
+    "new_decision_basis_ref": {
+      "artifact_id": "decision-basis-retry-b-43",
+      "version": "0.1.1",
+      "hash": "d641f6bf7630480bac9a7b57a94c6d4949cea27c4f2f3fd05f6f5fc5a8d91c22"
+    },
+    "new_consequence_commit_ref": {
+      "artifact_id": "consequence-commit-deploy-43",
+      "version": "0.1.1",
+      "hash": "8349dfb5ec386c8c3c3947130836bca027e417b09b375270dff04d9436da273f"
+    },
+    "new_permission_grant_ref": {
+      "artifact_id": "CLI_AGENT_PERMISSION_GRANT:grant-43",
+      "version": "0.1",
+      "hash": "c43c67c775c8cce6d62d4fe26d3d6000a9e9da10e723deaeac3c69c81646c2f5"
+    },
+    "new_task_contract_ref": {
+      "artifact_id": "task-contract:deploy-43",
+      "version": "0.1",
+      "hash": "74d57e8e95e50e86ce56f47cc987cc08a63fa03324604448dda84636d8cf3c9b"
+    },
+    "target_transition_evidence_ref": {
+      "artifact_id": "target-transition:earth-42-A-to-B",
+      "version": "0.1",
+      "hash": "84e99a93c143574becc67b2657e47438c077e6a1c18d0c6e4e3066931e7b033f"
+    }
+  },
+  "claim_boundary": "This symbolic fixture proves the declared repository-level 10:00/10:02/10:03 combination and linked evidence rules only; it does not execute CGAM, TAP-SEC, a deployment, or an external API call."
+}

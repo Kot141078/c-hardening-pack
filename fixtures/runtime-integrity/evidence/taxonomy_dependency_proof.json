@@ -1,0 +1,11 @@
+{
+  "artifact_id": "taxonomy-dependency-proof:0.1",
+  "version": "0.1",
+  "evidence_kind": "LOCAL_DEPENDENCY",
+  "source_artifact_id": "synthetic-taxonomy-source:0.1",
+  "dependency_present": true,
+  "local_target": "tools/validate_runtime_integrity_extension.py#semantic_external_intake",
+  "verification_test": "tests/test_runtime_integrity_extension.py#RuntimeIntegrityExtensionTest",
+  "evidence_scope": "SYNTHETIC_POSITIVE_RELATION_TAXONOMY_ONLY",
+  "claim_boundary": "Fixture-only dependency evidence; no real external dependency is asserted."
+}

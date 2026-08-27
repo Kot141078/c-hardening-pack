@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ivan-kotov:c-runtime-integrity:non-effect-witness-record:0.1.1",
+  "title": "c Non-Effect Witness Record v0.1.1",
+  "description": "Scoped evidence that a protected consequence did not form on declared observation surfaces.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_type",
+    "record_id",
+    "created_at",
+    "attempt_ref",
+    "gate_record_ref",
+    "effect_scope_ref",
+    "effect_target_ref",
+    "observation_window",
+    "clock_source_ref",
+    "claim_scope",
+    "scope_inventory_ref",
+    "scope_inventory_hash",
+    "evidence_collection",
+    "protected_effects",
+    "observation_surfaces",
+    "alternate_path_checks",
+    "coverage_state",
+    "conclusion",
+    "witness_chain_head",
+    "claim_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "c-non-effect-witness-record-0.1.1"},
+    "record_type": {"const": "non_effect_witness_record"},
+    "record_id": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/id"},
+    "created_at": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/timestamp"},
+    "attempt_ref": {"type": "string", "minLength": 1, "maxLength": 512},
+    "gate_record_ref": {"type": "string", "minLength": 1, "maxLength": 512},
+    "effect_scope_ref": {"type": "string", "minLength": 1, "maxLength": 512},
+    "effect_target_ref": {"type": "string", "minLength": 1, "maxLength": 1024},
+    "observation_window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "end"],
+      "properties": {
+        "start": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/timestamp"},
+        "end": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/timestamp"}
+      }
+    },
+    "clock_source_ref": {"type": "string", "minLength": 1, "maxLength": 512},
+    "claim_scope": {"const": "DECLARED_SURFACES_AND_WINDOW_ONLY"},
+    "scope_inventory_ref": {"type": "string", "minLength": 1, "maxLength": 1024},
+    "scope_inventory_hash": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/sha256"},
+    "evidence_collection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["collector_ref", "availability", "continuous_event_log_ref"],
+      "properties": {
+        "collector_ref": {"type": "string", "minLength": 1, "maxLength": 512},
+        "availability": {"type": "string", "enum": ["COMPLETE", "PARTIAL", "UNAVAILABLE", "UNKNOWN"]},
+        "continuous_event_log_ref": {"type": ["string", "null"], "maxLength": 512}
+      }
+    },
+    "protected_effects": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1, "maxLength": 512},
+      "uniqueItems": true
+    },
+    "observation_surfaces": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["surface_id", "surface_kind", "target_ref", "target_coordinate", "hash_domain", "before_hash", "after_hash", "external_call_count", "queue_state", "retry_state", "coverage"],
+        "properties": {
+          "surface_id": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/id"},
+          "surface_kind": {"type": "string", "enum": ["TOOL", "API", "QUEUE", "DATABASE", "FILESYSTEM", "NETWORK", "DEVICE", "OTHER"]},
+          "target_ref": {"type": "string", "minLength": 1, "maxLength": 1024},
+          "target_coordinate": {"type": "string", "minLength": 1, "maxLength": 1024},
+          "hash_domain": {"const": "CANONICAL_STATE_SHA256_V1"},
+          "before_hash": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/sha256"},
+          "after_hash": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/sha256"},
+          "external_call_count": {"type": "integer", "minimum": 0},
+          "queue_state": {"type": "string", "enum": ["EMPTY", "CANCELLED", "DRAINED", "PENDING", "UNKNOWN", "NOT_APPLICABLE"]},
+          "retry_state": {"type": "string", "enum": ["DISABLED", "CANCELLED", "EXHAUSTED_WITHOUT_EFFECT", "PENDING", "UNKNOWN", "NOT_APPLICABLE"]},
+          "coverage": {"type": "string", "enum": ["COMPLETE", "PARTIAL", "UNKNOWN"]}
+        }
+      }
+    },
+    "alternate_path_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path_id", "status", "evidence_ref"],
+        "properties": {
+          "path_id": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/id"},
+          "status": {"type": "string", "enum": ["CLOSED", "NOT_REACHABLE", "OPEN", "UNKNOWN"]},
+          "evidence_ref": {"type": "string", "minLength": 1, "maxLength": 512}
+        }
+      }
+    },
+    "coverage_state": {"type": "string", "enum": ["COMPLETE_WITHIN_DECLARED_SURFACE", "PARTIAL", "UNKNOWN"]},
+    "conclusion": {"type": "string", "enum": ["NO_EFFECT_OBSERVED_WITHIN_DECLARED_SCOPE", "EFFECT_DETECTED", "UNRESOLVED"]},
+    "witness_chain_head": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/sha256"},
+    "claim_boundary": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/claimBoundary"}
+  }
+}

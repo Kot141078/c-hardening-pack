@@ -1,0 +1,13 @@
+{
+  "artifact_id": "CLI_AGENT_PERMISSION_GRANT:grant-42",
+  "version": "0.1",
+  "issuer_ref": "a:ivan-kotov",
+  "subject_ref": "agent:deployment-worker",
+  "authorized_target_ref": "endpoint:A",
+  "valid_until": "2026-08-27T10:02:00+02:00",
+  "status_history": [
+    {"status":"VALID","effective_at":"2026-08-27T00:00:00+02:00"},
+    {"status":"REVOKED","effective_at":"2026-08-27T10:02:00+02:00"}
+  ],
+  "claim_boundary": "This repository-local fixture models grant state over time; it is not a live permission source or execution authority."
+}
