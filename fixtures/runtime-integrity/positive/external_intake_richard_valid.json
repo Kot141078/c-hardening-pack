@@ -1,0 +1,28 @@
+{
+  "schema_version": "c-external-construct-intake-record-0.1.1",
+  "record_type": "external_construct_intake_record",
+  "created_at": "2026-08-27T00:15:00+02:00",
+  "license_status": "REFERENCE_ONLY_NO_CODE_REUSE",
+  "attribution": {"required":true,"references":["https://www.linkedin.com/posts/richard-lynes-20a70617_a-successful-ai-demo-is-no-longer-enough-activity-7480264429540970496-7AO-"]},
+  "witness_chain_head": "efc3b843c322a1aa6ddf738bb463a3f052bdd91a883f013629d0b645e6e1c2ef",
+  "record_id": "external-intake-richard-failure-surface",
+  "source_artifact": {"author":"Richard Lynes","title":"Prove AI Governance with Failure Cases Not Happy Paths","published_at":"2026-07-07T14:20:16.574Z","uri":"https://www.linkedin.com/posts/richard-lynes-20a70617_a-successful-ai-demo-is-no-longer-enough-activity-7480264429540970496-7AO-","persistent_id":null,"source_hash":null,"freeze_status":"PUBLIC_REFERENCE_PARTIAL"},
+  "source_construct": {"description":"A public test-surface formulation requiring refusal evidence, no downstream command, alternate-route closure, deterministic replay and a fresh request when conditions change.","source_location":"Public LinkedIn post."},
+  "local_target": ["schemas/runtime-integrity/c-non-effect-witness-record-0.1.1.schema.json","fixtures/runtime-integrity/positive/non_effect_witness_valid.json"],
+  "relation": "TEST_SURFACE_CATALYST",
+  "relation_proof": {"implementation_origin":"NOT_APPLICABLE","mapping_refs":[],"adapted_interface_surfaces":[],"transformation_evidence_refs":[],"source_code_identities":[],"reused_code_boundaries":[],"provenance_evidence_refs":[],"manual_gate_ref":null},
+  "transformation": "Native AGL and Initiation Gates already require commit-time revalidation and stale-legitimacy refusal. The later public post is used only to harden the negative-effect evidence surface and alternate-path test fixture.",
+  "preserved_properties": ["a refusal should be testable at the actual consequence surface","alternate paths and queued retries must be observed"],
+  "rejected_properties": ["LifeStack standing or bind terminology as c canonical vocabulary","architectural dependency","product or patent claims"],
+  "mapping_failures": ["LifeStack does not define c formation, Beacon identity continuity, MOT-c custody or L4 human-anchor coupling"],
+  "terminology_substitutions": [
+    {"external_term":"no-bind receipt","local_term":"non-effect witness record","reason":"Uses the c corpus witness vocabulary and states a scoped evidence claim rather than a product-specific bind claim."},
+    {"external_term":"current standing","local_term":"current authority and grounding at consequence commit","reason":"Maps to AGL, CGAM permission and ARL without importing a parallel standing ontology."}
+  ],
+  "native_antecedents": ["Actor_Grounding_Layer_v0.1.md, 2026-04-16","Initiation_Gates_and_Preconditions_v0.1.md, 2026-04-16","C-Governed CLI Agent Mesh permission model, 2026-05"],
+  "independent_prior_art_refs": [],
+  "claim_ceiling_state": "NO_DEPENDENCY_TEST_SURFACE_ONLY",
+  "claim_assertions": {"derivation_claimed":false,"dependency_claimed":false,"priority_claimed":false,"ontology_transfer_claimed":false,"code_reuse_claimed":false},
+  "narrative_fields_authoritative": false,
+  "claim_ceiling": "This record acknowledges a useful later failure-test formulation. It does not state that c commit-time authority doctrine derives from LifeStack or that external terminology is adopted."
+}

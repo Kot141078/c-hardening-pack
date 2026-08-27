@@ -1,0 +1,15 @@
+{
+  "schema_version": "c-runtime-integrity-adversarial-mutation-0.1",
+  "scenario_id": "r2_c1_non_effect_witness_interval_excludes_attempt",
+  "commit_fixture": "positive/consequence_commit_denied_valid.json",
+  "witness_fixture": "positive/non_effect_witness_valid.json",
+  "observation_window": {
+    "start": "2026-08-27T10:03:10+02:00",
+    "end": "2026-08-27T10:03:30+02:00"
+  },
+  "expected_valid": false,
+  "expected_issue_codes": [
+    "non_effect_witness_interval_excludes_attempt"
+  ],
+  "claim_boundary": "This is a repository-local negative mutation profile. It grants no runtime or execution authority."
+}

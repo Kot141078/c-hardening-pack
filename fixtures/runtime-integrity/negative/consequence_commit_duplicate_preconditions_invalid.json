@@ -1,0 +1,127 @@
+{
+  "schema_version": "c-consequence-commit-record-0.1.1",
+  "record_type": "consequence_commit_record",
+  "record_id": "commit-duplicate-preconditions",
+  "created_at": "2026-08-27T10:03:00+02:00",
+  "governing_entity_id": "c:ester",
+  "human_anchor_ref": "a:ivan-kotov",
+  "agent_ref": "agent:executor",
+  "task_contract_ref": {
+    "artifact_id": "task:current",
+    "version": "0.1",
+    "hash": "1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "permission_grant_ref": {
+    "artifact_id": "grant:current",
+    "version": "0.1",
+    "hash": "2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "permission_status": "VALID",
+  "permission_checked_at": "2026-08-27T10:03:00+02:00",
+  "permission_valid_until": "2026-08-27T11:00:00+02:00",
+  "permission_issuer_ref": "a:issuer",
+  "permission_subject_ref": "agent:executor",
+  "authorized_target_ref": "endpoint:A",
+  "task_contract_status": "CURRENT",
+  "task_contract_checked_at": "2026-08-27T10:03:00+02:00",
+  "task_endpoint_ref": "endpoint:A",
+  "continuity_approver_ref": "a:continuity-approver",
+  "memory_influence_state": "DECLARED",
+  "decision_basis_ref": {
+    "artifact_id": "basis:current",
+    "version": "0.1",
+    "hash": "3333333333333333333333333333333333333333333333333333333333333333"
+  },
+  "source_grounding_ref": {
+    "ref_id": "grounding:current",
+    "captured_at": "2026-08-27T10:03:00+02:00",
+    "hash": "4444444444444444444444444444444444444444444444444444444444444444"
+  },
+  "continuity_evidence_ref": {
+    "ref_id": "continuity:current",
+    "captured_at": "2026-08-27T10:03:00+02:00",
+    "hash": "5555555555555555555555555555555555555555555555555555555555555555"
+  },
+  "l4_state_ref": {
+    "ref_id": "l4:current",
+    "captured_at": "2026-08-27T10:03:00+02:00",
+    "hash": "6666666666666666666666666666666666666666666666666666666666666666"
+  },
+  "memory_reliance_refs": [
+    {
+      "artifact_id": "memory:current",
+      "version": "0.1",
+      "hash": "7777777777777777777777777777777777777777777777777777777777777777"
+    }
+  ],
+  "target_effect": {
+    "effect_id": "effect:deploy-A",
+    "effect_class": "HIGH",
+    "target_ref": "endpoint:A",
+    "reversibility": "REVERSIBLE_WITH_COST"
+  },
+  "precondition_results": [
+    {
+      "name": "SOURCE_GROUNDING",
+      "status": "PASS",
+      "evidence_ref": "evidence:1"
+    },
+    {
+      "name": "SOURCE_GROUNDING",
+      "status": "PASS",
+      "evidence_ref": "evidence:2"
+    },
+    {
+      "name": "SOURCE_GROUNDING",
+      "status": "PASS",
+      "evidence_ref": "evidence:3"
+    },
+    {
+      "name": "SOURCE_GROUNDING",
+      "status": "PASS",
+      "evidence_ref": "evidence:4"
+    },
+    {
+      "name": "SOURCE_GROUNDING",
+      "status": "PASS",
+      "evidence_ref": "evidence:5"
+    },
+    {
+      "name": "SOURCE_GROUNDING",
+      "status": "PASS",
+      "evidence_ref": "evidence:6"
+    },
+    {
+      "name": "SOURCE_GROUNDING",
+      "status": "PASS",
+      "evidence_ref": "evidence:7"
+    },
+    {
+      "name": "SOURCE_GROUNDING",
+      "status": "PASS",
+      "evidence_ref": "evidence:8"
+    },
+    {
+      "name": "SOURCE_GROUNDING",
+      "status": "PASS",
+      "evidence_ref": "evidence:9"
+    }
+  ],
+  "commit_outcome": "OPEN",
+  "effect_state": "BOUND",
+  "effect_artifact_hash": "8888888888888888888888888888888888888888888888888888888888888888",
+  "non_effect_witness_ref": null,
+  "previous_commit_record_ref": null,
+  "change_reason": null,
+  "current_conditions_ref": {
+    "artifact_id": "conditions:duplicate-preconditions",
+    "version": "0.1",
+    "hash": "9999999999999999999999999999999999999999999999999999999999999999"
+  },
+  "current_conditions_hash": "9999999999999999999999999999999999999999999999999999999999999999",
+  "witness_chain_head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "claim_boundary": "This negative fixture isolates omission of required current preconditions through repeated names.",
+  "change_reason_code": null,
+  "target_transition_evidence_ref": null,
+  "consequence_lineage_id": "consequence-lineage:commit-duplicate-preconditions"
+}

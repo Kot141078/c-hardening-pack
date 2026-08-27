@@ -1,0 +1,8 @@
+{
+  "artifact_id": "task-contract:deploy-43",
+  "version": "0.1",
+  "status_history": [
+    {"status":"CURRENT","endpoint_ref":"endpoint:B","effective_at":"2026-08-27T10:04:00+02:00"}
+  ],
+  "claim_boundary": "This symbolic repository fixture models a newly issued task contract for endpoint B; it is not live task authority."
+}

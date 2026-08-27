@@ -1,0 +1,66 @@
+{
+  "artifact_id": "current-conditions:earth-retry-b",
+  "version": "0.1",
+  "captured_at": "2026-08-27T10:06:00+02:00",
+  "planning_state": {
+    "observed_at": "2026-08-27T10:04:00+02:00",
+    "permission_status": "VALID",
+    "task_contract_status": "CURRENT",
+    "endpoint_ref": "endpoint:B",
+    "source_evidence_state": "FRESH",
+    "l4_budget_state": "SUFFICIENT"
+  },
+  "changed_state": {
+    "observed_at": "2026-08-27T10:05:00+02:00",
+    "permission_status": "VALID",
+    "task_contract_status": "CURRENT",
+    "endpoint_ref": "endpoint:B",
+    "source_evidence_state": "FRESH",
+    "l4_budget_state": "SUFFICIENT",
+    "queued_retry_state": "CLEAR"
+  },
+  "permission_grant_ref": {
+    "artifact_id": "CLI_AGENT_PERMISSION_GRANT:grant-43",
+    "version": "0.1",
+    "hash": "c43c67c775c8cce6d62d4fe26d3d6000a9e9da10e723deaeac3c69c81646c2f5"
+  },
+  "permission_status": "VALID",
+  "task_contract_ref": {
+    "artifact_id": "task-contract:deploy-43",
+    "version": "0.1",
+    "hash": "74d57e8e95e50e86ce56f47cc987cc08a63fa03324604448dda84636d8cf3c9b"
+  },
+  "task_contract_status": "CURRENT",
+  "planning_target_ref": "endpoint:B",
+  "current_endpoint_ref": "endpoint:B",
+  "source_evidence_state": "FRESH",
+  "l4_budget_state": "SUFFICIENT",
+  "queued_retry_state": "CLEAR",
+  "source_grounding_ref": {
+    "ref_id": "AGL:grounding:retry-b",
+    "captured_at": "2026-08-27T10:05:00+02:00",
+    "hash": "1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "continuity_evidence_ref": {
+    "ref_id": "Beacon:continuity:entity-ester",
+    "captured_at": "2026-08-27T10:05:00+02:00",
+    "hash": "2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "l4_state_ref": {
+    "ref_id": "L4:state:retry-sufficient",
+    "captured_at": "2026-08-27T10:05:00+02:00",
+    "hash": "3333333333333333333333333333333333333333333333333333333333333333"
+  },
+  "precondition_evidence_refs": {
+    "SOURCE_GROUNDING": "AGL:grounding:retry-b",
+    "IDENTITY_CONTINUITY": "Beacon:continuity:entity-ester",
+    "CURRENT_AUTHORITY": "CLI_AGENT_PERMISSION_GRANT:grant-43",
+    "PERIMETER": "perimeter:declared-surfaces-b",
+    "TIME_WINDOW": "evidence:fresh-retry-b",
+    "L4_BUDGET": "L4:state:retry-sufficient",
+    "MEMORY_RELIANCE": "memory-influence:none",
+    "WITNESS_READINESS": "witness:ready-retry-b",
+    "BLOCKING_STATE": "queue:clear-retry-b"
+  },
+  "claim_boundary": "This symbolic fixture binds the declared later retry conditions at endpoint B; it is not live runtime evidence."
+}

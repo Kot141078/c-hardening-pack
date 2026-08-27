@@ -1,42 +1,138 @@
 {
-  "schema_version": "checksum-domain.v1",
-  "document_id": "c-hardening-pack-v0.1-checksum-domain",
-  "last_verified": "2026-08-07",
+  "schema_version": "checksum-domain.v2",
+  "document_id": "c-hardening-pack-v0.1-checksum-domain-portability",
   "repository": "https://github.com/Kot141078/c-hardening-pack",
-  "observed_head_commit": "08d9e36e7f27cc1d573a7aa86fdbe212b59c122e",
-  "scope": "Interpretation layer for the two preserved standalone v0.1 checksum manifests. It does not alter either manifest or any DOI-bound byte.",
-  "authority_rule": "The preserved manifests record release-package byte representations. Git checkout line-ending normalization is not evidence of content corruption when the declared canonicalization reproduces the recorded digest.",
-  "claim_boundary": "A checksum match establishes byte identity in the declared hash domain only; it is not implementation, conformance, safety, legal, certification, or deployment evidence.",
+  "protected_git_baseline": "9a33e3866cde19939be22a903967bc94f566db76",
+  "scope": "Interpretation and verification layer for the two preserved standalone v0.1 checksum manifests. It changes neither manifest entries nor any checksum-manifested or DOI-bound canonical byte.",
+  "authority_rule": "The preserved manifests record release-package canonical byte domains. A normalized worktree representation is admissible only when strict declared transformation reproduces that domain; exact Git blobs and extracted release archives are verified without checkout normalization.",
+  "claim_boundary": "A match establishes byte identity only for the named evidence source and declared hash domain. It is not implementation, conformance, safety, legal, certification, release, or deployment evidence.",
+  "text_policy": {
+    "encoding": "UTF-8-strict",
+    "bom": "forbidden",
+    "unicode_normalization": "none",
+    "newline_free_text": "accepted",
+    "worktree_forms": [
+      "LF",
+      "CRLF"
+    ],
+    "invalid_forms": [
+      "mixed-CRLF-LF",
+      "bare-CR"
+    ]
+  },
+  "source_claims": {
+    "git_blob": "Reads exact regular-file blobs from one resolved commit and compares their raw bytes plus both raw manifests to the pinned main baseline. It separately projects declared UTF-8 text into the release canonical domain for manifest-digest comparison and reports raw versus transformed counts; canonical projection is not claimed as raw Git-blob equality.",
+    "worktree": "Reads regular in-root files, rejects symlink or reparse traversal, accepts a uniform LF or CRLF checkout form for declared UTF-8 text, and transforms it to the declared canonical domain before hashing.",
+    "release_archive": "Uses the policy blob from the exact --git-ref commit, reads an explicitly named extracted archive root, rejects symlink or reparse traversal, and hashes exact archive bytes without checkout normalization. The archive need not contain this policy file but must contain both manifests and already use each declared canonical text domain."
+  },
+  "expected_total_entries": 74,
   "manifests": [
     {
       "path": "SHA256SUMS.txt",
       "hash_algorithm": "sha256",
-      "default_mode": "raw_bytes",
-      "path_modes": {
+      "expected_entries": 37,
+      "canonical_manifest_sha256": "2d5358dc86660fed7dca14cddf2351ae792360a9136f72888aa96208623a1be4",
+      "path_domains": {
+        "lf_text_bytes": [
+          ".zenodo.json",
+          "CITATION.cff",
+          "COMMERCIAL_AND_NON_IMPLEMENTATION_NOTICE.md",
+          "docs/CLAIM_TO_EVIDENCE_AND_TEST_MATRIX_v0_1.md",
+          "docs/DOC_TO_RUNTIME_TRACEABILITY_MATRIX_v0_1.md",
+          "docs/Human_Anchor_Drift_and_Post_Anchor_Profile_v0_1.md",
+          "docs/L4_Runtime_Enforcement_Profile_v0_1.md",
+          "docs/LHWAI_Implementation_Pack_Index_and_Extraction_Plan_v0_1.md",
+          "docs/Long_Horizon_Witness_Anchoring_and_Interpretation_Profile_v0_1_1.md",
+          "docs/Memory_Continuity_and_Semantic_Drift_Profile_v0_1.md",
+          "docs/Ninety_Day_Continuity_Evidence_Pack_v0_1.md",
+          "docs/Public_Red_Team_Response_Register_v0_1.md",
+          "LICENSE.md",
+          "manifest.json",
+          "NO_PRIVATE_MATERIALS_INCLUDED.md",
+          "PACKAGE_BOUNDARY_NOTICE.md",
+          "PUBLICATION_STATUS.md",
+          "README.md",
+          "README_c_hardening_pack_v0_1.md",
+          "RELEASE_CHECKLIST_ZENODO.md",
+          "RELEASE_NOTES.md",
+          "reports/PACKAGE_ASSEMBLY_REPORT.json",
+          "reports/PACKAGE_ASSEMBLY_REPORT.md",
+          "ZENODO_RELEASE_NOTES.md"
+        ],
         "crlf_text_bytes": [
           "manifests/FILE_LIST.csv",
           "manifests/PACKAGE_MANIFEST.json",
           "STAGING_MANIFEST.json"
+        ],
+        "raw_bytes": [
+          "pdf/CLAIM_TO_EVIDENCE_AND_TEST_MATRIX_v0_1.pdf",
+          "pdf/DOC_TO_RUNTIME_TRACEABILITY_MATRIX_v0_1.pdf",
+          "pdf/Human_Anchor_Drift_and_Post_Anchor_Profile_v0_1.pdf",
+          "pdf/L4_Runtime_Enforcement_Profile_v0_1.pdf",
+          "pdf/LHWAI_Implementation_Pack_Index_and_Extraction_Plan_v0_1.pdf",
+          "pdf/Long_Horizon_Witness_Anchoring_and_Interpretation_Profile_v0_1_1.pdf",
+          "pdf/Memory_Continuity_and_Semantic_Drift_Profile_v0_1.pdf",
+          "pdf/Ninety_Day_Continuity_Evidence_Pack_v0_1.pdf",
+          "pdf/Public_Red_Team_Response_Register_v0_1.pdf",
+          "pdf/README_c_hardening_pack_v0_1.pdf"
         ]
-      },
-      "expected_entries": 37
+      }
     },
     {
       "path": "manifests/SHA256SUMS.txt",
       "hash_algorithm": "sha256",
-      "default_mode": "raw_bytes",
-      "path_modes": {
+      "expected_entries": 37,
+      "canonical_manifest_sha256": "2d5358dc86660fed7dca14cddf2351ae792360a9136f72888aa96208623a1be4",
+      "path_domains": {
+        "lf_text_bytes": [
+          ".zenodo.json",
+          "CITATION.cff",
+          "COMMERCIAL_AND_NON_IMPLEMENTATION_NOTICE.md",
+          "docs/CLAIM_TO_EVIDENCE_AND_TEST_MATRIX_v0_1.md",
+          "docs/DOC_TO_RUNTIME_TRACEABILITY_MATRIX_v0_1.md",
+          "docs/Human_Anchor_Drift_and_Post_Anchor_Profile_v0_1.md",
+          "docs/L4_Runtime_Enforcement_Profile_v0_1.md",
+          "docs/LHWAI_Implementation_Pack_Index_and_Extraction_Plan_v0_1.md",
+          "docs/Long_Horizon_Witness_Anchoring_and_Interpretation_Profile_v0_1_1.md",
+          "docs/Memory_Continuity_and_Semantic_Drift_Profile_v0_1.md",
+          "docs/Ninety_Day_Continuity_Evidence_Pack_v0_1.md",
+          "docs/Public_Red_Team_Response_Register_v0_1.md",
+          "LICENSE.md",
+          "manifest.json",
+          "NO_PRIVATE_MATERIALS_INCLUDED.md",
+          "PACKAGE_BOUNDARY_NOTICE.md",
+          "PUBLICATION_STATUS.md",
+          "README.md",
+          "README_c_hardening_pack_v0_1.md",
+          "RELEASE_CHECKLIST_ZENODO.md",
+          "RELEASE_NOTES.md",
+          "reports/PACKAGE_ASSEMBLY_REPORT.json",
+          "reports/PACKAGE_ASSEMBLY_REPORT.md",
+          "ZENODO_RELEASE_NOTES.md"
+        ],
         "crlf_text_bytes": [
           "manifests/FILE_LIST.csv",
           "manifests/PACKAGE_MANIFEST.json",
           "STAGING_MANIFEST.json"
+        ],
+        "raw_bytes": [
+          "pdf/CLAIM_TO_EVIDENCE_AND_TEST_MATRIX_v0_1.pdf",
+          "pdf/DOC_TO_RUNTIME_TRACEABILITY_MATRIX_v0_1.pdf",
+          "pdf/Human_Anchor_Drift_and_Post_Anchor_Profile_v0_1.pdf",
+          "pdf/L4_Runtime_Enforcement_Profile_v0_1.pdf",
+          "pdf/LHWAI_Implementation_Pack_Index_and_Extraction_Plan_v0_1.pdf",
+          "pdf/Long_Horizon_Witness_Anchoring_and_Interpretation_Profile_v0_1_1.pdf",
+          "pdf/Memory_Continuity_and_Semantic_Drift_Profile_v0_1.pdf",
+          "pdf/Ninety_Day_Continuity_Evidence_Pack_v0_1.pdf",
+          "pdf/Public_Red_Team_Response_Register_v0_1.pdf",
+          "pdf/README_c_hardening_pack_v0_1.pdf"
         ]
-      },
-      "expected_entries": 37
+      }
     }
   ],
   "verification": {
-    "command": "python3 tools/verify_checksum_domain.py",
-    "normalization_rule": "For crlf_text_bytes only, an LF checkout is transformed to CRLF before hashing. Existing CRLF bytes are hashed unchanged; mixed or bare-CR input is rejected."
+    "worktree_command": "python tools/verify_checksum_domain.py --source worktree",
+    "git_blob_command": "python tools/verify_checksum_domain.py --source git-blob --git-ref HEAD",
+    "release_archive_command": "python tools/verify_checksum_domain.py --source release-archive --git-ref HEAD --archive-root PATH_TO_EXTRACTED_ARCHIVE"
   }
 }

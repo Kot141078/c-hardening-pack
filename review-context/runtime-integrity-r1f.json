@@ -1,0 +1,23 @@
+{
+  "artifact_id": "review-context:runtime-integrity-r1f",
+  "version": "0.1.1",
+  "repository": "https://github.com/Kot141078/c-hardening-pack",
+  "base_sha": "9a33e3866cde19939be22a903967bc94f566db76",
+  "reviewed_parent_sha": "ead3fe6c69d99aafb84b8db98d3df4329ea3c918",
+  "candidate_scope": "RUNTIME_SEMANTIC_CLOSURE_FROM_REVIEWED_PARENT",
+  "expected_corpus_passport_ref": {
+    "artifact_id": "corpus-passport:c-integrity-r1f",
+    "version": "0.1.1",
+    "hash": "3b986e155c33e9c76f3937148108617218e70a170f357fe8a3b7ef60a19f7d00"
+  },
+  "review_window": {
+    "start": "2026-08-27T00:00:00+02:00",
+    "end": "2026-08-27T23:59:59+02:00"
+  },
+  "reviewed_at": "2026-08-27T12:36:46+02:00",
+  "trust_root_class": "CONTRACT_SHA256_PINNED_OWNER_INPUT",
+  "authoritative_contract_id": "C_RUNTIME_CONSEQUENCE_INTEGRITY_R1F_CANDIDATE_CLOSURE_AND_SCOPE_SPLIT_v0_1",
+  "authoritative_contract_sha256": "e6a7deaf36967e0e1155ed6a2a4e47731ba24ccf2770014ba06be94acd84b0dc",
+  "identity_attestations_are_symbolic": true,
+  "claim_boundary": "This context is caller-trusted only when its exact JCS SHA-256 and repository, base, parent, scope, and trust-root class are independently supplied to the validator. Tracking this file alone does not establish trust."
+}

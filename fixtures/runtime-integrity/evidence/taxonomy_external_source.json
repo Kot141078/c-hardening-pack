@@ -1,0 +1,9 @@
+{
+  "artifact_id": "synthetic-taxonomy-source:0.1",
+  "author": "Synthetic Taxonomy Fixture",
+  "title": "Synthetic construct for relation-specific proof-contract tests",
+  "published_at": "2026-08-27T10:00:00+02:00",
+  "persistent_id": "urn:synthetic:runtime-integrity:taxonomy-source:0.1",
+  "evidence_scope": "SYNTHETIC_POSITIVE_RELATION_TAXONOMY_ONLY",
+  "claim_boundary": "This repository-local synthetic artifact tests relation taxonomy only and makes no claim about any real external construct."
+}

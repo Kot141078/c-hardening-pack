@@ -1,0 +1,63 @@
+name: Runtime integrity semantic closure
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "review/runtime-integrity-r1f-runtime-*"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: ${{ matrix.os }} / Python ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.10", "3.12"]
+    env:
+      EXPECTED_EVENT_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+      RUNTIME_REVIEW_CONTEXT_SHA256: "9566c15230259ead49bca93774c9819f9be82a5f627775e9a471558c3761c4aa"
+      RUNTIME_EXPECTED_REPOSITORY: "https://github.com/Kot141078/c-hardening-pack"
+      RUNTIME_EXPECTED_BASE_SHA: "9a33e3866cde19939be22a903967bc94f566db76"
+      RUNTIME_EXPECTED_REVIEWED_PARENT_SHA: "ead3fe6c69d99aafb84b8db98d3df4329ea3c918"
+      RUNTIME_EXPECTED_CANDIDATE_SCOPE: "RUNTIME_SEMANTIC_CLOSURE_FROM_REVIEWED_PARENT"
+      RUNTIME_EXPECTED_TRUST_ROOT_CLASS: "CONTRACT_SHA256_PINNED_OWNER_INPUT"
+    steps:
+      - name: Checkout exact event head
+        # actions/checkout immutable v4 commit observed in accepted runtime source run 33068805134
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ env.EXPECTED_EVENT_HEAD }}
+          fetch-depth: 1
+      # actions/setup-python immutable v5 commit observed in accepted runtime source run 33068805134
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: ${{ matrix.python }}
+          cache: "pip"
+          cache-dependency-path: requirements-runtime-integrity.lock
+      - name: Assert exact event head
+        run: python -c "import os,subprocess,sys; actual=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(); expected=os.environ['EXPECTED_EVENT_HEAD']; print(f'event_head={expected} checkout_head={actual}'); sys.exit(0 if actual==expected else 1)"
+      # actions/setup-node immutable v4 commit observed in accepted runtime source run 33068805134
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "20"
+      - name: Install exact hash-locked dependencies
+        run: python -m pip install --require-hashes -r requirements-runtime-integrity.lock
+      - name: Verify dependency lock
+        run: python tools/verify_runtime_lock.py
+      - name: Verify cross-language canonical JSON bytes
+        run: |
+          python tools/verify_runtime_jcs.py
+          node tools/verify_runtime_jcs.mjs
+      - name: Validate schemas, fixtures, registries, and predecessor DAG
+        run: python tools/validate_runtime_integrity_extension.py --verbose
+      - name: Run unit and mutation tests
+        run: python -m unittest discover -s tests -p "test_runtime_integrity*.py" -v
+      - name: Run exactly reconstructed R1 adversarial suite
+        run: |
+          python tools/run_runtime_adversarial_suite.py
+          python -m unittest discover -s tests/adversarial -p "test_*.py" -v
