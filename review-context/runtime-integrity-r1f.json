@@ -8,7 +8,7 @@
   "expected_corpus_passport_ref": {
     "artifact_id": "corpus-passport:c-integrity-r1f",
     "version": "0.1.1",
-    "hash": "188d3dbfcac7bee2794be8470042123386904827dfccb93c50b5263447cc473e"
+    "hash": "a4f75d98f5afb8932e949a6c6bc934c545b877c291e9fd06f1fd64738ad116c6"
   },
   "review_window": {
     "start": "2026-08-27T00:00:00+02:00",

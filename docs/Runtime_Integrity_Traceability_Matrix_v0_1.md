@@ -1,7 +1,7 @@
 # Runtime Integrity Traceability Matrix v0.1.1
 
-**Status:** Development matrix  
-**Date:** 2026-08-27  
+**Status:** Development matrix
+**Date:** 2026-08-27
 **Parent:** `Runtime_Consequence_Integrity_Profile_for_c_v0_1.md`
 
 ## 1. Purpose

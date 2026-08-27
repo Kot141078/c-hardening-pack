@@ -506,7 +506,7 @@
     },
     {
       "path": "fixtures/runtime-integrity/evidence/corpus_passport_c_integrity_r0.json",
-      "hash": "188d3dbfcac7bee2794be8470042123386904827dfccb93c50b5263447cc473e",
+      "hash": "a4f75d98f5afb8932e949a6c6bc934c545b877c291e9fd06f1fd64738ad116c6",
       "logical_ids": [
         "corpus-passport:c-integrity-r1f"
       ]

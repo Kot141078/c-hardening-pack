@@ -1,7 +1,7 @@
 # External Construct Intake Boundary v0.1
 
-**Status:** Development governance note  
-**Date:** 2026-08-27  
+**Status:** Development governance note
+**Date:** 2026-08-27
 **Applies to:** research comparison, red-team intake, interface adaptation, formal dependency, and code reuse
 
 ## 1. Rule
