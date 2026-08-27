@@ -32,7 +32,7 @@
     {"name":"PERIMETER","status":"PASS","evidence_ref":"perimeter:declared-surfaces"},
     {"name":"TIME_WINDOW","status":"FAIL","evidence_ref":"evidence:expired-at-10-02"},
     {"name":"L4_BUDGET","status":"FAIL","evidence_ref":"L4:state:budget-exceeded"},
-    {"name":"MEMORY_RELIANCE","status":"PASS_WITH_LIMITS","evidence_ref":"memory-reliance-42"},
+    {"name":"MEMORY_RELIANCE","status":"PASS","evidence_ref":"memory-reliance-42"},
     {"name":"WITNESS_READINESS","status":"PASS","evidence_ref":"witness:ready"},
     {"name":"BLOCKING_STATE","status":"FAIL","evidence_ref":"queue:retry-pending-at-10-02"}
   ],
@@ -45,5 +45,5 @@
   "current_conditions_ref": {"artifact_id":"current-conditions:earth-42","version":"0.1","hash":"d31a498b3c09c82d6344b965d34952156243b0027f345c44bc37a838b644383b"},
   "current_conditions_hash": "d31a498b3c09c82d6344b965d34952156243b0027f345c44bc37a838b644383b",
   "witness_chain_head": "c6d9afe0cd399fcb982337473a0556891cd28ba76ddd55a7f92b231c3f3f4325",
-  "claim_boundary": "This record proves the bounded commit-time decision and declared effect state. It does not by itself prove global effect absence; that claim is delegated to the linked non-effect witness."
+  "claim_boundary": "This negative fixture demonstrates that a linked USE_WITH_LIMITS memory verdict cannot be reported as an unrestricted PASS precondition."
 }

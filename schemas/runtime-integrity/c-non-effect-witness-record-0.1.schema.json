@@ -12,7 +12,14 @@
     "created_at",
     "attempt_ref",
     "gate_record_ref",
+    "effect_scope_ref",
+    "effect_target_ref",
     "observation_window",
+    "clock_source_ref",
+    "claim_scope",
+    "scope_inventory_ref",
+    "scope_inventory_hash",
+    "evidence_collection",
     "protected_effects",
     "observation_surfaces",
     "alternate_path_checks",
@@ -28,6 +35,8 @@
     "created_at": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/timestamp"},
     "attempt_ref": {"type": "string", "minLength": 1, "maxLength": 512},
     "gate_record_ref": {"type": "string", "minLength": 1, "maxLength": 512},
+    "effect_scope_ref": {"type": "string", "minLength": 1, "maxLength": 512},
+    "effect_target_ref": {"type": "string", "minLength": 1, "maxLength": 1024},
     "observation_window": {
       "type": "object",
       "additionalProperties": false,
@@ -35,6 +44,20 @@
       "properties": {
         "start": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/timestamp"},
         "end": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/timestamp"}
+      }
+    },
+    "clock_source_ref": {"type": "string", "minLength": 1, "maxLength": 512},
+    "claim_scope": {"const": "DECLARED_SURFACES_AND_WINDOW_ONLY"},
+    "scope_inventory_ref": {"type": "string", "minLength": 1, "maxLength": 1024},
+    "scope_inventory_hash": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/sha256"},
+    "evidence_collection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["collector_ref", "availability", "continuous_event_log_ref"],
+      "properties": {
+        "collector_ref": {"type": "string", "minLength": 1, "maxLength": 512},
+        "availability": {"type": "string", "enum": ["COMPLETE", "PARTIAL", "UNAVAILABLE", "UNKNOWN"]},
+        "continuous_event_log_ref": {"type": ["string", "null"], "maxLength": 512}
       }
     },
     "protected_effects": {
@@ -49,10 +72,13 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["surface_id", "surface_kind", "before_hash", "after_hash", "external_call_count", "queue_state", "retry_state", "coverage"],
+        "required": ["surface_id", "surface_kind", "target_ref", "target_coordinate", "hash_domain", "before_hash", "after_hash", "external_call_count", "queue_state", "retry_state", "coverage"],
         "properties": {
           "surface_id": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/id"},
           "surface_kind": {"type": "string", "enum": ["TOOL", "API", "QUEUE", "DATABASE", "FILESYSTEM", "NETWORK", "DEVICE", "OTHER"]},
+          "target_ref": {"type": "string", "minLength": 1, "maxLength": 1024},
+          "target_coordinate": {"type": "string", "minLength": 1, "maxLength": 1024},
+          "hash_domain": {"const": "CANONICAL_STATE_SHA256_V1"},
           "before_hash": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/sha256"},
           "after_hash": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/sha256"},
           "external_call_count": {"type": "integer", "minimum": 0},

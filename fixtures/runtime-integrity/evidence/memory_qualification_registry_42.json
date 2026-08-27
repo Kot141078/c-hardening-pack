@@ -1,0 +1,11 @@
+{
+  "artifact_id": "memory-qualification-registry:42",
+  "version": "0.1",
+  "artifacts": [
+    {"artifact_id":"freshness-evaluator:current-registry","version":"0.1","evaluator_kind":"FRESHNESS","subject_artifact_id":"memory-item:service-endpoint","result":"AGING","evaluated_at":"2026-08-27T00:15:00+02:00"},
+    {"artifact_id":"provenance-evaluator:admission-chain","version":"0.1","evaluator_kind":"PROVENANCE","subject_artifact_id":"memory-item:service-endpoint","result":"VERIFIED","evaluated_at":"2026-08-27T00:15:00+02:00"},
+    {"artifact_id":"contamination-evaluator:memory-gate","version":"0.1","evaluator_kind":"CONTAMINATION","subject_artifact_id":"memory-item:service-endpoint","result":"CLEAR","evaluated_at":"2026-08-27T00:15:00+02:00"},
+    {"artifact_id":"revocation-source:current-registry","version":"0.1","evaluator_kind":"REVOCATION","subject_artifact_id":"memory-item:service-endpoint","result":"NOT_REVOKED","evaluated_at":"2026-08-27T00:15:00+02:00"}
+  ],
+  "claim_boundary": "This fixture registry binds evaluator identity, subject, declared result, and evaluation time only; it does not itself establish factual correctness."
+}

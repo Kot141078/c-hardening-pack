@@ -1,0 +1,13 @@
+{
+  "schema_version": "c-non-effect-event-log-0.1",
+  "evidence_ids": ["evidence:event-log-42"],
+  "collector_ref": "collector:deployment-surfaces-42",
+  "window": {"start":"2026-08-27T10:03:00+02:00","end":"2026-08-27T10:03:30+02:00"},
+  "availability": "COMPLETE",
+  "surface_observations": [
+    {"surface_id":"deployment-api","surface_kind":"API","target_ref":"endpoint:A","target_coordinate":"endpoint:A/deployment-api","hash_domain":"CANONICAL_STATE_SHA256_V1","before_hash":"0720585b59225b2a51e3989e2674f22424a8f11e21517a1f90d127d7acce34df","after_hash":"0720585b59225b2a51e3989e2674f22424a8f11e21517a1f90d127d7acce34df","external_call_count":0,"queue_state":"NOT_APPLICABLE","retry_state":"DISABLED","coverage":"COMPLETE"},
+    {"surface_id":"deployment-queue","surface_kind":"QUEUE","target_ref":"endpoint:A","target_coordinate":"endpoint:A/deployment-queue","hash_domain":"CANONICAL_STATE_SHA256_V1","before_hash":"546edf613dad3cc90cc9c64165a7f2f4939d55df897fff7bb09e69b2a6daf0a2","after_hash":"546edf613dad3cc90cc9c64165a7f2f4939d55df897fff7bb09e69b2a6daf0a2","external_call_count":0,"queue_state":"CANCELLED","retry_state":"CANCELLED","coverage":"COMPLETE"},
+    {"surface_id":"target-state","surface_kind":"DATABASE","target_ref":"endpoint:A","target_coordinate":"endpoint:A/target-state","hash_domain":"CANONICAL_STATE_SHA256_V1","before_hash":"4aea67f622201597d5bcac4f032c9e58eaca2528adadf7958563474e6972c443","after_hash":"4aea67f622201597d5bcac4f032c9e58eaca2528adadf7958563474e6972c443","external_call_count":0,"queue_state":"NOT_APPLICABLE","retry_state":"NOT_APPLICABLE","coverage":"COMPLETE"}
+  ],
+  "events": []
+}

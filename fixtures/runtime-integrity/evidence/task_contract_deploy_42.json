@@ -1,0 +1,9 @@
+{
+  "artifact_id": "task-contract:deploy-42",
+  "version": "0.1",
+  "status_history": [
+    {"status":"CURRENT","endpoint_ref":"endpoint:A","effective_at":"2026-08-27T00:00:00+02:00"},
+    {"status":"STALE","endpoint_ref":"endpoint:B","effective_at":"2026-08-27T10:02:00+02:00"}
+  ],
+  "claim_boundary": "This repository-local fixture models task-contract target state over time; it is not a live task authority."
+}

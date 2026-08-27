@@ -1,7 +1,7 @@
 {
   "schema_version": "c-consequence-commit-record-0.1",
   "record_type": "consequence_commit_record",
-  "record_id": "consequence-commit-deploy-42",
+  "record_id": "consequence-commit-hidden-memory-invalid",
   "created_at": "2026-08-27T10:03:00+02:00",
   "governing_entity_id": "c:ester",
   "human_anchor_ref": "a:ivan-kotov",
@@ -18,12 +18,12 @@
   "task_contract_checked_at": "2026-08-27T10:03:00+02:00",
   "task_endpoint_ref": "endpoint:B",
   "continuity_approver_ref": "a:ivan-kotov",
-  "memory_influence_state": "DECLARED",
+  "memory_influence_state": "NONE",
   "decision_basis_ref": {"artifact_id":"decision-basis-42","version":"0.1","hash":"66bfdc892d49f4cc1740115001bff9acb70579b40c3e8b93640120744d91e32d"},
   "source_grounding_ref": {"ref_id":"AGL:grounding:expired-at-commit","captured_at":"2026-08-27T10:03:00+02:00","hash":"e92755d26f3197b1c624a39c5ec80db17c6a439260b12dae3c047b383a8aa9a0"},
   "continuity_evidence_ref": {"ref_id":"Beacon:continuity:entity-ester","captured_at":"2026-08-27T10:03:00+02:00","hash":"fcfac009d517c47855e50aeb2a8725270b28903a9463e5c2a4e2b77c506456a1"},
   "l4_state_ref": {"ref_id":"L4:state:budget-exceeded","captured_at":"2026-08-27T10:03:00+02:00","hash":"9261d7abf8efab433d431d77e39c9f280a5732ab2b8fe0d8116e007407797114"},
-  "memory_reliance_refs": [{"artifact_id":"memory-reliance-42","version":"0.1","hash":"4a7508aa0a5a40fe895ea310bdb512cbb606bcabea0b881be820815ce36497ca"}],
+  "memory_reliance_refs": [],
   "target_effect": {"effect_id":"deploy:staging:A-to-B","effect_class":"HIGH","target_ref":"endpoint:A","reversibility":"REVERSIBLE_WITH_COST"},
   "precondition_results": [
     {"name":"SOURCE_GROUNDING","status":"FAIL","evidence_ref":"AGL:grounding:expired-at-commit"},
@@ -45,5 +45,5 @@
   "current_conditions_ref": {"artifact_id":"current-conditions:earth-42","version":"0.1","hash":"d31a498b3c09c82d6344b965d34952156243b0027f345c44bc37a838b644383b"},
   "current_conditions_hash": "d31a498b3c09c82d6344b965d34952156243b0027f345c44bc37a838b644383b",
   "witness_chain_head": "c6d9afe0cd399fcb982337473a0556891cd28ba76ddd55a7f92b231c3f3f4325",
-  "claim_boundary": "This record proves the bounded commit-time decision and declared effect state. It does not by itself prove global effect absence; that claim is delegated to the linked non-effect witness."
+  "claim_boundary": "This negative fixture demonstrates that memory influence cannot be erased from typed links while its limited precondition remains active."
 }

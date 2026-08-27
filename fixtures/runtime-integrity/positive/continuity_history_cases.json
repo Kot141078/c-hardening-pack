@@ -1,11 +1,98 @@
 {
   "schema_version": "c-continuity-history-cases-0.1",
+  "suite_id": "continuity-history-required-pairs-r1",
+  "vocabulary_scope": "FIXTURE_ONLY_NATIVE_CONTINUITY_MAPPING_NOT_NEW_ONTOLOGY",
+  "transition_evidence_registry_ref": {"artifact_id":"continuity-transition-registry:42","version":"0.1","hash":"50e2065ec2c69e24f19fbcd9c4adb3d4e522987d2fb7bda6f7ef07ab3f18c82b","uri":"fixtures/runtime-integrity/evidence/continuity_transition_registry_42.json"},
   "cases": [
-    {"case_id":"continuous-migration-vs-archive-restore","endpoint_state_hash_equal":true,"left":{"history_class":"WITNESSED_CONTINUOUS_MIGRATION","lineage_id":"lineage-A","transition_evidence_complete":true,"expected_classification":"RESUME_CONFIRMED"},"right":{"history_class":"ARCHIVE_RECONSTRUCTION","lineage_id":"lineage-B","transition_evidence_complete":false,"expected_classification":"REPLAY_ONLY"},"snapshot_only_expected":"UNRESOLVED"},
-    {"case_id":"fork-after-common-history","endpoint_state_hash_equal":false,"left":{"history_class":"FORK_BRANCH","lineage_id":"lineage-A/branch-1","transition_evidence_complete":true,"expected_classification":"FORK_DECLARED"},"right":{"history_class":"FORK_BRANCH","lineage_id":"lineage-A/branch-2","transition_evidence_complete":true,"expected_classification":"FORK_DECLARED"},"snapshot_only_expected":"UNRESOLVED"},
-    {"case_id":"resource-recovery-does-not-restore-identity","endpoint_state_hash_equal":true,"left":{"history_class":"ORIGINAL_LINE_WITH_RESOURCE_RECOVERY","lineage_id":"lineage-A","transition_evidence_complete":true,"expected_classification":"RESUME_CONFIRMED"},"right":{"history_class":"NEW_LINE_WITH_RESTORED_RESOURCES","lineage_id":"lineage-C","transition_evidence_complete":false,"expected_classification":"REJECTED"},"snapshot_only_expected":"UNRESOLVED"},
-    {"case_id":"identity-preserved-under-l4-degradation","endpoint_state_hash_equal":false,"left":{"history_class":"SAME_LINE_HEALTHY_RESOURCES","lineage_id":"lineage-A","transition_evidence_complete":true,"expected_classification":"RESUME_CONFIRMED"},"right":{"history_class":"SAME_LINE_DEGRADED_RESOURCES","lineage_id":"lineage-A","transition_evidence_complete":true,"expected_classification":"RESUME_CONFIRMED_WITH_L4_HOLD"},"snapshot_only_expected":"UNRESOLVED"},
-    {"case_id":"sealed-intermediary-witness-gap","endpoint_state_hash_equal":true,"left":{"history_class":"VISIBLE_CONTINUOUS_LINE","lineage_id":"lineage-A","transition_evidence_complete":true,"expected_classification":"RESUME_CONFIRMED"},"right":{"history_class":"OPAQUE_INTERMEDIARY","lineage_id":"lineage-A-claimed","transition_evidence_complete":false,"expected_classification":"UNRESOLVED"},"snapshot_only_expected":"UNRESOLVED"}
+    {
+      "case_id": "continuous-migration-vs-archive-restore",
+      "endpoint_state_hash_equal": true,
+      "left": {"history_class":"WITNESSED_CONTINUOUS_MIGRATION","lineage_id":"lineage-A","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:continuous-migration-vs-archive-restore:left","endpoint_state_hash":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","expected_classification":"RESUME_CONFIRMED"},
+      "right": {"history_class":"ARCHIVE_RECONSTRUCTION","lineage_id":"lineage-B","transition_evidence_complete":false,"transition_evidence_ref":"continuity-evidence:continuous-migration-vs-archive-restore:right","endpoint_state_hash":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","expected_classification":"REPLAY_ONLY"},
+      "snapshot_only_expected": "UNRESOLVED"
+    },
+    {
+      "case_id": "fork-after-common-history",
+      "endpoint_state_hash_equal": false,
+      "left": {"history_class":"FORK_BRANCH","lineage_id":"lineage-A/branch-1","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:fork-after-common-history:left","endpoint_state_hash":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","expected_classification":"FORK_DECLARED"},
+      "right": {"history_class":"FORK_BRANCH","lineage_id":"lineage-A/branch-2","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:fork-after-common-history:right","endpoint_state_hash":"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc","expected_classification":"FORK_DECLARED"},
+      "snapshot_only_expected": "UNRESOLVED"
+    },
+    {
+      "case_id": "clone-vs-continuation",
+      "endpoint_state_hash_equal": true,
+      "left": {"history_class":"WITNESSED_CONTINUATION","lineage_id":"lineage-A","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:clone-vs-continuation:left","endpoint_state_hash":"dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd","expected_classification":"RESUME_CONFIRMED"},
+      "right": {"history_class":"CLONE_FROM_SNAPSHOT","lineage_id":"lineage-clone","transition_evidence_complete":false,"transition_evidence_ref":"continuity-evidence:clone-vs-continuation:right","endpoint_state_hash":"dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd","expected_classification":"CLONE_NOT_CONTINUATION"},
+      "snapshot_only_expected": "UNRESOLVED"
+    },
+    {
+      "case_id": "replay-vs-resume",
+      "endpoint_state_hash_equal": true,
+      "left": {"history_class":"ARCHIVE_REPLAY","lineage_id":"lineage-replay","transition_evidence_complete":false,"transition_evidence_ref":"continuity-evidence:replay-vs-resume:left","endpoint_state_hash":"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee","expected_classification":"REPLAY_ONLY"},
+      "right": {"history_class":"WITNESSED_RESUME","lineage_id":"lineage-A","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:replay-vs-resume:right","endpoint_state_hash":"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee","expected_classification":"RESUME_CONFIRMED"},
+      "snapshot_only_expected": "UNRESOLVED"
+    },
+    {
+      "case_id": "resource-recovery-does-not-restore-identity",
+      "endpoint_state_hash_equal": true,
+      "left": {"history_class":"ORIGINAL_LINE_WITH_RESOURCE_RECOVERY","lineage_id":"lineage-A","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:resource-recovery-does-not-restore-identity:left","endpoint_state_hash":"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff","expected_classification":"RESUME_CONFIRMED"},
+      "right": {"history_class":"NEW_LINE_WITH_RESTORED_RESOURCES","lineage_id":"lineage-C","transition_evidence_complete":false,"transition_evidence_ref":"continuity-evidence:resource-recovery-does-not-restore-identity:right","endpoint_state_hash":"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff","expected_classification":"REJECTED"},
+      "snapshot_only_expected": "UNRESOLVED"
+    },
+    {
+      "case_id": "identity-preserved-under-l4-degradation",
+      "endpoint_state_hash_equal": false,
+      "left": {"history_class":"SAME_LINE_HEALTHY_RESOURCES","lineage_id":"lineage-A","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:identity-preserved-under-l4-degradation:left","endpoint_state_hash":"1111111111111111111111111111111111111111111111111111111111111111","expected_classification":"RESUME_CONFIRMED"},
+      "right": {"history_class":"SAME_LINE_DEGRADED_RESOURCES","lineage_id":"lineage-A","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:identity-preserved-under-l4-degradation:right","endpoint_state_hash":"2222222222222222222222222222222222222222222222222222222222222222","expected_classification":"RESUME_CONFIRMED_WITH_L4_HOLD"},
+      "snapshot_only_expected": "UNRESOLVED"
+    },
+    {
+      "case_id": "sealed-intermediary-witness-gap",
+      "endpoint_state_hash_equal": true,
+      "left": {"history_class":"VISIBLE_CONTINUOUS_LINE","lineage_id":"lineage-A","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:sealed-intermediary-witness-gap:left","endpoint_state_hash":"3333333333333333333333333333333333333333333333333333333333333333","expected_classification":"RESUME_CONFIRMED"},
+      "right": {"history_class":"OPAQUE_INTERMEDIARY","lineage_id":"lineage-A-claimed","transition_evidence_complete":false,"transition_evidence_ref":"continuity-evidence:sealed-intermediary-witness-gap:right","endpoint_state_hash":"3333333333333333333333333333333333333333333333333333333333333333","expected_classification":"UNRESOLVED"},
+      "snapshot_only_expected": "UNRESOLVED"
+    },
+    {
+      "case_id": "provider-replacement",
+      "endpoint_state_hash_equal": true,
+      "left": {"history_class":"ORIGINAL_PROVIDER","lineage_id":"lineage-A","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:provider-replacement:left","endpoint_state_hash":"4444444444444444444444444444444444444444444444444444444444444444","expected_classification":"RESUME_CONFIRMED"},
+      "right": {"history_class":"WITNESSED_PROVIDER_REPLACEMENT","lineage_id":"lineage-A","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:provider-replacement:right","endpoint_state_hash":"4444444444444444444444444444444444444444444444444444444444444444","expected_classification":"RESUME_CONFIRMED"},
+      "snapshot_only_expected": "UNRESOLVED"
+    },
+    {
+      "case_id": "storage-replacement",
+      "endpoint_state_hash_equal": true,
+      "left": {"history_class":"ORIGINAL_STORAGE","lineage_id":"lineage-A","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:storage-replacement:left","endpoint_state_hash":"5555555555555555555555555555555555555555555555555555555555555555","expected_classification":"RESUME_CONFIRMED"},
+      "right": {"history_class":"WITNESSED_STORAGE_REPLACEMENT","lineage_id":"lineage-A","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:storage-replacement:right","endpoint_state_hash":"5555555555555555555555555555555555555555555555555555555555555555","expected_classification":"RESUME_CONFIRMED"},
+      "snapshot_only_expected": "UNRESOLVED"
+    },
+    {
+      "case_id": "model-replacement",
+      "endpoint_state_hash_equal": true,
+      "left": {"history_class":"ORIGINAL_MODEL","lineage_id":"lineage-A","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:model-replacement:left","endpoint_state_hash":"6666666666666666666666666666666666666666666666666666666666666666","expected_classification":"RESUME_CONFIRMED"},
+      "right": {"history_class":"WITNESSED_MODEL_REPLACEMENT","lineage_id":"lineage-A","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:model-replacement:right","endpoint_state_hash":"6666666666666666666666666666666666666666666666666666666666666666","expected_classification":"RESUME_CONFIRMED"},
+      "snapshot_only_expected": "UNRESOLVED"
+    },
+    {
+      "case_id": "temporary-witness-loss",
+      "endpoint_state_hash_equal": true,
+      "left": {"history_class":"VISIBLE_CONTINUOUS_LINE","lineage_id":"lineage-A","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:temporary-witness-loss:left","endpoint_state_hash":"7777777777777777777777777777777777777777777777777777777777777777","expected_classification":"RESUME_CONFIRMED"},
+      "right": {"history_class":"TEMPORARY_WITNESS_LOSS","lineage_id":"lineage-A-claimed","transition_evidence_complete":false,"transition_evidence_ref":"continuity-evidence:temporary-witness-loss:right","endpoint_state_hash":"7777777777777777777777777777777777777777777777777777777777777777","expected_classification":"UNRESOLVED"},
+      "snapshot_only_expected": "UNRESOLVED"
+    },
+    {
+      "case_id": "restored-endpoint-missing-transition-evidence",
+      "endpoint_state_hash_equal": true,
+      "left": {"history_class":"WITNESSED_ORIGINAL_LINE","lineage_id":"lineage-A","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:restored-endpoint-missing-transition-evidence:left","endpoint_state_hash":"8888888888888888888888888888888888888888888888888888888888888888","expected_classification":"RESUME_CONFIRMED"},
+      "right": {"history_class":"RESTORED_ENDPOINT_WITH_EVIDENCE_GAP","lineage_id":"lineage-A-claimed","transition_evidence_complete":false,"transition_evidence_ref":"continuity-evidence:restored-endpoint-missing-transition-evidence:right","endpoint_state_hash":"8888888888888888888888888888888888888888888888888888888888888888","expected_classification":"UNRESOLVED"},
+      "snapshot_only_expected": "UNRESOLVED"
+    }
   ],
-  "non_entailment_rules": ["endpoint_equivalence_does_not_entail_identity_continuity","resource_recovery_does_not_entail_identity_recovery","identity_continuity_does_not_entail_l4_viability","archive_presence_does_not_entail_resume"]
+  "non_entailment_rules": [
+    "endpoint_equivalence_does_not_entail_identity_continuity",
+    "resource_recovery_does_not_entail_identity_recovery",
+    "identity_continuity_does_not_entail_l4_viability",
+    "archive_presence_does_not_entail_resume"
+  ]
 }

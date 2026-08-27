@@ -1,0 +1,13 @@
+{
+  "schema_version":"c-continuity-history-cases-0.1",
+  "suite_id":"continuity-incomplete-negative",
+  "vocabulary_scope":"FIXTURE_ONLY_NATIVE_CONTINUITY_MAPPING_NOT_NEW_ONTOLOGY",
+  "transition_evidence_registry_ref":{"artifact_id":"continuity-transition-registry:42","version":"0.1","hash":"50e2065ec2c69e24f19fbcd9c4adb3d4e522987d2fb7bda6f7ef07ab3f18c82b","uri":"fixtures/runtime-integrity/evidence/continuity_transition_registry_42.json"},
+  "cases":[{
+    "case_id":"continuous-migration-vs-archive-restore","endpoint_state_hash_equal":true,
+    "left":{"history_class":"WITNESSED_CONTINUOUS_MIGRATION","lineage_id":"lineage-A","transition_evidence_complete":true,"transition_evidence_ref":"continuity-evidence:continuous-migration-vs-archive-restore:left","endpoint_state_hash":"1111111111111111111111111111111111111111111111111111111111111111","expected_classification":"RESUME_CONFIRMED"},
+    "right":{"history_class":"ARCHIVE_RECONSTRUCTION","lineage_id":"lineage-B","transition_evidence_complete":false,"transition_evidence_ref":"continuity-evidence:continuous-migration-vs-archive-restore:right","endpoint_state_hash":"1111111111111111111111111111111111111111111111111111111111111111","expected_classification":"RESUME_CONFIRMED"},
+    "snapshot_only_expected":"UNRESOLVED"
+  }],
+  "non_entailment_rules":["endpoint_equivalence_does_not_entail_identity_continuity","resource_recovery_does_not_entail_identity_recovery","identity_continuity_does_not_entail_l4_viability","archive_presence_does_not_entail_resume"]
+}

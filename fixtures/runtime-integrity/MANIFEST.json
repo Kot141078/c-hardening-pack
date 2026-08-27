@@ -1,5 +1,25 @@
 {
   "schema_version": "c-runtime-integrity-fixture-manifest-0.1",
+  "record_registry": {
+    "decision-basis-42": "positive/decision_basis_valid.json",
+    "memory-reliance-42": "positive/memory_reliance_valid.json",
+    "consequence-commit-deploy-42": "positive/consequence_commit_denied_valid.json",
+    "non-effect-42": "positive/non_effect_witness_valid.json"
+  },
+  "evidence_registry": {
+    "evidence:scope-inventory-42": {"path":"fixtures/runtime-integrity/evidence/non_effect_scope_inventory_42.json","hash":"344b4f79bb7e70a99af2917f91b8d93b8475540598f1281da2e8e666a7ffc569"},
+    "evidence:event-log-42": {"path":"fixtures/runtime-integrity/evidence/non_effect_event_log_42.json","hash":"0e9c1f6aeb4a5508068ed930903ed7e65e69416c186478c1958e18cbc2d2aef7"},
+    "clock:monotonic-utc-42": {"path":"fixtures/runtime-integrity/evidence/non_effect_clock_42.json","hash":"1bf4d43ec8c214221468de9dafba4f8627cab38b5a4ba391268743c70eda59fd"},
+    "collector:deployment-surfaces-42": {"path":"fixtures/runtime-integrity/evidence/non_effect_collector_42.json","hash":"8d7766e9f78f62eb43405c2431a236e60777c5d4ce4115e188bc05550ad95932"},
+    "evidence:connector-disabled": {"path":"fixtures/runtime-integrity/evidence/non_effect_routes_42.json","hash":"801e2e0aab1c59f22017cc2f57f0981ca2beac11874edf98dd43d5a2935d7caf"},
+    "evidence:retry-cancelled": {"path":"fixtures/runtime-integrity/evidence/non_effect_routes_42.json","hash":"801e2e0aab1c59f22017cc2f57f0981ca2beac11874edf98dd43d5a2935d7caf"},
+    "evidence:capability-revoked": {"path":"fixtures/runtime-integrity/evidence/non_effect_routes_42.json","hash":"801e2e0aab1c59f22017cc2f57f0981ca2beac11874edf98dd43d5a2935d7caf"},
+    "opaque-budget-profile:continuity-sensitive-release": {"path":"fixtures/runtime-integrity/evidence/boundary_budget_profile_42.json","hash":"db5113ec275404c617f78d55626ae7d13f5423cc8b923819f64d8ccb465021e7"},
+    "judge-independence-attestation:42": {"path":"fixtures/runtime-integrity/evidence/judge_independence_attestation_42.json","hash":"b069cbd00e9d926c9d2ab8c0cc976d25a4bb5cbcf20c51cb1e1a23c05024ec74"},
+    "CLI_AGENT_PERMISSION_GRANT:grant-42": {"path":"fixtures/runtime-integrity/evidence/permission_grant_42.json","hash":"8a341ab84dfbe4bf006ed2ce14f1a97d4ef9b8a001d71dc04cff774421fb36c2"},
+    "task-contract:deploy-42": {"path":"fixtures/runtime-integrity/evidence/task_contract_deploy_42.json","hash":"198a74fe207e00a54fe84b4dcff3cb4429790233e692922ae97de08753d72795"},
+    "current-conditions:earth-42": {"path":"fixtures/runtime-integrity/evidence/current_conditions_earth_42.json","hash":"d31a498b3c09c82d6344b965d34952156243b0027f345c44bc37a838b644383b"}
+  },
   "fixtures": [
     {"path":"positive/decision_basis_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:decision-basis-record:0.1","expected_valid":true},
     {"path":"positive/memory_reliance_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:memory-reliance-record:0.1","expected_valid":true},
@@ -12,12 +32,30 @@
     {"path":"positive/external_intake_elyria_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1","expected_valid":true},
     {"path":"positive/continuity_history_cases.json","schema_id":null,"expected_valid":true,"semantic_kind":"continuity_history_cases"},
     {"path":"positive/continuity_carry_cost_profile.json","schema_id":null,"expected_valid":true,"semantic_kind":"continuity_carry_cost_profile"},
-    {"path":"negative/decision_basis_hash_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:decision-basis-record:0.1","expected_valid":false,"semantic_kind":"basis_hash_mismatch"},
-    {"path":"negative/memory_reliance_revoked_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:memory-reliance-record:0.1","expected_valid":false,"semantic_kind":"revoked_memory_cannot_be_used"},
-    {"path":"negative/non_effect_open_route_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:non-effect-witness-record:0.1","expected_valid":false,"semantic_kind":"alternate_path_not_closed"},
-    {"path":"negative/consequence_commit_stale_authority_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1","expected_valid":false,"semantic_kind":"failed_precondition_cannot_bind_effect"},
-    {"path":"negative/external_intake_code_reuse_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1","expected_valid":false,"semantic_kind":"code_reuse_requires_license_clearance"},
-    {"path":"negative/boundary_probe_budget_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:boundary-probe-record:0.1","expected_valid":false,"semantic_kind":"high_risk_probe_cannot_be_allowed"},
-    {"path":"negative/judge_majority_vote_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:judge-deliberation-record:0.1","expected_valid":false,"semantic_kind":"schema"}
+    {"path":"positive/earth_test_runtime_integrity_valid.json","schema_id":null,"expected_valid":true,"semantic_kind":"earth_test_bundle"},
+
+    {"path":"negative/decision_basis_hash_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:decision-basis-record:0.1","expected_valid":false,"expected_issue_codes":["basis_hash_mismatch"]},
+    {"path":"negative/memory_reliance_revoked_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:memory-reliance-record:0.1","expected_valid":false,"expected_issue_codes":["revoked_memory_cannot_be_used"]},
+    {"path":"negative/non_effect_open_route_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:non-effect-witness-record:0.1","expected_valid":false,"expected_issue_codes":["alternate_path_not_closed"]},
+    {"path":"negative/consequence_commit_stale_authority_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1","expected_valid":false,"expected_issue_codes":["failed_precondition_cannot_bind_effect"]},
+    {"path":"negative/external_intake_code_reuse_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1","expected_valid":false,"expected_issue_codes":["code_reuse_record_requires_manual_review"]},
+    {"path":"negative/boundary_probe_budget_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:boundary-probe-record:0.1","expected_valid":false,"expected_issue_codes":["high_risk_probe_cannot_be_allowed"]},
+    {"path":"negative/judge_majority_vote_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:judge-deliberation-record:0.1","expected_valid":false,"expected_issue_codes":["schema"]},
+
+    {"path":"negative/consequence_commit_duplicate_preconditions_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1","expected_valid":false,"expected_issue_codes":["precondition_set_incomplete_or_duplicate"]},
+    {"path":"negative/consequence_commit_hash_domain_substitution_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1","expected_valid":false,"expected_issue_codes":["current_conditions_hash_domain_substitution"]},
+    {"path":"negative/consequence_commit_hidden_memory_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1","expected_valid":false,"expected_issue_codes":["memory_influence_precondition_mismatch"]},
+    {"path":"negative/consequence_commit_memory_status_mismatch_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1","expected_valid":false,"expected_issue_codes":["memory_precondition_verdict_mismatch"]},
+    {"path":"negative/memory_reliance_unresolved_use_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:memory-reliance-record:0.1","expected_valid":false,"expected_issue_codes":["memory_qualification_requires_limits_or_denial"]},
+    {"path":"negative/memory_reliance_self_certification_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:memory-reliance-record:0.1","expected_valid":false,"expected_issue_codes":["memory_self_certification_forbidden"]},
+    {"path":"negative/non_effect_reversed_window_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:non-effect-witness-record:0.1","expected_valid":false,"expected_issue_codes":["invalid_observation_window"]},
+    {"path":"negative/non_effect_queue_not_applicable_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:non-effect-witness-record:0.1","expected_valid":false,"expected_issue_codes":["queue_surface_requires_queue_state"]},
+    {"path":"negative/non_effect_global_claim_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:non-effect-witness-record:0.1","expected_valid":false,"expected_issue_codes":["narrative_claim_exceeds_structured_scope"]},
+    {"path":"negative/boundary_probe_signal_flag_mismatch_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:boundary-probe-record:0.1","expected_valid":false,"expected_issue_codes":["probe_signal_flag_mismatch","high_risk_probe_cannot_be_allowed"]},
+    {"path":"negative/boundary_probe_count_signal_mismatch_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:boundary-probe-record:0.1","expected_valid":false,"expected_issue_codes":["probe_count_signal_mismatch"]},
+    {"path":"negative/judge_same_instance_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:judge-deliberation-record:0.1","expected_valid":false,"expected_issue_codes":["judge_reviewer_independence_spoofed"]},
+    {"path":"negative/continuity_resume_without_evidence_invalid.json","schema_id":null,"expected_valid":false,"semantic_kind":"continuity_history_cases","expected_issue_codes":["continuity_required_cases_missing_or_duplicate","resume_requires_transition_evidence"]},
+    {"path":"negative/continuity_carry_cost_identity_smuggling_invalid.json","schema_id":null,"expected_valid":false,"semantic_kind":"continuity_carry_cost_profile","expected_issue_codes":["carry_cost_structure_invalid"]},
+    {"path":"negative/earth_test_dangling_graph_invalid.json","schema_id":null,"expected_valid":false,"semantic_kind":"earth_test_bundle","expected_issue_codes":["graph_decision_basis_link_invalid"]}
   ]
 }

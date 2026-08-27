@@ -1,0 +1,11 @@
+{
+  "schema_version":"c-continuity-carry-cost-profile-0.1",
+  "profile_id":"carry-cost-identity-smuggling",
+  "identity_proof_hash":"1111111111111111111111111111111111111111111111111111111111111111",
+  "dimensions":[
+    {"dimension":"human_anchor_attention","unit":"minute","identity_bearing":false,"lineage_id":"lineage-A"},
+    {"dimension":"witness_chain_maintenance","unit":"operation","identity_bearing":false},
+    {"dimension":"recovery_reserve","unit":"mcu","identity_bearing":false}
+  ],
+  "rules":["Carry cost cannot become identity-bearing evidence."]
+}
