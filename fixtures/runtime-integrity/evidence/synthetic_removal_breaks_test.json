@@ -1,0 +1,10 @@
+{
+  "artifact_id": "synthetic-removal-test:code-reuse-test",
+  "version": "0.1",
+  "evidence_scope": "SYNTHETIC_NEGATIVE_FIXTURE_ONLY",
+  "evidence_kind": "REMOVAL_BREAKS",
+  "source_artifact_id": "synthetic-external-source:code-reuse-test",
+  "local_target": "tools/validate_runtime_integrity_extension.py",
+  "local_test": "tests/test_runtime_integrity_extension.py#test_synthetic_code_reuse_manual_stop",
+  "removal_breaks": true
+}

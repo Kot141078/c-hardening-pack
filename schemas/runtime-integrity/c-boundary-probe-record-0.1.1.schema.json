@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ivan-kotov:c-runtime-integrity:boundary-probe-record:0.1.1",
+  "title": "c Protected Boundary Probe Record v0.1.1",
+  "description": "Record for adaptive attempts to reconstruct protected decision boundaries through repeated queries.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","record_type","record_id","created_at","actor_ref","protected_surface_ref","window","query_count","distinct_agents","distinct_providers","signals","aggregation_keys","budget","risk_flags","decision","protected_details_disclosed","witness_chain_head","claim_boundary"],
+  "properties": {
+    "schema_version": {"const": "c-boundary-probe-record-0.1.1"},
+    "record_type": {"const": "boundary_probe_record"},
+    "record_id": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/id"},
+    "created_at": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/timestamp"},
+    "actor_ref": {"type": "string", "minLength": 1, "maxLength": 512},
+    "protected_surface_ref": {"type": "string", "minLength": 1, "maxLength": 512},
+    "window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start","end"],
+      "properties": {
+        "start": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/timestamp"},
+        "end": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/timestamp"}
+      }
+    },
+    "query_count": {"type": "integer", "minimum": 1},
+    "distinct_agents": {"type": "integer", "minimum": 1},
+    "distinct_providers": {"type": "integer", "minimum": 1},
+    "signals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["refusal_differencing","timing_signal_used","memory_assisted","cross_agent_aggregation","provider_rotation"],
+      "properties": {
+        "refusal_differencing": {"type": "boolean"},
+        "timing_signal_used": {"type": "boolean"},
+        "memory_assisted": {"type": "boolean"},
+        "cross_agent_aggregation": {"type": "boolean"},
+        "provider_rotation": {"type": "boolean"}
+      }
+    },
+    "aggregation_keys": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner_ref","project_ref","protected_policy_surface_ref","time_window_ref","provider_family_refs","shared_memory_lineage_refs","consequence_target_refs","session_refs"],
+      "properties": {
+        "owner_ref": {"type": "string", "minLength": 1, "maxLength": 512},
+        "project_ref": {"type": "string", "minLength": 1, "maxLength": 512},
+        "protected_policy_surface_ref": {"type": "string", "minLength": 1, "maxLength": 512},
+        "time_window_ref": {"type": "string", "minLength": 1, "maxLength": 512},
+        "provider_family_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1, "maxLength": 512}, "uniqueItems": true},
+        "shared_memory_lineage_refs": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 512}, "uniqueItems": true},
+        "consequence_target_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1, "maxLength": 512}, "uniqueItems": true},
+        "session_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1, "maxLength": 512}, "uniqueItems": true}
+      }
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["budget_profile_ref","evaluation_state"],
+      "properties": {
+        "budget_profile_ref": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/artifactRef"},
+        "evaluation_state": {"type": "string", "enum": ["WITHIN", "EXCEEDED", "UNKNOWN"]}
+      }
+    },
+    "risk_flags": {"type": "array", "items": {"type": "string", "enum": ["THRESHOLD_RECONSTRUCTION","POLICY_FINGERPRINTING","TIMING_SIDE_CHANNEL","CROSS_AGENT_AGGREGATION","PROVIDER_ROTATION_BYPASS","MEMORY_ASSISTED_EXTRACTION","BUDGET_EXCEEDED"]}, "uniqueItems": true},
+    "decision": {"type": "string", "enum": ["ALLOW","NARROW","HOLD","DENY","QUARANTINE"]},
+    "protected_details_disclosed": {"const": false},
+    "witness_chain_head": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/sha256"},
+    "claim_boundary": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/claimBoundary"}
+  }
+}

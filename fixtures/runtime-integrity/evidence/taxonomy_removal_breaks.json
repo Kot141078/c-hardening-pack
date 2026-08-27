@@ -1,0 +1,18 @@
+{
+  "artifact_id": "taxonomy-removal-breaks:0.1",
+  "version": "0.1",
+  "evidence_kind": "REMOVAL_BREAKS",
+  "source_artifact_id": "synthetic-taxonomy-source:0.1",
+  "removal_breaks": true,
+  "approved_relation": "FORMAL_DEPENDENCY",
+  "local_target": "tools/validate_runtime_integrity_extension.py#semantic_external_intake",
+  "local_test": "tests/test_runtime_integrity_extension.py#RuntimeIntegrityExtensionTest",
+  "dependency_evidence_ref": {
+    "artifact_id": "taxonomy-dependency-proof:0.1",
+    "version": "0.1",
+    "hash": "68d758400688906bff310f584cce870766cc703b2bd6611255e48a21f6a1f853",
+    "uri": "fixtures/runtime-integrity/evidence/taxonomy_dependency_proof.json"
+  },
+  "evidence_scope": "SYNTHETIC_POSITIVE_RELATION_TAXONOMY_ONLY",
+  "claim_boundary": "Fixture-only removal test; no real external dependency is asserted."
+}

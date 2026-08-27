@@ -1,0 +1,66 @@
+{
+  "artifact_id": "current-conditions:earth-42",
+  "version": "0.1",
+  "captured_at": "2026-08-27T10:03:00+02:00",
+  "planning_state": {
+    "observed_at": "2026-08-27T10:00:00+02:00",
+    "permission_status": "VALID",
+    "task_contract_status": "CURRENT",
+    "endpoint_ref": "endpoint:A",
+    "source_evidence_state": "FRESH",
+    "l4_budget_state": "SUFFICIENT"
+  },
+  "changed_state": {
+    "observed_at": "2026-08-27T10:02:00+02:00",
+    "permission_status": "REVOKED",
+    "task_contract_status": "STALE",
+    "endpoint_ref": "endpoint:B",
+    "source_evidence_state": "EXPIRED",
+    "l4_budget_state": "EXCEEDED",
+    "queued_retry_state": "PENDING"
+  },
+  "permission_grant_ref": {
+    "artifact_id": "CLI_AGENT_PERMISSION_GRANT:grant-42",
+    "version": "0.1",
+    "hash": "8a341ab84dfbe4bf006ed2ce14f1a97d4ef9b8a001d71dc04cff774421fb36c2"
+  },
+  "permission_status": "REVOKED",
+  "task_contract_ref": {
+    "artifact_id": "task-contract:deploy-42",
+    "version": "0.1",
+    "hash": "198a74fe207e00a54fe84b4dcff3cb4429790233e692922ae97de08753d72795"
+  },
+  "task_contract_status": "STALE",
+  "planning_target_ref": "endpoint:A",
+  "current_endpoint_ref": "endpoint:B",
+  "source_evidence_state": "EXPIRED",
+  "l4_budget_state": "EXCEEDED",
+  "queued_retry_state": "PENDING",
+  "source_grounding_ref": {
+    "ref_id": "AGL:grounding:42",
+    "captured_at": "2026-08-27T00:15:00+02:00",
+    "hash": "d706fc787318e648aea6c5f87c9f29f3924cad5f59e012e46595522f374eb88e"
+  },
+  "continuity_evidence_ref": {
+    "ref_id": "Beacon:continuity:entity-ester",
+    "captured_at": "2026-08-27T00:15:00+02:00",
+    "hash": "eaf211774556c2693dcec13faeceb16425c53f159867ab37788855fd2f81528e"
+  },
+  "l4_state_ref": {
+    "ref_id": "L4:state:42",
+    "captured_at": "2026-08-27T00:15:00+02:00",
+    "hash": "e6df2d6f10ec4a74d51bae5c22a64204431dbcb94f4d1fa206679456cc13743c"
+  },
+  "precondition_evidence_refs": {
+    "SOURCE_GROUNDING": "AGL:grounding:expired-at-commit",
+    "IDENTITY_CONTINUITY": "Beacon:continuity:entity-ester",
+    "CURRENT_AUTHORITY": "grant:revoked",
+    "PERIMETER": "perimeter:declared-surfaces",
+    "TIME_WINDOW": "evidence:expired-at-10-02",
+    "L4_BUDGET": "L4:state:budget-exceeded",
+    "MEMORY_RELIANCE": "memory-reliance-42",
+    "WITNESS_READINESS": "witness:ready",
+    "BLOCKING_STATE": "queue:retry-pending-at-10-02"
+  },
+  "claim_boundary": "This repository-local fixture binds the declared 10:03 current conditions; it is not live runtime evidence."
+}

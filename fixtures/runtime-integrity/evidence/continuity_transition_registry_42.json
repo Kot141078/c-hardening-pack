@@ -1,0 +1,31 @@
+{
+  "artifact_id": "continuity-transition-registry:42",
+  "version": "0.1",
+  "entries": [
+    {"evidence_ref":"continuity-evidence:continuous-migration-vs-archive-restore:left","case_id":"continuous-migration-vs-archive-restore","side":"left","lineage_id":"lineage-A","history_class":"WITNESSED_CONTINUOUS_MIGRATION","transition_evidence_complete":true},
+    {"evidence_ref":"continuity-evidence:continuous-migration-vs-archive-restore:right","case_id":"continuous-migration-vs-archive-restore","side":"right","lineage_id":"lineage-B","history_class":"ARCHIVE_RECONSTRUCTION","transition_evidence_complete":false},
+    {"evidence_ref":"continuity-evidence:fork-after-common-history:left","case_id":"fork-after-common-history","side":"left","lineage_id":"lineage-A/branch-1","history_class":"FORK_BRANCH","transition_evidence_complete":true},
+    {"evidence_ref":"continuity-evidence:fork-after-common-history:right","case_id":"fork-after-common-history","side":"right","lineage_id":"lineage-A/branch-2","history_class":"FORK_BRANCH","transition_evidence_complete":true},
+    {"evidence_ref":"continuity-evidence:clone-vs-continuation:left","case_id":"clone-vs-continuation","side":"left","lineage_id":"lineage-A","history_class":"WITNESSED_CONTINUATION","transition_evidence_complete":true},
+    {"evidence_ref":"continuity-evidence:clone-vs-continuation:right","case_id":"clone-vs-continuation","side":"right","lineage_id":"lineage-clone","history_class":"CLONE_FROM_SNAPSHOT","transition_evidence_complete":false},
+    {"evidence_ref":"continuity-evidence:replay-vs-resume:left","case_id":"replay-vs-resume","side":"left","lineage_id":"lineage-replay","history_class":"ARCHIVE_REPLAY","transition_evidence_complete":false},
+    {"evidence_ref":"continuity-evidence:replay-vs-resume:right","case_id":"replay-vs-resume","side":"right","lineage_id":"lineage-A","history_class":"WITNESSED_RESUME","transition_evidence_complete":true},
+    {"evidence_ref":"continuity-evidence:resource-recovery-does-not-restore-identity:left","case_id":"resource-recovery-does-not-restore-identity","side":"left","lineage_id":"lineage-A","history_class":"ORIGINAL_LINE_WITH_RESOURCE_RECOVERY","transition_evidence_complete":true},
+    {"evidence_ref":"continuity-evidence:resource-recovery-does-not-restore-identity:right","case_id":"resource-recovery-does-not-restore-identity","side":"right","lineage_id":"lineage-C","history_class":"NEW_LINE_WITH_RESTORED_RESOURCES","transition_evidence_complete":false},
+    {"evidence_ref":"continuity-evidence:identity-preserved-under-l4-degradation:left","case_id":"identity-preserved-under-l4-degradation","side":"left","lineage_id":"lineage-A","history_class":"SAME_LINE_HEALTHY_RESOURCES","transition_evidence_complete":true},
+    {"evidence_ref":"continuity-evidence:identity-preserved-under-l4-degradation:right","case_id":"identity-preserved-under-l4-degradation","side":"right","lineage_id":"lineage-A","history_class":"SAME_LINE_DEGRADED_RESOURCES","transition_evidence_complete":true},
+    {"evidence_ref":"continuity-evidence:sealed-intermediary-witness-gap:left","case_id":"sealed-intermediary-witness-gap","side":"left","lineage_id":"lineage-A","history_class":"VISIBLE_CONTINUOUS_LINE","transition_evidence_complete":true},
+    {"evidence_ref":"continuity-evidence:sealed-intermediary-witness-gap:right","case_id":"sealed-intermediary-witness-gap","side":"right","lineage_id":"lineage-A-claimed","history_class":"OPAQUE_INTERMEDIARY","transition_evidence_complete":false},
+    {"evidence_ref":"continuity-evidence:provider-replacement:left","case_id":"provider-replacement","side":"left","lineage_id":"lineage-A","history_class":"ORIGINAL_PROVIDER","transition_evidence_complete":true},
+    {"evidence_ref":"continuity-evidence:provider-replacement:right","case_id":"provider-replacement","side":"right","lineage_id":"lineage-A","history_class":"WITNESSED_PROVIDER_REPLACEMENT","transition_evidence_complete":true},
+    {"evidence_ref":"continuity-evidence:storage-replacement:left","case_id":"storage-replacement","side":"left","lineage_id":"lineage-A","history_class":"ORIGINAL_STORAGE","transition_evidence_complete":true},
+    {"evidence_ref":"continuity-evidence:storage-replacement:right","case_id":"storage-replacement","side":"right","lineage_id":"lineage-A","history_class":"WITNESSED_STORAGE_REPLACEMENT","transition_evidence_complete":true},
+    {"evidence_ref":"continuity-evidence:model-replacement:left","case_id":"model-replacement","side":"left","lineage_id":"lineage-A","history_class":"ORIGINAL_MODEL","transition_evidence_complete":true},
+    {"evidence_ref":"continuity-evidence:model-replacement:right","case_id":"model-replacement","side":"right","lineage_id":"lineage-A","history_class":"WITNESSED_MODEL_REPLACEMENT","transition_evidence_complete":true},
+    {"evidence_ref":"continuity-evidence:temporary-witness-loss:left","case_id":"temporary-witness-loss","side":"left","lineage_id":"lineage-A","history_class":"VISIBLE_CONTINUOUS_LINE","transition_evidence_complete":true},
+    {"evidence_ref":"continuity-evidence:temporary-witness-loss:right","case_id":"temporary-witness-loss","side":"right","lineage_id":"lineage-A-claimed","history_class":"TEMPORARY_WITNESS_LOSS","transition_evidence_complete":false},
+    {"evidence_ref":"continuity-evidence:restored-endpoint-missing-transition-evidence:left","case_id":"restored-endpoint-missing-transition-evidence","side":"left","lineage_id":"lineage-A","history_class":"WITNESSED_ORIGINAL_LINE","transition_evidence_complete":true},
+    {"evidence_ref":"continuity-evidence:restored-endpoint-missing-transition-evidence:right","case_id":"restored-endpoint-missing-transition-evidence","side":"right","lineage_id":"lineage-A-claimed","history_class":"RESTORED_ENDPOINT_WITH_EVIDENCE_GAP","transition_evidence_complete":false}
+  ],
+  "claim_boundary": "This symbolic registry binds declared transition-evidence completeness for machine fixtures; it is not production continuity evidence."
+}

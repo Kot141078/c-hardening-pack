@@ -1,0 +1,7 @@
+{
+  "artifact_id": "opaque-budget-profile:continuity-sensitive-release",
+  "version": "0.1",
+  "profile_kind": "PROTECTED_OPAQUE_BUDGET",
+  "protected_surface_ref": "policy:continuity-sensitive-release",
+  "thresholds_disclosed": false
+}

@@ -1,0 +1,10 @@
+{
+  "artifact_id": "taxonomy-license-clearance:0.1",
+  "version": "0.1",
+  "evidence_kind": "LICENSE_CLEARANCE",
+  "source_artifact_id": "synthetic-taxonomy-source:0.1",
+  "adaptation_cleared": true,
+  "cleared_relations": ["INTERFACE_ADAPTATION", "CODE_REUSE"],
+  "evidence_scope": "SYNTHETIC_POSITIVE_RELATION_TAXONOMY_ONLY",
+  "claim_boundary": "Fixture-only license-clearance evidence; no clearance for a real external artifact is asserted."
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": "c-continuity-carry-cost-profile-0.1.1",
+  "profile_id": "l4-continuity-carry-cost-default",
+  "dimensions": [
+    {"dimension":"idle_power","unit":"joule","identity_bearing":false},
+    {"dimension":"storage_refresh_and_scrub","unit":"operation","identity_bearing":false},
+    {"dimension":"backup_verification","unit":"operation","identity_bearing":false},
+    {"dimension":"witness_chain_maintenance","unit":"operation","identity_bearing":false},
+    {"dimension":"certificate_and_key_rotation","unit":"operation","identity_bearing":false},
+    {"dimension":"provider_and_interface_drift_adaptation","unit":"work_unit","identity_bearing":false},
+    {"dimension":"security_patch_and_maintenance","unit":"work_unit","identity_bearing":false},
+    {"dimension":"human_anchor_attention","unit":"minute","identity_bearing":false},
+    {"dimension":"recovery_reserve","unit":"mcu","identity_bearing":false}
+  ],
+  "non_entailment_codes": [
+    "CARRY_COST_ENTAILS_IDENTITY_CONTINUITY",
+    "UPTIME_DOES_NOT_ENTAIL_IDENTITY_CONTINUITY",
+    "STORAGE_COMPLETENESS_DOES_NOT_ENTAIL_IDENTITY_CONTINUITY",
+    "CARRY_COST_DOES_NOT_ENTAIL_IDENTITY_CONTINUITY",
+    "RESOURCE_EXHAUSTION_DOES_NOT_CHANGE_LINEAGE_CLASSIFICATION",
+    "RESOURCE_RESTORATION_DOES_NOT_REPAIR_BROKEN_LINEAGE"
+  ]
+}

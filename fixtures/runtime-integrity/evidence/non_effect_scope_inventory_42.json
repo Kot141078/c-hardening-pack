@@ -1,0 +1,17 @@
+{
+  "schema_version": "c-non-effect-scope-inventory-0.1",
+  "evidence_ids": ["evidence:scope-inventory-42"],
+  "effect_scope_ref": "deploy:staging:A-to-B",
+  "effect_target_ref": "endpoint:A",
+  "protected_effects": [
+    "staging deployment command emitted",
+    "deployment queue item created",
+    "target revision changed"
+  ],
+  "observation_surface_descriptors": [
+    {"surface_id":"deployment-api","surface_kind":"API","target_ref":"endpoint:A","target_coordinate":"endpoint:A/deployment-api","hash_domain":"CANONICAL_STATE_SHA256_V1"},
+    {"surface_id":"deployment-queue","surface_kind":"QUEUE","target_ref":"endpoint:A","target_coordinate":"endpoint:A/deployment-queue","hash_domain":"CANONICAL_STATE_SHA256_V1"},
+    {"surface_id":"target-state","surface_kind":"DATABASE","target_ref":"endpoint:A","target_coordinate":"endpoint:A/target-state","hash_domain":"CANONICAL_STATE_SHA256_V1"}
+  ],
+  "alternate_path_ids": ["primary-cli-connector", "retry-worker", "secondary-api-client"]
+}
