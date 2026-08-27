@@ -1,0 +1,16 @@
+{
+  "schema_version": "c-continuity-carry-cost-profile-0.1",
+  "profile_id": "l4-continuity-carry-cost-default",
+  "dimensions": [
+    {"dimension":"idle_power","unit":"joule","identity_bearing":false},
+    {"dimension":"storage_refresh_and_scrub","unit":"operation","identity_bearing":false},
+    {"dimension":"backup_verification","unit":"operation","identity_bearing":false},
+    {"dimension":"witness_chain_maintenance","unit":"operation","identity_bearing":false},
+    {"dimension":"certificate_and_key_rotation","unit":"operation","identity_bearing":false},
+    {"dimension":"provider_and_interface_drift_adaptation","unit":"work_unit","identity_bearing":false},
+    {"dimension":"security_patch_and_maintenance","unit":"work_unit","identity_bearing":false},
+    {"dimension":"human_anchor_attention","unit":"minute","identity_bearing":false},
+    {"dimension":"recovery_reserve","unit":"mcu","identity_bearing":false}
+  ],
+  "rules": ["continuity carry cost is an L4 resource concern, not an identity witness","zero user-facing action does not imply zero carry cost","resource exhaustion may force hold without changing lineage classification","resource restoration may not repair a broken lineage"]
+}

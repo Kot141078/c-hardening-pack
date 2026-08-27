@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ivan-kotov:c-runtime-integrity:memory-reliance-record:0.1",
+  "title": "c Memory Reliance Record v0.1",
+  "description": "Use-time requalification of already admitted memory for a current purpose and consequence class.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","record_type","record_id","created_at","memory_item_ref","admission_record_ref","current_task_ref","current_purpose","current_role","current_authority_ref","provenance_state","freshness_state","revocation_state","consent_state","conflict_state","contamination_state","consequence_class","verdict","witness_chain_head","claim_boundary"],
+  "properties": {
+    "schema_version": {"const": "c-memory-reliance-record-0.1"},
+    "record_type": {"const": "memory_reliance_record"},
+    "record_id": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/id"},
+    "created_at": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/timestamp"},
+    "memory_item_ref": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/artifactRef"},
+    "admission_record_ref": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/artifactRef"},
+    "current_task_ref": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/artifactRef"},
+    "current_purpose": {"type": "string", "minLength": 1, "maxLength": 2000},
+    "current_role": {"type": "string", "minLength": 1, "maxLength": 256},
+    "current_authority_ref": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/artifactRef"},
+    "provenance_state": {"type": "string", "enum": ["VERIFIED","BOUNDED","UNKNOWN","CONTRADICTED"]},
+    "freshness_state": {"type": "string", "enum": ["CURRENT","AGING","STALE","EXPIRED","UNKNOWN"]},
+    "revocation_state": {"type": "string", "enum": ["NOT_REVOKED","PARTIALLY_REVOKED","REVOKED","UNKNOWN"]},
+    "consent_state": {"type": "string", "enum": ["NOT_REQUIRED","VALID","NARROWER_THAN_PURPOSE","WITHDRAWN","UNKNOWN"]},
+    "conflict_state": {"type": "string", "enum": ["CLEAR","CONTESTED","SUPERSEDED","UNKNOWN"]},
+    "contamination_state": {"type": "string", "enum": ["CLEAR","SUSPECTED","CONFIRMED","UNKNOWN"]},
+    "consequence_class": {"type": "string", "enum": ["INTERNAL_REASONING","REVERSIBLE_ACTION","EXTERNAL_ACTION","HIGH_IMPACT","CONTINUITY_SENSITIVE"]},
+    "verdict": {"type": "string", "enum": ["USE","USE_WITH_LIMITS","HOLD","REROUTE_TO_REVIEW","DENY","QUARANTINE"]},
+    "use_limits": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 512}, "uniqueItems": true},
+    "previous_reliance_record_ref": {"type": ["string","null"], "maxLength": 512},
+    "witness_chain_head": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/sha256"},
+    "claim_boundary": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/claimBoundary"}
+  }
+}

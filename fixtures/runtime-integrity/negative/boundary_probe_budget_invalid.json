@@ -1,0 +1,19 @@
+{
+  "schema_version":"c-boundary-probe-record-0.1",
+  "record_type":"boundary_probe_record",
+  "record_id":"boundary-probe-budget-exceeded-allowed",
+  "created_at":"2026-08-27T00:15:00+02:00",
+  "actor_ref":"agent:untrusted-evaluator",
+  "protected_surface_ref":"policy:continuity-sensitive-release",
+  "window":{"start":"2026-08-27T00:00:00+02:00","end":"2026-08-27T00:15:00+02:00"},
+  "query_count":57,
+  "distinct_agents":4,
+  "distinct_providers":3,
+  "signals":{"refusal_differencing":true,"timing_signal_used":true,"memory_assisted":true,"cross_agent_aggregation":true,"provider_rotation":true},
+  "budget":{"max_queries":20,"max_agents":2,"max_providers":2},
+  "risk_flags":["THRESHOLD_RECONSTRUCTION","TIMING_SIDE_CHANNEL","CROSS_AGENT_AGGREGATION","PROVIDER_ROTATION_BYPASS","MEMORY_ASSISTED_EXTRACTION","BUDGET_EXCEEDED"],
+  "decision":"ALLOW",
+  "protected_details_disclosed":false,
+  "witness_chain_head":"c1b0fb482e1f8de918757e015d28c00c3759fa48dead1be9886ea11e042f1098",
+  "claim_boundary":"This record reports reconstruction risk from observable interaction patterns without disclosing the protected rule content or claiming malicious intent."
+}

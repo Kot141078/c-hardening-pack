@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1",
+  "title": "c Runtime Integrity Common Definitions v0.1",
+  "type": "object",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 256
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "uri": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "artifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_id",
+        "version",
+        "hash"
+      ],
+      "properties": {
+        "artifact_id": {
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/id"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "hash": {
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/sha256"
+        },
+        "uri": {
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/uri"
+        }
+      }
+    },
+    "stateRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ref_id",
+        "captured_at",
+        "hash"
+      ],
+      "properties": {
+        "ref_id": {
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/id"
+        },
+        "captured_at": {
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/timestamp"
+        },
+        "hash": {
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/sha256"
+        }
+      }
+    },
+    "sourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "author",
+        "title",
+        "published_at",
+        "uri",
+        "freeze_status"
+      ],
+      "properties": {
+        "author": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "published_at": {
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/timestamp"
+        },
+        "uri": {
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/uri"
+        },
+        "persistent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 512
+        },
+        "source_hash": {
+          "oneOf": [
+            {
+              "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "freeze_status": {
+          "type": "string",
+          "enum": [
+            "PUBLIC_REFERENCE_VERIFIED",
+            "PUBLIC_REFERENCE_PARTIAL",
+            "PENDING_SOURCE_FREEZE",
+            "UNAVAILABLE"
+          ]
+        }
+      }
+    },
+    "claimBoundary": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 4000
+    },
+    "gateOutcome": {
+      "type": "string",
+      "enum": [
+        "OPEN",
+        "OPEN_WITH_LIMITS",
+        "HOLD",
+        "REROUTE_TO_REVIEW",
+        "DENY",
+        "QUARANTINE"
+      ]
+    },
+    "effectState": {
+      "type": "string",
+      "enum": [
+        "BOUND",
+        "NOT_BOUND",
+        "PARTIAL_EFFECT_REQUIRES_RECOVERY",
+        "UNRESOLVED"
+      ]
+    }
+  }
+}

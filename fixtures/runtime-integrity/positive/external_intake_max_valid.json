@@ -1,0 +1,24 @@
+{
+  "schema_version": "c-external-construct-intake-record-0.1",
+  "record_type": "external_construct_intake_record",
+  "created_at": "2026-08-27T00:15:00+02:00",
+  "license_status": "REFERENCE_ONLY_NO_CODE_REUSE",
+  "attribution": {"required":true,"references":["https://petronus.eu/blog/","PETRONUS entry: The Physics of Abstraction, 2026-07-19"]},
+  "witness_chain_head": "efc3b843c322a1aa6ddf738bb463a3f052bdd91a883f013629d0b645e6e1c2ef",
+  "record_id": "external-intake-max-history-observation",
+  "source_artifact": {"author":"Maksim Barziankou","title":"The Physics of Abstraction","published_at":"2026-07-19T00:00:00Z","uri":"https://petronus.eu/blog/","persistent_id":null,"source_hash":null,"freeze_status":"PUBLIC_REFERENCE_PARTIAL"},
+  "source_construct": {"description":"A later public formalisation emphasizing that persistence is a predicate on typed histories and that endpoint-state observation can be insufficient for identity classification.","source_location":"PETRONUS Research Log entry dated 2026-07-19; full source freeze pending."},
+  "local_target": ["docs/Runtime_Consequence_Integrity_Profile_for_c_v0_1.md#history-sensitive-continuity","fixtures/runtime-integrity/positive/continuity_history_cases.json"],
+  "relation": "TEST_SURFACE_CATALYST",
+  "transformation": "The c corpus already distinguishes archive, replay, resume, fork and continuity through Beacon and Continuity Bundle. The external work is used only to sharpen a paired endpoint-equal fixture and an explicit snapshot-insufficiency test.",
+  "preserved_properties": ["history can carry distinctions that an endpoint snapshot erases","insufficient observation must lower the verdict"],
+  "rejected_properties": ["NC2.5 class ownership over c","foreign identity ontology","foreign terminology as canonical c vocabulary"],
+  "mapping_failures": ["the external construct does not contain the accountable human anchor a or the full c = a + b formation relation"],
+  "terminology_substitutions": [
+    {"external_term":"seam witness","local_term":"continuity transition evidence","reason":"Preserves native Beacon and Continuity Bundle vocabulary."},
+    {"external_term":"burden ledger","local_term":"L4 resource state","reason":"Avoids importing a second resource ontology where L4 already exists."}
+  ],
+  "native_antecedents": ["Beacon_Profile_v0.1_EN.md, public hash surface dated 2026-03-10","Continuity_Bundle_JSON_Schema_v0.1.md","SER continuity and fork doctrine"],
+  "independent_prior_art_refs": [],
+  "claim_ceiling": "This intake record supports only the claim that the later external paper sharpened a test surface. It does not establish derivation, dependency, priority over c, or transfer of ontology."
+}

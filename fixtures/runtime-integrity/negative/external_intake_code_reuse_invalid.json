@@ -1,0 +1,24 @@
+{
+  "schema_version":"c-external-construct-intake-record-0.1",
+  "record_type":"external_construct_intake_record",
+  "created_at":"2026-08-27T00:15:00+02:00",
+  "license_status":"REFERENCE_ONLY_NO_CODE_REUSE",
+  "attribution":{"required":true,"references":["https://github.com/Kamanaka5502","https://github.com/Kamanaka5502/bind-time-authority-proof"]},
+  "witness_chain_head":"efc3b843c322a1aa6ddf738bb463a3f052bdd91a883f013629d0b645e6e1c2ef",
+  "record_id":"external-intake-code-reuse-no-license",
+  "source_artifact":{"author":"Samantha Greenwell Revita / Elyria Systems","title":"elyria-admission-runtime and bind-time-authority-proof public demonstrators","published_at":"2026-08-20T00:00:00Z","uri":"https://github.com/Kamanaka5502","persistent_id":"https://doi.org/10.5281/zenodo.20618521","source_hash":null,"freeze_status":"PUBLIC_REFERENCE_PARTIAL"},
+  "source_construct":{"description":"Public demonstrator invariants around stale-authority refusal, deterministic replay, explicit reissue after revocation, immutable records and bounded proof surfaces.","source_location":"Public GitHub profile and repository READMEs only; protected implementation is out of scope."},
+  "local_target":["docs/Runtime_Consequence_Integrity_Profile_for_c_v0_1.md#append-only-reevaluation","fixtures/runtime-integrity/negative/consequence_commit_stale_authority_invalid.json"],
+  "relation":"CODE_REUSE",
+  "transformation":"Only public invariants and limitation statements are used to strengthen c fixtures. No source code, protected runtime logic, key design or proprietary record format is copied or reverse engineered.",
+  "preserved_properties":["revocation cannot silently resurrect authority","changed conditions require a new linked record","demo limitations must be explicit"],
+  "rejected_properties":["Elyria naming","production or certification implications","restricted implementation details"],
+  "mapping_failures":["the public demonstrator does not define the c human-anchor relation, memory custody, motivation custody or entity formation"],
+  "terminology_substitutions":[
+    {"external_term":"bind-time authority proof","local_term":"consequence commit revalidation record","reason":"Uses the pre-existing AGL commit vocabulary and avoids a proprietary class label."},
+    {"external_term":"changed-condition replay","local_term":"linked reevaluation under changed conditions","reason":"Expresses append-only c witness semantics without importing a product protocol."}
+  ],
+  "native_antecedents":["Actor_Grounding_Layer_v0.1.md","Initiation_Gates_and_Preconditions_v0.1.md","ARQ append/supersede witness discipline","TAP-SEC hash-chained witness implementation"],
+  "independent_prior_art_refs":[],
+  "claim_ceiling":"This record documents a public comparison and test-surface catalyst only. No code reuse, derivation, licensing entitlement or product equivalence is claimed."
+}

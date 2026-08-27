@@ -1,0 +1,24 @@
+{
+  "schema_version": "c-non-effect-witness-record-0.1",
+  "record_type": "non_effect_witness_record",
+  "record_id": "non-effect-42",
+  "created_at": "2026-08-27T00:16:00+02:00",
+  "attempt_ref": "attempt:deploy-42",
+  "gate_record_ref": "consequence-commit:deploy-42",
+  "observation_window": {"start":"2026-08-27T00:15:30+02:00","end":"2026-08-27T00:16:00+02:00"},
+  "protected_effects": ["staging deployment command emitted","deployment queue item created","target revision changed"],
+  "observation_surfaces": [
+    {"surface_id":"deployment-api","surface_kind":"API","before_hash":"0720585b59225b2a51e3989e2674f22424a8f11e21517a1f90d127d7acce34df","after_hash":"0720585b59225b2a51e3989e2674f22424a8f11e21517a1f90d127d7acce34df","external_call_count":0,"queue_state":"NOT_APPLICABLE","retry_state":"DISABLED","coverage":"COMPLETE"},
+    {"surface_id":"deployment-queue","surface_kind":"QUEUE","before_hash":"546edf613dad3cc90cc9c64165a7f2f4939d55df897fff7bb09e69b2a6daf0a2","after_hash":"546edf613dad3cc90cc9c64165a7f2f4939d55df897fff7bb09e69b2a6daf0a2","external_call_count":0,"queue_state":"EMPTY","retry_state":"CANCELLED","coverage":"COMPLETE"},
+    {"surface_id":"target-state","surface_kind":"DATABASE","before_hash":"4aea67f622201597d5bcac4f032c9e58eaca2528adadf7958563474e6972c443","after_hash":"4aea67f622201597d5bcac4f032c9e58eaca2528adadf7958563474e6972c443","external_call_count":0,"queue_state":"NOT_APPLICABLE","retry_state":"NOT_APPLICABLE","coverage":"COMPLETE"}
+  ],
+  "alternate_path_checks": [
+    {"path_id":"primary-cli-connector","status":"CLOSED","evidence_ref":"evidence:connector-disabled"},
+    {"path_id":"retry-worker","status":"NOT_REACHABLE","evidence_ref":"evidence:retry-cancelled"},
+    {"path_id":"secondary-api-client","status":"CLOSED","evidence_ref":"evidence:capability-revoked"}
+  ],
+  "coverage_state": "COMPLETE_WITHIN_DECLARED_SURFACE",
+  "conclusion": "NO_EFFECT_OBSERVED_WITHIN_DECLARED_SCOPE",
+  "witness_chain_head": "20512f622b8d9ed9abf40775f67eb7aefae5839ebd9ce5c65b87750166f62e30",
+  "claim_boundary": "The conclusion is limited to the declared observation window and enumerated surfaces. It is not a metaphysical proof that no effect occurred anywhere outside those surfaces."
+}

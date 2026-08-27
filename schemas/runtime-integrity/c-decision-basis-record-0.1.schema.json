@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ivan-kotov:c-runtime-integrity:decision-basis-record:0.1",
+  "title": "c Decision Basis Record v0.1",
+  "description": "Version-bound decision basis. It records which rules, authority, evidence, continuity, memory and L4 state justified a consequential decision.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_type",
+    "record_id",
+    "created_at",
+    "basis",
+    "basis_hash",
+    "rule_basis_visibility",
+    "claim_boundary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "c-decision-basis-record-0.1"
+    },
+    "record_type": {
+      "const": "decision_basis_record"
+    },
+    "record_id": {
+      "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/id"
+    },
+    "created_at": {
+      "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/timestamp"
+    },
+    "basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "captured_at",
+        "policy_refs",
+        "authority_refs",
+        "permission_grant_ref",
+        "grounding_ref",
+        "continuity_ref",
+        "l4_ref",
+        "evidence_refs",
+        "witness_chain_head"
+      ],
+      "properties": {
+        "captured_at": {
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/timestamp"
+        },
+        "human_anchor_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 256
+        },
+        "policy_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/artifactRef"
+          },
+          "uniqueItems": true
+        },
+        "authority_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/artifactRef"
+          },
+          "uniqueItems": true
+        },
+        "permission_grant_ref": {
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/artifactRef"
+        },
+        "grounding_ref": {
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/stateRef"
+        },
+        "continuity_ref": {
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/stateRef"
+        },
+        "l4_ref": {
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/stateRef"
+        },
+        "memory_reliance_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/artifactRef"
+          },
+          "uniqueItems": true
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/artifactRef"
+          },
+          "uniqueItems": true
+        },
+        "witness_chain_head": {
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/sha256"
+        }
+      }
+    },
+    "basis_hash": {
+      "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/sha256"
+    },
+    "rule_basis_visibility": {
+      "type": "string",
+      "enum": [
+        "FULL",
+        "PARTIAL",
+        "SEALED_WITH_CHALLENGE",
+        "UNKNOWN"
+      ]
+    },
+    "claim_boundary": {
+      "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/claimBoundary"
+    }
+  }
+}

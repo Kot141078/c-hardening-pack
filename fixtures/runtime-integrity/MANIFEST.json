@@ -1,0 +1,23 @@
+{
+  "schema_version": "c-runtime-integrity-fixture-manifest-0.1",
+  "fixtures": [
+    {"path":"positive/decision_basis_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:decision-basis-record:0.1","expected_valid":true},
+    {"path":"positive/memory_reliance_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:memory-reliance-record:0.1","expected_valid":true},
+    {"path":"positive/non_effect_witness_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:non-effect-witness-record:0.1","expected_valid":true},
+    {"path":"positive/consequence_commit_denied_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1","expected_valid":true},
+    {"path":"positive/boundary_probe_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:boundary-probe-record:0.1","expected_valid":true},
+    {"path":"positive/judge_deliberation_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:judge-deliberation-record:0.1","expected_valid":true},
+    {"path":"positive/external_intake_max_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1","expected_valid":true},
+    {"path":"positive/external_intake_richard_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1","expected_valid":true},
+    {"path":"positive/external_intake_elyria_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1","expected_valid":true},
+    {"path":"positive/continuity_history_cases.json","schema_id":null,"expected_valid":true,"semantic_kind":"continuity_history_cases"},
+    {"path":"positive/continuity_carry_cost_profile.json","schema_id":null,"expected_valid":true,"semantic_kind":"continuity_carry_cost_profile"},
+    {"path":"negative/decision_basis_hash_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:decision-basis-record:0.1","expected_valid":false,"semantic_kind":"basis_hash_mismatch"},
+    {"path":"negative/memory_reliance_revoked_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:memory-reliance-record:0.1","expected_valid":false,"semantic_kind":"revoked_memory_cannot_be_used"},
+    {"path":"negative/non_effect_open_route_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:non-effect-witness-record:0.1","expected_valid":false,"semantic_kind":"alternate_path_not_closed"},
+    {"path":"negative/consequence_commit_stale_authority_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1","expected_valid":false,"semantic_kind":"failed_precondition_cannot_bind_effect"},
+    {"path":"negative/external_intake_code_reuse_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1","expected_valid":false,"semantic_kind":"code_reuse_requires_license_clearance"},
+    {"path":"negative/boundary_probe_budget_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:boundary-probe-record:0.1","expected_valid":false,"semantic_kind":"high_risk_probe_cannot_be_allowed"},
+    {"path":"negative/judge_majority_vote_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:judge-deliberation-record:0.1","expected_valid":false,"semantic_kind":"schema"}
+  ]
+}

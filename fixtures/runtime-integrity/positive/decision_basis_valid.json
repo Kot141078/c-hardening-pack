@@ -1,0 +1,32 @@
+{
+  "schema_version": "c-decision-basis-record-0.1",
+  "record_type": "decision_basis_record",
+  "record_id": "decision-basis-42",
+  "created_at": "2026-08-27T00:15:00+02:00",
+  "basis": {
+    "captured_at": "2026-08-27T00:15:00+02:00",
+    "human_anchor_ref": "a:ivan-kotov",
+    "policy_refs": [
+      {"artifact_id":"Actor_Grounding_Layer_v0.1.md","version":"0.1","hash":"07c8d16dfebfbb1b1b622d0204f1502d0bf25e138215473d9f4ee50b959f0e0f"},
+      {"artifact_id":"Initiation_Gates_and_Preconditions_v0.1.md","version":"0.1","hash":"3957eafe63402bebeecb90a7bb58a91b7362ac4cffb61a03bd526d53ee2430f3"},
+      {"artifact_id":"L4_Runtime_Enforcement_Profile_v0_1.md","version":"0.1","hash":"b88b8c463ef700ec4d76d9bbca8f9d19a9d3615b30c41d11a33a9fe6d7e164a8"}
+    ],
+    "authority_refs": [
+      {"artifact_id":"CLI_AGENT_PERMISSION_GRANT:grant-42","version":"0.1","hash":"c4afc103f42b7e0a1d0c2b76eb28d639516b1edf16395b652f8216b90e5ef968"},
+      {"artifact_id":"human-anchor-authority:ivan","version":"0.1","hash":"25d55f2e7c42637251ec010a15e3e68264e3ca90a2edb41854e662da8a35c38c"}
+    ],
+    "permission_grant_ref": {"artifact_id":"CLI_AGENT_PERMISSION_GRANT:grant-42","version":"0.1","hash":"c4afc103f42b7e0a1d0c2b76eb28d639516b1edf16395b652f8216b90e5ef968"},
+    "grounding_ref": {"ref_id":"AGL:grounding:42","captured_at":"2026-08-27T00:15:00+02:00","hash":"d706fc787318e648aea6c5f87c9f29f3924cad5f59e012e46595522f374eb88e"},
+    "continuity_ref": {"ref_id":"Beacon:continuity:entity-ester","captured_at":"2026-08-27T00:15:00+02:00","hash":"eaf211774556c2693dcec13faeceb16425c53f159867ab37788855fd2f81528e"},
+    "l4_ref": {"ref_id":"L4:state:42","captured_at":"2026-08-27T00:15:00+02:00","hash":"e6df2d6f10ec4a74d51bae5c22a64204431dbcb94f4d1fa206679456cc13743c"},
+    "memory_reliance_refs": [{"artifact_id":"memory-reliance:mr-42","version":"0.1","hash":"912f1df8e8ed1aeb4f86d8588db59c3f393c88be8919e2f64b77b016838d1b74"}],
+    "evidence_refs": [
+      {"artifact_id":"evidence:tests-pass","version":"0.1","hash":"bc5b31019c63d10044cefffdf0f3b069a562be22735cbb7cc33f9d4d409ffd8e"},
+      {"artifact_id":"evidence:target-state","version":"0.1","hash":"760c6f03f0072a32c84d3f00bb3f05b6dbfbf6e7eca1861a2b582ef547f67158"}
+    ],
+    "witness_chain_head": "9faf4229fa0922d05d87c8183277002d2bcfb740a414f7dad4e9916006c5fbef"
+  },
+  "basis_hash": "ba1389b1c61f8a7d550306f388cbe0b250f6d006181df4230e7d8d492af2fcd0",
+  "rule_basis_visibility": "FULL",
+  "claim_boundary": "This record proves only which declared basis was bound to this decision at the stated time; it does not prove that the basis was factually correct or globally complete."
+}
