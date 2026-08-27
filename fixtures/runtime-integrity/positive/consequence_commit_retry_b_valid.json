@@ -109,7 +109,7 @@
   "previous_commit_record_ref": {
     "artifact_id": "consequence-commit-deploy-42",
     "version": "0.1.1",
-    "hash": "5b98405b977d9b28079ac690dd5ef03bc77e370de2b97e4dc9fb67d4fe3a3d3b"
+    "hash": "83c7d323bf6e0ebf987fedf95b5a31ee8189233bb022075c0f1205c69aa93c06"
   },
   "change_reason_code": "ENDPOINT_REPLACED",
   "change_reason": "Endpoint B received a new task contract and a new current grant after the immutable endpoint A denial.",

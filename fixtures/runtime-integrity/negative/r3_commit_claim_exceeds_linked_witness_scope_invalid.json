@@ -1,7 +1,7 @@
 {
   "schema_version": "c-consequence-commit-record-0.1.1",
   "record_type": "consequence_commit_record",
-  "record_id": "consequence-commit-hidden-memory-invalid",
+  "record_id": "consequence-commit-deploy-42",
   "created_at": "2026-08-27T10:03:00+02:00",
   "governing_entity_id": "c:ester",
   "human_anchor_ref": "a:ivan-kotov",
@@ -26,7 +26,7 @@
   "task_contract_checked_at": "2026-08-27T10:03:00+02:00",
   "task_endpoint_ref": "endpoint:B",
   "continuity_approver_ref": "a:ivan-kotov",
-  "memory_influence_state": "NONE",
+  "memory_influence_state": "DECLARED",
   "decision_basis_ref": {
     "artifact_id": "decision-basis-42",
     "version": "0.1.1",
@@ -47,7 +47,13 @@
     "captured_at": "2026-08-27T00:15:00+02:00",
     "hash": "e6df2d6f10ec4a74d51bae5c22a64204431dbcb94f4d1fa206679456cc13743c"
   },
-  "memory_reliance_refs": [],
+  "memory_reliance_refs": [
+    {
+      "artifact_id": "memory-reliance-42",
+      "version": "0.1.1",
+      "hash": "320130041fb036475a64ca765fbe1b60aa7262307c0d4a95892a8869c02af5ac"
+    }
+  ],
   "target_effect": {
     "effect_id": "deploy:staging:A-to-B",
     "effect_class": "HIGH",
@@ -116,10 +122,10 @@
     "version": "0.1",
     "hash": "fab5341a506787fec013823316bb215057e4b8638ed19074b711b26eb1afd998"
   },
-  "current_conditions_hash": "d31a498b3c09c82d6344b965d34952156243b0027f345c44bc37a838b644383b",
+  "current_conditions_hash": "fab5341a506787fec013823316bb215057e4b8638ed19074b711b26eb1afd998",
   "witness_chain_head": "c6d9afe0cd399fcb982337473a0556891cd28ba76ddd55a7f92b231c3f3f4325",
-  "claim_boundary": "This negative fixture demonstrates that memory influence cannot be erased from typed links while its limited precondition remains active.",
+  "claim_boundary": "This record proves globally and universally that no effect existed anywhere, including undeclared surfaces and times.",
   "change_reason_code": null,
   "target_transition_evidence_ref": null,
-  "consequence_lineage_id": "consequence-lineage:consequence-commit-hidden-memory-invalid"
+  "consequence_lineage_id": "consequence-lineage:earth-deploy-42"
 }

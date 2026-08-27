@@ -1,0 +1,17 @@
+{
+  "scenario_id": "r3_m03_not_bound_claim_ceiling",
+  "category": "CONSEQUENCE_GRAPH",
+  "base_fixture": "fixtures/runtime-integrity/positive/consequence_commit_denied_valid.json",
+  "runtime_negative_fixture": "fixtures/runtime-integrity/negative/r3_commit_claim_exceeds_linked_witness_scope_invalid.json",
+  "mutation": {
+    "path": "/claim_boundary",
+    "from": "This record proves only the bounded commit-time decision and declared effect state. It does not prove global or universal effect absence. Any negative-effect conclusion is limited to the linked non-effect witness's declared surfaces and observation window.",
+    "to": "This record proves globally and universally that no effect existed anywhere, including undeclared surfaces and times."
+  },
+  "coherent_hash_cascade": [
+    "rebind the denied-commit hash in the retry and Earth bundle",
+    "rebind the retry hash in the Earth bundle and dependent fixtures"
+  ],
+  "expected_issue_codes": ["commit_claim_exceeds_linked_witness_scope"],
+  "forbidden_cause": "stale predecessor or Earth hash"
+}
