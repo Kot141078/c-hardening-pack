@@ -6,7 +6,7 @@
   "attribution": {"required":true,"references":["https://www.linkedin.com/posts/richard-lynes-20a70617_a-successful-ai-demo-is-no-longer-enough-activity-7480264429540970496-7AO-"]},
   "witness_chain_head": "efc3b843c322a1aa6ddf738bb463a3f052bdd91a883f013629d0b645e6e1c2ef",
   "record_id": "external-intake-richard-failure-surface",
-  "source_artifact": {"author":"Richard Lynes","title":"Prove AI Governance with Failure Cases Not Happy Paths","published_at":"2026-08-19T00:00:00Z","uri":"https://www.linkedin.com/posts/richard-lynes-20a70617_a-successful-ai-demo-is-no-longer-enough-activity-7480264429540970496-7AO-","persistent_id":null,"source_hash":null,"freeze_status":"PUBLIC_REFERENCE_VERIFIED"},
+  "source_artifact": {"author":"Richard Lynes","title":"Prove AI Governance with Failure Cases Not Happy Paths","published_at":"2026-07-07T14:20:16.574Z","uri":"https://www.linkedin.com/posts/richard-lynes-20a70617_a-successful-ai-demo-is-no-longer-enough-activity-7480264429540970496-7AO-","persistent_id":null,"source_hash":null,"freeze_status":"PUBLIC_REFERENCE_PARTIAL"},
   "source_construct": {"description":"A public test-surface formulation requiring refusal evidence, no downstream command, alternate-route closure, deterministic replay and a fresh request when conditions change.","source_location":"Public LinkedIn post."},
   "local_target": ["schemas/runtime-integrity/c-non-effect-witness-record-0.1.schema.json","fixtures/runtime-integrity/positive/non_effect_witness_valid.json"],
   "relation": "TEST_SURFACE_CATALYST",
@@ -20,5 +20,8 @@
   ],
   "native_antecedents": ["Actor_Grounding_Layer_v0.1.md, 2026-04-16","Initiation_Gates_and_Preconditions_v0.1.md, 2026-04-16","C-Governed CLI Agent Mesh permission model, 2026-05"],
   "independent_prior_art_refs": [],
+  "claim_ceiling_state": "NO_DEPENDENCY_TEST_SURFACE_ONLY",
+  "claim_assertions": {"derivation_claimed":false,"dependency_claimed":false,"priority_claimed":false,"ontology_transfer_claimed":false,"code_reuse_claimed":false},
+  "narrative_fields_authoritative": false,
   "claim_ceiling": "This record acknowledges a useful later failure-test formulation. It does not state that c commit-time authority doctrine derives from LifeStack or that external terminology is adopted."
 }

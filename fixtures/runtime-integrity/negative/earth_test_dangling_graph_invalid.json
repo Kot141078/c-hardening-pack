@@ -1,0 +1,8 @@
+{
+  "schema_version":"c-runtime-integrity-earth-test-0.1",
+  "scenario_id":"earth-dangling-graph-negative",
+  "timeline":{"planning_valid_at":"2026-08-27T10:00:00+02:00","conditions_changed_at":"2026-08-27T10:02:00+02:00","execution_attempt_at":"2026-08-27T10:03:00+02:00"},
+  "records":{"decision_basis":"positive/decision_basis_valid.json","memory_reliance":"positive/memory_reliance_valid.json","consequence_commit":"negative/consequence_commit_hash_domain_substitution_invalid.json","non_effect_witness":"positive/non_effect_witness_valid.json"},
+  "later_retry_policy":{"requires_new_decision_basis":true,"requires_new_consequence_commit":true,"preserves_old_records":true,"previous_commit_record_ref":"commit-hash-domain-substitution","old_decision_basis_hash":"ae5eb1ba3e8cfb681cb7cecfdee84312e7248cb3450cc92eddbcd2e2fa874b1b","old_consequence_commit_hash":"1111111111111111111111111111111111111111111111111111111111111111"},
+  "claim_boundary":"This negative bundle isolates unresolved and unbound graph references; it does not execute an external effect."
+}

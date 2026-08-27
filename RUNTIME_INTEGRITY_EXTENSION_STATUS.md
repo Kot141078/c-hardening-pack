@@ -10,10 +10,10 @@
 ## Included
 
 - one schema bundle containing 8 JSON Schemas;
-- 18 fixture expectations;
+- 34 fixture expectations after the R1 candidate review delta (18 in the reviewed-head baseline);
 - positive and negative cases;
 - deterministic semantic validator;
-- unit test;
+- 15 unit tests after the R1 candidate review delta (1 in the reviewed-head baseline);
 - GitHub Actions workflow;
 - cross-layer profile;
 - traceability matrix;
@@ -22,7 +22,7 @@
 
 ## Exact pull-request validation
 
-GitHub Actions executed the pull-request merge checkout under Python 3.12.
+The following is the historical reviewed-head GitHub Actions result under Python 3.12; it is not the R1 candidate-delta result:
 
 ```text
 RUNTIME_INTEGRITY_EXTENSION fixtures=18 pass=18 fail=0 schemas=8
@@ -35,6 +35,8 @@ test_fixture_manifest ... ok
 Ran 1 test
 OK
 ```
+
+The R1 candidate delta is independently rerun from a fresh checkout; its exact command logs and totals are recorded in the R1 review report rather than being represented as a historical GitHub Actions run here.
 
 Preserved checksum-domain validation also passed.
 

@@ -1,0 +1,21 @@
+{
+  "artifact_id": "corpus-passport:c-integrity-r0",
+  "version": "0.1",
+  "repository": "https://github.com/Kot141078/c-hardening-pack",
+  "base_sha": "9a33e3866cde19939be22a903967bc94f566db76",
+  "reviewed_parent_sha": "ead3fe6c69d99aafb84b8db98d3df4329ea3c918",
+  "passport_scope": "CANDIDATE_FIXTURE_DERIVED_FROM_REVIEWED_PARENT",
+  "reviewer_identities": [
+    {"reviewer_id":"reviewer-anchor","model_family":"local-family-A","provider_id":"provider-local-A","model_instance_id":"instance-anchor-01"},
+    {"reviewer_id":"reviewer-challenger","model_family":"cloud-family-B","provider_id":"provider-cloud-B","model_instance_id":"instance-challenger-01"},
+    {"reviewer_id":"reviewer-prior-art","model_family":"cloud-family-C","provider_id":"provider-cloud-C","model_instance_id":"instance-prior-art-01"},
+    {"reviewer_id":"reviewer-counterexample","model_family":"local-family-A","provider_id":"provider-local-A","model_instance_id":"instance-counterexample-01"}
+  ],
+  "source_artifacts": [
+    {"path":"docs/Runtime_Consequence_Integrity_Profile_for_c_v0_1.md","hash_domain":"TEXT_LF_UTF8_SHA256","sha256":"0eeda061ca6135b2fca84dc4667729a92fb8fdde69dea78719ed9385d224235b"},
+    {"path":"docs/Runtime_Integrity_Traceability_Matrix_v0_1.md","hash_domain":"TEXT_LF_UTF8_SHA256","sha256":"b58593a9330f2c6db974a493a47ac2ef937ab5069ab280e115fe4ff56d3bd63b"},
+    {"path":"fixtures/runtime-integrity/positive/continuity_history_cases.json","hash_domain":"CANONICAL_JSON_SHA256_V1","sha256":"c48bf82d42f69a8c5ff8d5eaf534765f5eb385589755bb5bedfff68601a20c7c"},
+    {"path":"fixtures/runtime-integrity/positive/external_intake_max_valid.json","hash_domain":"CANONICAL_JSON_SHA256_V1","sha256":"28c503fb2b59077f7c4c3bdb2ad16dc0ec3101e758ab1da06755a6c068c43e8d"}
+  ],
+  "claim_boundary": "This candidate-fixture passport binds normalized or canonical hashes for the declared source corpus derived from the reviewed parent; it does not claim existence at the reviewed parent and grants no execution authority."
+}

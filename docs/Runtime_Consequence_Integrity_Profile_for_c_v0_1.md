@@ -476,10 +476,10 @@ The development validator performs:
 5. continuity non-entailment checks;
 6. continuity carry-cost separation checks.
 
-The initial pack includes:
+The reviewed-head baseline pack includes:
 
 - 8 schemas;
-- 18 fixture expectations;
+- 18 fixture expectations (historical baseline); the bounded R1 candidate delta expands this to 34 without changing the profile's authority boundary;
 - positive and negative cases;
 - deterministic validation;
 - a GitHub Actions workflow.

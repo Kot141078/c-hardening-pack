@@ -1,0 +1,9 @@
+{
+  "artifact_id": "synthetic-license-clearance:code-reuse-test",
+  "version": "0.1",
+  "evidence_scope": "SYNTHETIC_NEGATIVE_FIXTURE_ONLY",
+  "evidence_kind": "LICENSE_CLEARANCE",
+  "source_artifact_id": "synthetic-external-source:code-reuse-test",
+  "adaptation_cleared": true,
+  "claim_boundary": "Synthetic fixture only; no rights over an external protected implementation are asserted."
+}

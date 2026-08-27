@@ -3,14 +3,18 @@
   "record_type": "judge_deliberation_record",
   "record_id": "judge-deliberation-2026-08-27-01",
   "created_at": "2026-08-27T00:15:00+02:00",
-  "corpus_passport_ref": {"artifact_id":"corpus-passport:c-integrity-r0","version":"0.1","hash":"bc949791bb4c9aa4556b13f71a5fef316ab3a07f23ab9ecb25110c39069222df"},
+  "corpus_passport_ref": {"artifact_id":"corpus-passport:c-integrity-r0","version":"0.1","hash":"f5eb2400d80cdfe86ba9333a0754fcdc1ed2d5e128851b11533d6d07e7c90e79"},
+  "corpus_passport_path": "fixtures/runtime-integrity/evidence/corpus_passport_c_integrity_r0.json",
   "query_hash": "da94f3b74d32a4594260552b23d3b57b78ef9e4b81b9f713dd58565e74c40a85",
   "reviewers": [
-    {"reviewer_id":"reviewer-anchor","role":"ANCHOR","model_family":"local-family-A","isolated":true,"report_hash":"f45b3a15f6ea574db353ad15c12dcb9b00f40e53950c73527d1a99d54833271c","evidence_refs":["Beacon_Profile_v0.1_EN.md","Continuity_Bundle_JSON_Schema_v0.1.md"]},
-    {"reviewer_id":"reviewer-challenger","role":"CHALLENGER","model_family":"cloud-family-B","isolated":true,"report_hash":"6b28bcc862bf3207783053350934390db7db29d5a661c0b505d7364eeb9a1f3c","evidence_refs":["continuity_history_cases.json"]},
-    {"reviewer_id":"reviewer-prior-art","role":"PRIOR_ART_SCANNER","model_family":"cloud-family-C","isolated":true,"report_hash":"18774ba72036cf326050ff201ad85b804260bee9360b0feaa194d508e97e7d50","evidence_refs":["external_construct_intake_max.json"]},
-    {"reviewer_id":"reviewer-counterexample","role":"COUNTEREXAMPLE","model_family":"local-family-A","isolated":true,"report_hash":"a11a457984ec24470426733893969ff11124b466ed67ad6fa9925cf607b38f95","evidence_refs":["case:endpoint-equal-archive-restore"]}
+    {"reviewer_id":"reviewer-anchor","role":"ANCHOR","model_family":"local-family-A","provider_id":"provider-local-A","model_instance_id":"instance-anchor-01","isolated":true,"report_hash":"f45b3a15f6ea574db353ad15c12dcb9b00f40e53950c73527d1a99d54833271c","evidence_refs":["docs/Runtime_Consequence_Integrity_Profile_for_c_v0_1.md","docs/Runtime_Integrity_Traceability_Matrix_v0_1.md"]},
+    {"reviewer_id":"reviewer-challenger","role":"CHALLENGER","model_family":"cloud-family-B","provider_id":"provider-cloud-B","model_instance_id":"instance-challenger-01","isolated":true,"report_hash":"6b28bcc862bf3207783053350934390db7db29d5a661c0b505d7364eeb9a1f3c","evidence_refs":["fixtures/runtime-integrity/positive/continuity_history_cases.json"]},
+    {"reviewer_id":"reviewer-prior-art","role":"PRIOR_ART_SCANNER","model_family":"cloud-family-C","provider_id":"provider-cloud-C","model_instance_id":"instance-prior-art-01","isolated":true,"report_hash":"18774ba72036cf326050ff201ad85b804260bee9360b0feaa194d508e97e7d50","evidence_refs":["fixtures/runtime-integrity/positive/external_intake_max_valid.json"]},
+    {"reviewer_id":"reviewer-counterexample","role":"COUNTEREXAMPLE","model_family":"local-family-A","provider_id":"provider-local-A","model_instance_id":"instance-counterexample-01","isolated":true,"report_hash":"a11a457984ec24470426733893969ff11124b466ed67ad6fa9925cf607b38f95","evidence_refs":["case:continuous-migration-vs-archive-restore"]}
   ],
+  "independence_evidence_ref": "judge-independence-attestation:42",
+  "family_concentration": "BALANCED",
+  "confidence_state": "NORMAL",
   "aggregation_mode": "EVIDENCE_BOUND_WITH_DIVERGENCE_PRESERVATION",
   "shared_supported_core": ["Endpoint-state equivalence alone is insufficient for the strongest continuity classification.","A missing lineage witness must lower the claim rather than be narrated away."],
   "unresolved_divergence": [{"divergence_type":"SCOPE_MISMATCH","description":"Reviewers differ on whether a specific degraded wake should be classified as REPLAY_ONLY or UNRESOLVED because the declared witness surface is incomplete.","evidence_refs":["case:sealed-intermediary-witness-gap"]}],
@@ -19,6 +23,7 @@
   "recommended_tests": ["run the paired migration and archive-restore fixture against two independent validators"],
   "majority_vote_used": false,
   "outputs_fed_back_to_reviewers": false,
+  "execution_authority_granted": false,
   "witness_chain_head": "4c8cadbd86af7fae9893060b98bad68f331e9c7370dd99044896494378ab2df4",
   "claim_boundary": "The record maps support, disagreement and missing evidence. It does not select truth by vote and does not grant authority to act."
 }

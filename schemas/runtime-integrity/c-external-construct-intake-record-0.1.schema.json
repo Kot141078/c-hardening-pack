@@ -5,7 +5,7 @@
   "description": "Artifact-specific record for comparison, adaptation, dependency and claim boundaries.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version","record_type","record_id","created_at","source_artifact","source_construct","local_target","relation","transformation","preserved_properties","rejected_properties","mapping_failures","terminology_substitutions","license_status","attribution","native_antecedents","claim_ceiling","witness_chain_head"],
+  "required": ["schema_version","record_type","record_id","created_at","source_artifact","source_construct","local_target","relation","transformation","preserved_properties","rejected_properties","mapping_failures","terminology_substitutions","license_status","attribution","native_antecedents","independent_prior_art_refs","claim_ceiling_state","claim_assertions","narrative_fields_authoritative","claim_ceiling","witness_chain_head"],
   "properties": {
     "schema_version": {"const": "c-external-construct-intake-record-0.1"},
     "record_type": {"const": "external_construct_intake_record"},
@@ -41,6 +41,9 @@
       }
     },
     "license_status": {"type": "string", "enum": ["REFERENCE_ONLY_NO_CODE_REUSE","TEXT_QUOTATION_WITHIN_LICENSE","LICENSE_CLEARED_FOR_ADAPTATION","LICENSE_REVIEW_REQUIRED","INCOMPATIBLE"]},
+    "license_evidence_refs": {"type": "array", "minItems": 1, "items": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/artifactRef"}, "uniqueItems": true},
+    "dependency_evidence_refs": {"type": "array", "minItems": 1, "items": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/artifactRef"}, "uniqueItems": true},
+    "removal_breaks_evidence_ref": {"oneOf": [{"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/artifactRef"}, {"type": "null"}]},
     "attribution": {
       "type": "object",
       "additionalProperties": false,
@@ -52,6 +55,20 @@
     },
     "native_antecedents": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 1024}, "uniqueItems": true},
     "independent_prior_art_refs": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 1024}, "uniqueItems": true},
+    "claim_ceiling_state": {"type": "string", "enum": ["NO_DEPENDENCY_TEST_SURFACE_ONLY", "ELEVATED_RELATION_REQUIRES_PROOF"]},
+    "claim_assertions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["derivation_claimed","dependency_claimed","priority_claimed","ontology_transfer_claimed","code_reuse_claimed"],
+      "properties": {
+        "derivation_claimed": {"type": "boolean"},
+        "dependency_claimed": {"type": "boolean"},
+        "priority_claimed": {"type": "boolean"},
+        "ontology_transfer_claimed": {"type": "boolean"},
+        "code_reuse_claimed": {"type": "boolean"}
+      }
+    },
+    "narrative_fields_authoritative": {"const": false},
     "claim_ceiling": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/claimBoundary"},
     "witness_chain_head": {"$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/sha256"}
   }

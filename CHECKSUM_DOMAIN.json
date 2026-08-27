@@ -13,6 +13,32 @@
       "hash_algorithm": "sha256",
       "default_mode": "raw_bytes",
       "path_modes": {
+        "lf_text_bytes": [
+          ".zenodo.json",
+          "CITATION.cff",
+          "COMMERCIAL_AND_NON_IMPLEMENTATION_NOTICE.md",
+          "docs/CLAIM_TO_EVIDENCE_AND_TEST_MATRIX_v0_1.md",
+          "docs/DOC_TO_RUNTIME_TRACEABILITY_MATRIX_v0_1.md",
+          "docs/Human_Anchor_Drift_and_Post_Anchor_Profile_v0_1.md",
+          "docs/L4_Runtime_Enforcement_Profile_v0_1.md",
+          "docs/LHWAI_Implementation_Pack_Index_and_Extraction_Plan_v0_1.md",
+          "docs/Long_Horizon_Witness_Anchoring_and_Interpretation_Profile_v0_1_1.md",
+          "docs/Memory_Continuity_and_Semantic_Drift_Profile_v0_1.md",
+          "docs/Ninety_Day_Continuity_Evidence_Pack_v0_1.md",
+          "docs/Public_Red_Team_Response_Register_v0_1.md",
+          "LICENSE.md",
+          "manifest.json",
+          "NO_PRIVATE_MATERIALS_INCLUDED.md",
+          "PACKAGE_BOUNDARY_NOTICE.md",
+          "PUBLICATION_STATUS.md",
+          "README.md",
+          "README_c_hardening_pack_v0_1.md",
+          "RELEASE_CHECKLIST_ZENODO.md",
+          "RELEASE_NOTES.md",
+          "reports/PACKAGE_ASSEMBLY_REPORT.json",
+          "reports/PACKAGE_ASSEMBLY_REPORT.md",
+          "ZENODO_RELEASE_NOTES.md"
+        ],
         "crlf_text_bytes": [
           "manifests/FILE_LIST.csv",
           "manifests/PACKAGE_MANIFEST.json",
@@ -26,6 +52,32 @@
       "hash_algorithm": "sha256",
       "default_mode": "raw_bytes",
       "path_modes": {
+        "lf_text_bytes": [
+          ".zenodo.json",
+          "CITATION.cff",
+          "COMMERCIAL_AND_NON_IMPLEMENTATION_NOTICE.md",
+          "docs/CLAIM_TO_EVIDENCE_AND_TEST_MATRIX_v0_1.md",
+          "docs/DOC_TO_RUNTIME_TRACEABILITY_MATRIX_v0_1.md",
+          "docs/Human_Anchor_Drift_and_Post_Anchor_Profile_v0_1.md",
+          "docs/L4_Runtime_Enforcement_Profile_v0_1.md",
+          "docs/LHWAI_Implementation_Pack_Index_and_Extraction_Plan_v0_1.md",
+          "docs/Long_Horizon_Witness_Anchoring_and_Interpretation_Profile_v0_1_1.md",
+          "docs/Memory_Continuity_and_Semantic_Drift_Profile_v0_1.md",
+          "docs/Ninety_Day_Continuity_Evidence_Pack_v0_1.md",
+          "docs/Public_Red_Team_Response_Register_v0_1.md",
+          "LICENSE.md",
+          "manifest.json",
+          "NO_PRIVATE_MATERIALS_INCLUDED.md",
+          "PACKAGE_BOUNDARY_NOTICE.md",
+          "PUBLICATION_STATUS.md",
+          "README.md",
+          "README_c_hardening_pack_v0_1.md",
+          "RELEASE_CHECKLIST_ZENODO.md",
+          "RELEASE_NOTES.md",
+          "reports/PACKAGE_ASSEMBLY_REPORT.json",
+          "reports/PACKAGE_ASSEMBLY_REPORT.md",
+          "ZENODO_RELEASE_NOTES.md"
+        ],
         "crlf_text_bytes": [
           "manifests/FILE_LIST.csv",
           "manifests/PACKAGE_MANIFEST.json",
@@ -37,6 +89,6 @@
   ],
   "verification": {
     "command": "python3 tools/verify_checksum_domain.py",
-    "normalization_rule": "For crlf_text_bytes only, an LF checkout is transformed to CRLF before hashing. Existing CRLF bytes are hashed unchanged; mixed or bare-CR input is rejected."
+    "normalization_rule": "Declared lf_text_bytes are normalized from checkout CRLF to LF before hashing; declared crlf_text_bytes are normalized from checkout LF to CRLF. Raw binary paths are unchanged, and mixed or bare-CR text is rejected."
   }
 }

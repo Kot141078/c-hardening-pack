@@ -36,6 +36,13 @@ def crlf_bytes(data: bytes, relative: str) -> bytes:
     return data.replace(b"\n", b"\r\n")
 
 
+def lf_bytes(data: bytes, relative: str) -> bytes:
+    without_crlf = data.replace(b"\r\n", b"")
+    if b"\r" in without_crlf or (b"\r\n" in data and b"\n" in without_crlf):
+        fail(f"Mixed or bare-CR text is not admissible: {relative}")
+    return data.replace(b"\r\n", b"\n")
+
+
 def manifest_entries(path: Path) -> list[tuple[str, str]]:
     entries: list[tuple[str, str]] = []
     seen: set[str] = set()
@@ -60,18 +67,28 @@ def main() -> int:
             fail("Unsupported checksum-domain schema_version")
         checked = 0
         for declaration in config["manifests"]:
+            if declaration.get("hash_algorithm") != "sha256" or declaration.get("default_mode") != "raw_bytes":
+                fail(f"Unsupported checksum mode in {declaration.get('path')!r}")
+            path_modes = declaration.get("path_modes")
+            if not isinstance(path_modes, dict) or set(path_modes) != {"lf_text_bytes", "crlf_text_bytes"}:
+                fail(f"Unsupported path_modes in {declaration.get('path')!r}")
             manifest_path = safe_file(declaration["path"])
             entries = manifest_entries(manifest_path)
             if len(entries) != declaration["expected_entries"]:
                 fail(f"Entry count mismatch for {declaration['path']}")
-            crlf_paths = set(declaration["path_modes"].get("crlf_text_bytes", []))
+            crlf_paths = set(path_modes["crlf_text_bytes"])
+            lf_paths = set(path_modes["lf_text_bytes"])
             entry_paths = {relative for _, relative in entries}
-            if not crlf_paths <= entry_paths:
-                fail(f"Declared CRLF path is absent from {declaration['path']}")
+            if not (crlf_paths | lf_paths) <= entry_paths:
+                fail(f"Declared text path is absent from {declaration['path']}")
+            if crlf_paths & lf_paths:
+                fail(f"Conflicting text modes in {declaration['path']}")
             for expected, relative in entries:
                 data = safe_file(relative).read_bytes()
                 if relative in crlf_paths:
                     data = crlf_bytes(data, relative)
+                elif relative in lf_paths:
+                    data = lf_bytes(data, relative)
                 actual = hashlib.sha256(data).hexdigest()
                 if actual != expected:
                     fail(f"Checksum mismatch in {declaration['path']}: {relative}")
