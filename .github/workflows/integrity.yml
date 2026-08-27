@@ -10,10 +10,65 @@ permissions:
   contents: read
 
 jobs:
-  checksum-domain:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+  checksum-domain-exact-head:
+    name: Exact head / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+      PROTECTED_BASELINE: 9a33e3866cde19939be22a903967bc94f566db76
     steps:
-      - uses: actions/checkout@v4
-      - name: Verify declared checksum byte domains
-        run: python3 tools/verify_checksum_domain.py
+      - name: Check out exact candidate head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Print and assert exact head
+        shell: bash
+        run: |
+          actual="$(git rev-parse HEAD)"
+          printf 'expected_head=%s\nactual_head=%s\n' "$EXPECTED_HEAD" "$actual"
+          test "$actual" = "$EXPECTED_HEAD"
+          test -z "$(git status --porcelain=v1)"
+
+      - name: Verify exact Git blobs and protected baseline
+        shell: bash
+        run: |
+          python tools/verify_checksum_domain.py --source git-blob --git-ref "$EXPECTED_HEAD"
+          test -z "$(git diff --name-only "$PROTECTED_BASELINE" "$EXPECTED_HEAD" -- SHA256SUMS.txt manifests/SHA256SUMS.txt)"
+
+      - name: Verify checked-out worktree representation
+        run: python tools/verify_checksum_domain.py --source worktree
+
+      - name: Run checksum-domain unit tests
+        run: python -m unittest discover -s tests -p "test_checksum_domain.py" -v
+
+      - name: Verify fresh platform checkout representation
+        shell: bash
+        run: |
+          fresh_root="$(mktemp -d)"
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            autocrlf=true
+          else
+            autocrlf=false
+          fi
+          git init --bare "$fresh_root/seed.git"
+          git --git-dir="$fresh_root/seed.git" fetch --no-tags "$GITHUB_WORKSPACE" HEAD:refs/heads/candidate
+          git -c core.autocrlf="$autocrlf" clone --no-local --no-hardlinks --branch candidate "$fresh_root/seed.git" "$fresh_root/repository"
+          git -C "$fresh_root/repository" checkout --detach "$EXPECTED_HEAD"
+          actual="$(git -C "$fresh_root/repository" rev-parse HEAD)"
+          printf 'runner=%s core.autocrlf=%s expected_head=%s actual_head=%s\n' "$RUNNER_OS" "$autocrlf" "$EXPECTED_HEAD" "$actual"
+          test "$actual" = "$EXPECTED_HEAD"
+          test -z "$(git -C "$fresh_root/repository" status --porcelain=v1)"
+          python "$fresh_root/repository/tools/verify_checksum_domain.py" --source worktree
+          python "$fresh_root/repository/tools/verify_checksum_domain.py" --source git-blob --git-ref "$EXPECTED_HEAD"
