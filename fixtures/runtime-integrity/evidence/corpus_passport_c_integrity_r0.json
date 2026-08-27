@@ -1,0 +1,62 @@
+{
+  "artifact_id": "corpus-passport:c-integrity-r1f",
+  "version": "0.1.1",
+  "repository": "https://github.com/Kot141078/c-hardening-pack",
+  "base_sha": "9a33e3866cde19939be22a903967bc94f566db76",
+  "reviewed_parent_sha": "ead3fe6c69d99aafb84b8db98d3df4329ea3c918",
+  "passport_scope": "RUNTIME_SEMANTIC_CLOSURE_FROM_REVIEWED_PARENT",
+  "reviewer_identities": [
+    {
+      "reviewer_id": "reviewer-anchor",
+      "model_family": "local-family-A",
+      "provider_id": "provider-local-A",
+      "model_instance_id": "instance-anchor-01"
+    },
+    {
+      "reviewer_id": "reviewer-challenger",
+      "model_family": "cloud-family-B",
+      "provider_id": "provider-cloud-B",
+      "model_instance_id": "instance-challenger-01"
+    },
+    {
+      "reviewer_id": "reviewer-prior-art",
+      "model_family": "cloud-family-C",
+      "provider_id": "provider-cloud-C",
+      "model_instance_id": "instance-prior-art-01"
+    },
+    {
+      "reviewer_id": "reviewer-counterexample",
+      "model_family": "local-family-A",
+      "provider_id": "provider-local-A",
+      "model_instance_id": "instance-counterexample-01"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "docs/Runtime_Consequence_Integrity_Profile_for_c_v0_1.md",
+      "hash_domain": "UNIFORM_UTF8_TEXT_TO_LF_SHA256_V1",
+      "sha256": "0d3b096156914a0b5cab9392a36a36baeac836018e1bc9bde59ca490a7e94f1a"
+    },
+    {
+      "path": "docs/Runtime_Integrity_Traceability_Matrix_v0_1.md",
+      "hash_domain": "UNIFORM_UTF8_TEXT_TO_LF_SHA256_V1",
+      "sha256": "28ccad11e63041e79b940d9f0761e7efa0f192fb2190c655f7135848cae0a046"
+    },
+    {
+      "path": "docs/Runtime_JSON_Canonicalization_Profile_v0_1_1.md",
+      "hash_domain": "UNIFORM_UTF8_TEXT_TO_LF_SHA256_V1",
+      "sha256": "779114c9485e977921d2109253f542ebcfea758adf1e50d7fa2bd1ba22f928f0"
+    },
+    {
+      "path": "fixtures/runtime-integrity/positive/continuity_history_cases.json",
+      "hash_domain": "RFC8785_JCS_SHA256_V1",
+      "sha256": "555b73a718187584f864579dbc349ce52e7fee60f8e2d59b40469368d75a3ecd"
+    },
+    {
+      "path": "fixtures/runtime-integrity/positive/external_intake_max_valid.json",
+      "hash_domain": "RFC8785_JCS_SHA256_V1",
+      "sha256": "caa49416c7d8ddd63a74317e6eb681aeef4a6b35f6da6a22a239bcd33da1e823"
+    }
+  ],
+  "claim_boundary": "This candidate-fixture passport binds normalized or canonical hashes for the declared source corpus derived from the reviewed parent; it does not claim existence at the reviewed parent and grants no execution authority."
+}

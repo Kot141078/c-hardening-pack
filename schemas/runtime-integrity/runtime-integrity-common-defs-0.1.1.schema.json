@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1",
-  "title": "c Runtime Integrity Common Definitions v0.1",
+  "$id": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1",
+  "title": "c Runtime Integrity Common Definitions v0.1.1",
   "type": "object",
   "$defs": {
     "id": {
@@ -32,7 +32,7 @@
       ],
       "properties": {
         "artifact_id": {
-          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/id"
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/id"
         },
         "version": {
           "type": "string",
@@ -40,10 +40,10 @@
           "maxLength": 128
         },
         "hash": {
-          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/sha256"
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/sha256"
         },
         "uri": {
-          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/uri"
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/uri"
         }
       }
     },
@@ -57,13 +57,13 @@
       ],
       "properties": {
         "ref_id": {
-          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/id"
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/id"
         },
         "captured_at": {
-          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/timestamp"
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/timestamp"
         },
         "hash": {
-          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/sha256"
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/sha256"
         }
       }
     },
@@ -89,10 +89,10 @@
           "maxLength": 512
         },
         "published_at": {
-          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/timestamp"
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/timestamp"
         },
         "uri": {
-          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/uri"
+          "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/uri"
         },
         "persistent_id": {
           "type": [
@@ -104,7 +104,7 @@
         "source_hash": {
           "oneOf": [
             {
-              "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1#/$defs/sha256"
+              "$ref": "urn:ivan-kotov:c-runtime-integrity:common-defs:0.1.1#/$defs/sha256"
             },
             {
               "type": "null"

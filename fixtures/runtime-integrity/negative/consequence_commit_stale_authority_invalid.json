@@ -1,37 +1,127 @@
 {
-  "schema_version":"c-consequence-commit-record-0.1",
-  "record_type":"consequence_commit_record",
-  "record_id":"consequence-commit-stale-authority-invalid",
-  "created_at":"2026-08-27T00:16:00+02:00",
-  "governing_entity_id":"c:ester",
-  "human_anchor_ref":"a:ivan-kotov",
-  "agent_ref":"agent:deployment-worker",
-  "task_contract_ref":{"artifact_id":"task-contract:deploy-42","version":"0.1","hash":"7c9e3a69099dcace4686cc3b279f521586674593735299f9496af5bd83a3c0ba"},
-  "permission_grant_ref":{"artifact_id":"CLI_AGENT_PERMISSION_GRANT:grant-42","version":"0.1","hash":"c4afc103f42b7e0a1d0c2b76eb28d639516b1edf16395b652f8216b90e5ef968"},
-  "decision_basis_ref":{"artifact_id":"decision-basis-42","version":"0.1","hash":"d31b86f2f9c03da26e57eca0d08ba312c0de9ee0a672c0d2e9e42e1f07fd6b0e"},
-  "source_grounding_ref":{"ref_id":"AGL:grounding:revoked-at-commit","captured_at":"2026-08-27T00:15:55+02:00","hash":"e92755d26f3197b1c624a39c5ec80db17c6a439260b12dae3c047b383a8aa9a0"},
-  "continuity_evidence_ref":{"ref_id":"Beacon:continuity:entity-ester","captured_at":"2026-08-27T00:15:55+02:00","hash":"fcfac009d517c47855e50aeb2a8725270b28903a9463e5c2a4e2b77c506456a1"},
-  "l4_state_ref":{"ref_id":"L4:state:42","captured_at":"2026-08-27T00:15:55+02:00","hash":"9261d7abf8efab433d431d77e39c9f280a5732ab2b8fe0d8116e007407797114"},
-  "memory_reliance_refs":[{"artifact_id":"memory-reliance-42","version":"0.1","hash":"8455a2b49905b9b19c1defab2daef335ce63d3ba5ef99577b59ebcb384f50171"}],
-  "target_effect":{"effect_id":"deploy:staging:A-to-B","effect_class":"HIGH","target_ref":"staging/service-X","reversibility":"REVERSIBLE_WITH_COST"},
-  "precondition_results":[
-    {"name":"SOURCE_GROUNDING","status":"FAIL","evidence_ref":"AGL:grounding:revoked-at-commit"},
-    {"name":"IDENTITY_CONTINUITY","status":"PASS","evidence_ref":"Beacon:continuity:entity-ester"},
-    {"name":"CURRENT_AUTHORITY","status":"FAIL","evidence_ref":"grant:revoked"},
-    {"name":"PERIMETER","status":"PASS","evidence_ref":"perimeter:local-safe"},
-    {"name":"TIME_WINDOW","status":"PASS","evidence_ref":"window:still-open"},
-    {"name":"L4_BUDGET","status":"PASS_WITH_LIMITS","evidence_ref":"L4:state:42"},
-    {"name":"MEMORY_RELIANCE","status":"PASS_WITH_LIMITS","evidence_ref":"memory-reliance-42"},
-    {"name":"WITNESS_READINESS","status":"PASS","evidence_ref":"witness:ready"},
-    {"name":"BLOCKING_STATE","status":"PASS","evidence_ref":"blocking:none"}
+  "schema_version": "c-consequence-commit-record-0.1.1",
+  "record_type": "consequence_commit_record",
+  "record_id": "consequence-commit-stale-authority-invalid",
+  "created_at": "2026-08-27T00:16:00+02:00",
+  "governing_entity_id": "c:ester",
+  "human_anchor_ref": "a:ivan-kotov",
+  "agent_ref": "agent:deployment-worker",
+  "task_contract_ref": {
+    "artifact_id": "task-contract:deploy-42",
+    "version": "0.1",
+    "hash": "198a74fe207e00a54fe84b4dcff3cb4429790233e692922ae97de08753d72795"
+  },
+  "permission_grant_ref": {
+    "artifact_id": "CLI_AGENT_PERMISSION_GRANT:grant-42",
+    "version": "0.1",
+    "hash": "8a341ab84dfbe4bf006ed2ce14f1a97d4ef9b8a001d71dc04cff774421fb36c2"
+  },
+  "permission_status": "REVOKED",
+  "permission_checked_at": "2026-08-27T00:16:00+02:00",
+  "permission_valid_until": "2026-08-27T00:15:30+02:00",
+  "permission_issuer_ref": "a:ivan-kotov",
+  "permission_subject_ref": "agent:deployment-worker",
+  "authorized_target_ref": "staging/service-X",
+  "task_contract_status": "STALE",
+  "task_contract_checked_at": "2026-08-27T00:16:00+02:00",
+  "task_endpoint_ref": "staging/service-Y",
+  "continuity_approver_ref": "a:ivan-kotov",
+  "memory_influence_state": "DECLARED",
+  "decision_basis_ref": {
+    "artifact_id": "decision-basis-42",
+    "version": "0.1.1",
+    "hash": "cb29e6e3adb218704ee6eb08a67b27fbe2e3114cb990bc23eb1a48c10ff6d254"
+  },
+  "source_grounding_ref": {
+    "ref_id": "AGL:grounding:42",
+    "captured_at": "2026-08-27T00:15:00+02:00",
+    "hash": "d706fc787318e648aea6c5f87c9f29f3924cad5f59e012e46595522f374eb88e"
+  },
+  "continuity_evidence_ref": {
+    "ref_id": "Beacon:continuity:entity-ester",
+    "captured_at": "2026-08-27T00:15:00+02:00",
+    "hash": "eaf211774556c2693dcec13faeceb16425c53f159867ab37788855fd2f81528e"
+  },
+  "l4_state_ref": {
+    "ref_id": "L4:state:42",
+    "captured_at": "2026-08-27T00:15:00+02:00",
+    "hash": "e6df2d6f10ec4a74d51bae5c22a64204431dbcb94f4d1fa206679456cc13743c"
+  },
+  "memory_reliance_refs": [
+    {
+      "artifact_id": "memory-reliance-42",
+      "version": "0.1.1",
+      "hash": "320130041fb036475a64ca765fbe1b60aa7262307c0d4a95892a8869c02af5ac"
+    }
   ],
-  "commit_outcome":"OPEN",
-  "effect_state":"BOUND",
-  "effect_artifact_hash":"2d989ea737ea7e907b3f78df527209356e6625ff6ae4d24f9188669f0719f535",
-  "non_effect_witness_ref":null,
-  "previous_commit_record_ref":null,
-  "change_reason":"Authority was valid during planning and revoked before the consequence boundary.",
-  "current_conditions_hash":"9d8277e5f2de4198e9c44368d7a706fa1cf4ef70c9c6a6cce2238bf97852e759",
-  "witness_chain_head":"c6d9afe0cd399fcb982337473a0556891cd28ba76ddd55a7f92b231c3f3f4325",
-  "claim_boundary":"This record proves the bounded commit-time decision and declared effect state. It does not by itself prove global effect absence; that claim is delegated to the linked non-effect witness."
+  "target_effect": {
+    "effect_id": "deploy:staging:A-to-B",
+    "effect_class": "HIGH",
+    "target_ref": "staging/service-X",
+    "reversibility": "REVERSIBLE_WITH_COST"
+  },
+  "precondition_results": [
+    {
+      "name": "SOURCE_GROUNDING",
+      "status": "FAIL",
+      "evidence_ref": "AGL:grounding:revoked-at-commit"
+    },
+    {
+      "name": "IDENTITY_CONTINUITY",
+      "status": "PASS",
+      "evidence_ref": "Beacon:continuity:entity-ester"
+    },
+    {
+      "name": "CURRENT_AUTHORITY",
+      "status": "FAIL",
+      "evidence_ref": "grant:revoked"
+    },
+    {
+      "name": "PERIMETER",
+      "status": "PASS",
+      "evidence_ref": "perimeter:local-safe"
+    },
+    {
+      "name": "TIME_WINDOW",
+      "status": "PASS",
+      "evidence_ref": "window:still-open"
+    },
+    {
+      "name": "L4_BUDGET",
+      "status": "PASS_WITH_LIMITS",
+      "evidence_ref": "L4:state:42"
+    },
+    {
+      "name": "MEMORY_RELIANCE",
+      "status": "PASS_WITH_LIMITS",
+      "evidence_ref": "memory-reliance-42"
+    },
+    {
+      "name": "WITNESS_READINESS",
+      "status": "PASS",
+      "evidence_ref": "witness:ready"
+    },
+    {
+      "name": "BLOCKING_STATE",
+      "status": "PASS",
+      "evidence_ref": "blocking:none"
+    }
+  ],
+  "commit_outcome": "OPEN",
+  "effect_state": "BOUND",
+  "effect_artifact_hash": "2d989ea737ea7e907b3f78df527209356e6625ff6ae4d24f9188669f0719f535",
+  "non_effect_witness_ref": null,
+  "previous_commit_record_ref": null,
+  "change_reason": null,
+  "current_conditions_ref": {
+    "artifact_id": "conditions:stale",
+    "version": "0.1",
+    "hash": "9d8277e5f2de4198e9c44368d7a706fa1cf4ef70c9c6a6cce2238bf97852e759"
+  },
+  "current_conditions_hash": "9d8277e5f2de4198e9c44368d7a706fa1cf4ef70c9c6a6cce2238bf97852e759",
+  "witness_chain_head": "c6d9afe0cd399fcb982337473a0556891cd28ba76ddd55a7f92b231c3f3f4325",
+  "claim_boundary": "This record proves the bounded commit-time decision and declared effect state. It does not by itself prove global effect absence; that claim is delegated to the linked non-effect witness.",
+  "change_reason_code": null,
+  "target_transition_evidence_ref": null,
+  "consequence_lineage_id": "consequence-lineage:consequence-commit-stale-authority-invalid"
 }

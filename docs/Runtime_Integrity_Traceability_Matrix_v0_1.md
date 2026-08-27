@@ -1,4 +1,4 @@
-# Runtime Integrity Traceability Matrix v0.1
+# Runtime Integrity Traceability Matrix v0.1.1
 
 **Status:** Development matrix  
 **Date:** 2026-08-27  
@@ -23,6 +23,12 @@ Each new object must close a specific residual gap while leaving the parent laye
 | Preserve synthesis disagreement | Judge concept; evidence discipline | Model outputs can be flattened into a single verdict | `judge_deliberation_record` | majority voting or one model family must fail |
 | Bound external influence claims | citation/provenance practices | Vague "inspired by" or "derived from" statements | `external_construct_intake_record` | code reuse without license clearance must fail |
 | Preserve history under changed conditions | append-only witness; ARL correction discipline | Old decision may be silently overwritten | previous-record links | changed condition must create a new linked record |
+| Rebind a changed consequence target | AGL revalidation; CGAM task/grant separation | An old target basis can be replayed at a new endpoint | `consequence_lineage_id`, transition evidence, new endpoint-B basis/commit | missing grant, task, transition, lineage, immutable predecessor, or current-target binding must fail |
+| Validate the complete predecessor history | append-only witness discipline | A locally valid edge may hide a longer cycle or missing predecessor | trusted-registry DAG audit | self, two-node, longer cycle, missing node, alias, timestamp, lineage, and effect-intent mutations must fail |
+| Make JSON hashes interoperable | exact evidence hashing | language-default JSON serialization may disagree | RFC 8785/I-JSON profile and Python/Node golden vectors | duplicate keys, non-finite values, lone surrogates, unsafe integer-valued numbers, or byte mismatch must fail |
+| Bind Judge to independently expected state | Judge evidence discipline | a tracked passport/context can self-assert its review target | caller-supplied context hash and event bindings | missing, mismatched, or temporally invalid context must fail |
+| Preserve relation-specific provenance ceilings | citation/provenance practices | a same-source but unrelated proof artifact can elevate a relation | typed relation proof contracts | mismatched license, mapping, transformation, dependency, removal, provenance, or manual gate must fail |
+| Inventory every evidence artifact | evidence custody and fail-closed registries | directly referenced evidence could remain outside the logical-ID registry | exact evidence artifact inventory with JCS hash and in-file logical IDs | orphan, missing, duplicate-path, duplicate-logical-ID, or registry/inventory mismatch must fail |
 
 ## 2. Object dependencies
 
@@ -83,7 +89,7 @@ Initial coordination home:
 Kot141078/c-hardening-pack
 ```
 
-Future implementation bindings, after review:
+Possible future implementation bindings, only after separate owner authorization:
 
 ```text
 CGAM:
@@ -105,4 +111,4 @@ Advanced Global Intelligence:
   AGL publication alignment
 ```
 
-No cross-repository canonical migration is authorized by this draft.
+No cross-repository canonical migration is authorized by this draft. CGAM and TAP-SEC binding were not started.

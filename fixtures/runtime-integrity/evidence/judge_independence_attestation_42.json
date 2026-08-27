@@ -1,0 +1,9 @@
+{
+  "artifact_id": "judge-independence-attestation:42",
+  "version": "0.1",
+  "attestation_kind": "SYMBOLIC_FIXTURE_ONLY",
+  "isolated_first_pass": true,
+  "outputs_fed_back_to_reviewers": false,
+  "model_instance_ids": ["instance-anchor-01", "instance-challenger-01", "instance-prior-art-01", "instance-counterexample-01"],
+  "claim_boundary": "This repository-local attestation makes the fixture topology inspectable; it is not an external provider attestation or execution authority."
+}

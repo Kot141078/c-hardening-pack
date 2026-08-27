@@ -1,60 +1,37 @@
-# Runtime Integrity Extension Status
+# Runtime Integrity Semantic Closure Status
 
-**State:** `DEVELOPMENT_DRAFT_CI_PASS_AWAITING_INDEPENDENT_REVIEW`  
-**Date:** 2026-08-27  
-**Canonical release impact:** none  
-**Merge authorized:** no  
-**Tag or release authorized:** no  
-**Deployment authorized:** no
+**State:** `DEVELOPMENT_DRAFT_R1F_CANDIDATE_AWAITING_OWNER_REVIEW`
 
-## Included
+**Bundle version:** `0.1.1`
 
-- one schema bundle containing 8 JSON Schemas;
-- 18 fixture expectations;
-- positive and negative cases;
-- deterministic semantic validator;
-- unit test;
-- GitHub Actions workflow;
-- cross-layer profile;
-- traceability matrix;
-- external construct intake boundary;
-- three example external intake records.
+**Date:** 2026-08-27
 
-## Exact pull-request validation
+**Reviewed parent:** `ead3fe6c69d99aafb84b8db98d3df4329ea3c918`
 
-GitHub Actions executed the pull-request merge checkout under Python 3.12.
+**Canonical release impact:** none
+**Merge, tag, release, DOI update, or deployment authorized:** no
 
-```text
-RUNTIME_INTEGRITY_EXTENSION fixtures=18 pass=18 fail=0 schemas=8
-```
+## Included closure surface
 
-Unit test result:
+- 8 Draft 2020-12 schemas with `0.1.1` identities and matching filenames;
+- 58 manifest-enumerated positive and negative fixture expectations;
+- an endpoint-A denial followed by a separately authorized, linked endpoint-B retry;
+- exact predecessor, lineage, effect-intent, decision-basis, authority, task, target-transition, and transition-time checks;
+- whole-registry predecessor-DAG and fixture/evidence orphan/alias audits;
+- externally supplied Judge review context with caller-supplied exact hash and event bindings;
+- relation-specific external-intake proof contracts;
+- a strict RFC 8785/I-JSON hash profile with Python and Node exact-byte golden-vector verification;
+- exactly reconstructed R1 adversarial scenarios: `62 recovered / 0 unrecovered`;
+- a hash-locked dependency set and a Windows/Linux, Python 3.10/3.12 exact-event-head CI matrix.
 
-```text
-test_fixture_manifest ... ok
-Ran 1 test
-OK
-```
-
-Preserved checksum-domain validation also passed.
+This candidate does not define or assess a repository checksum domain. It does not add or modify `.gitattributes`, `CHECKSUM_DOMAIN.json`, or `tools/verify_checksum_domain.py`.
 
 ## Claim boundary
 
-This status means the supplied development schemas, semantic rules, and fixtures behaved as declared on the exact pull-request checkout, and the pre-existing checksum domains remained intact.
+This candidate demonstrates repository-level schema, semantic, graph, fixture, and test behavior. Its evidence and reviewer identities are symbolic. It creates no runtime authority and proves nothing beyond the declared local evidence surfaces.
 
-It does not mean:
+It does not establish production enforcement, universal non-effect, entity identity, actual external derivation, license clearance for real external code, or release readiness.
 
-- production enforcement exists;
-- all external paths are observable;
-- all `c` repositories are integrated;
-- independent reproduction has occurred;
-- the extension is part of the DOI-bound c Hardening Pack v0.1;
-- merge, release, publication, or deployment is approved;
-- identity, authority, or non-effect is proven outside each record's declared evidence surface.
+## Owner gate
 
-## Next gate
-
-1. Independent clean-checkout review.
-2. One CGAM action-path binding.
-3. One TAP-SEC witness-path binding.
-4. Owner decision on promotion, revision, or rollback.
+CGAM action-path binding and TAP-SEC witness-path binding were not started. Either binding requires separate owner authorization after review of this candidate; progression is not automatic.

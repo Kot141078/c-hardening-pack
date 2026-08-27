@@ -1,0 +1,76 @@
+{
+  "schema_version": "c-decision-basis-record-0.1.1",
+  "record_type": "decision_basis_record",
+  "record_id": "decision-basis-retry-b-43",
+  "created_at": "2026-08-27T10:05:00+02:00",
+  "basis": {
+    "captured_at": "2026-08-27T10:05:00+02:00",
+    "human_anchor_ref": "a:ivan-kotov",
+    "policy_refs": [
+      {
+        "artifact_id": "Actor_Grounding_Layer_v0.1.md",
+        "version": "0.1",
+        "hash": "07c8d16dfebfbb1b1b622d0204f1502d0bf25e138215473d9f4ee50b959f0e0f"
+      },
+      {
+        "artifact_id": "Initiation_Gates_and_Preconditions_v0.1.md",
+        "version": "0.1",
+        "hash": "3957eafe63402bebeecb90a7bb58a91b7362ac4cffb61a03bd526d53ee2430f3"
+      },
+      {
+        "artifact_id": "L4_Runtime_Enforcement_Profile_v0_1.md",
+        "version": "0.1",
+        "hash": "b88b8c463ef700ec4d76d9bbca8f9d19a9d3615b30c41d11a33a9fe6d7e164a8"
+      }
+    ],
+    "authority_refs": [
+      {
+        "artifact_id": "CLI_AGENT_PERMISSION_GRANT:grant-43",
+        "version": "0.1",
+        "hash": "c43c67c775c8cce6d62d4fe26d3d6000a9e9da10e723deaeac3c69c81646c2f5"
+      },
+      {
+        "artifact_id": "human-anchor-authority:ivan",
+        "version": "0.1",
+        "hash": "25d55f2e7c42637251ec010a15e3e68264e3ca90a2edb41854e662da8a35c38c"
+      }
+    ],
+    "permission_grant_ref": {
+      "artifact_id": "CLI_AGENT_PERMISSION_GRANT:grant-43",
+      "version": "0.1",
+      "hash": "c43c67c775c8cce6d62d4fe26d3d6000a9e9da10e723deaeac3c69c81646c2f5"
+    },
+    "grounding_ref": {
+      "ref_id": "AGL:grounding:retry-b",
+      "captured_at": "2026-08-27T10:05:00+02:00",
+      "hash": "1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "continuity_ref": {
+      "ref_id": "Beacon:continuity:entity-ester",
+      "captured_at": "2026-08-27T10:05:00+02:00",
+      "hash": "2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "l4_ref": {
+      "ref_id": "L4:state:retry-sufficient",
+      "captured_at": "2026-08-27T10:05:00+02:00",
+      "hash": "3333333333333333333333333333333333333333333333333333333333333333"
+    },
+    "memory_reliance_refs": [],
+    "evidence_refs": [
+      {
+        "artifact_id": "evidence:fresh-retry-b",
+        "version": "0.1",
+        "hash": "4444444444444444444444444444444444444444444444444444444444444444"
+      },
+      {
+        "artifact_id": "evidence:target-state-b",
+        "version": "0.1",
+        "hash": "5555555555555555555555555555555555555555555555555555555555555555"
+      }
+    ],
+    "witness_chain_head": "6666666666666666666666666666666666666666666666666666666666666666"
+  },
+  "basis_hash": "640422808c99242c64671f7b8572e8d67378fc8310227be39aef9e756f94b8a8",
+  "rule_basis_visibility": "FULL",
+  "claim_boundary": "This symbolic decision basis binds the new endpoint B task and grant; it does not reuse the revoked endpoint A authority."
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": "c-external-construct-intake-record-0.1.1",
+  "record_type": "external_construct_intake_record",
+  "record_id": "external-taxonomy-positive-functional_analog",
+  "created_at": "2026-08-27T10:10:00+02:00",
+  "source_artifact": {
+    "author": "Synthetic Taxonomy Fixture",
+    "title": "Synthetic construct for relation-specific proof-contract tests",
+    "published_at": "2026-08-27T10:00:00+02:00",
+    "uri": "fixtures/runtime-integrity/evidence/taxonomy_external_source.json",
+    "persistent_id": "urn:synthetic:runtime-integrity:taxonomy-source:0.1",
+    "source_hash": "44f9c1e59bed6a24c7b114807775815668d8fba51cde0cc56160b809f936c324",
+    "freeze_status": "PUBLIC_REFERENCE_VERIFIED"
+  },
+  "source_construct": {
+    "description": "A synthetic source construct used only to test relation-specific validation without importing external protected code.",
+    "source_location": "fixtures/runtime-integrity/evidence/taxonomy_external_source.json"
+  },
+  "local_target": [
+    "tools/validate_runtime_integrity_extension.py#semantic_external_intake"
+  ],
+  "relation": "FUNCTIONAL_ANALOG",
+  "relation_proof": {
+    "implementation_origin": "INDEPENDENT",
+    "mapping_refs": [
+      "tools/validate_runtime_integrity_extension.py#semantic_external_intake"
+    ],
+    "adapted_interface_surfaces": [],
+    "transformation_evidence_refs": [],
+    "source_code_identities": [],
+    "reused_code_boundaries": [],
+    "provenance_evidence_refs": [],
+    "manual_gate_ref": null
+  },
+  "transformation": "The fixture maps a synthetic source into a bounded local validator test without granting ownership, priority, ontology transfer, or live authority.",
+  "preserved_properties": [
+    "relation-specific proof requirements remain inspectable"
+  ],
+  "rejected_properties": [
+    "automatic ontology transfer"
+  ],
+  "mapping_failures": [
+    "synthetic evidence cannot establish a real external dependency"
+  ],
+  "terminology_substitutions": [],
+  "license_status": "REFERENCE_ONLY_NO_CODE_REUSE",
+  "attribution": {
+    "required": true,
+    "references": [
+      "fixtures/runtime-integrity/evidence/taxonomy_external_source.json"
+    ]
+  },
+  "native_antecedents": [
+    "native runtime-integrity validator design"
+  ],
+  "independent_prior_art_refs": [],
+  "claim_ceiling_state": "INDEPENDENT_FUNCTIONAL_ANALOG",
+  "claim_assertions": {
+    "derivation_claimed": false,
+    "dependency_claimed": false,
+    "priority_claimed": false,
+    "ontology_transfer_claimed": false,
+    "code_reuse_claimed": false
+  },
+  "narrative_fields_authoritative": false,
+  "claim_ceiling": "This is a synthetic taxonomy fixture only; it establishes no relation to a real external construct and grants no execution authority.",
+  "witness_chain_head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

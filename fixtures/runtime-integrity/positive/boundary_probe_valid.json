@@ -1,5 +1,5 @@
 {
-  "schema_version": "c-boundary-probe-record-0.1",
+  "schema_version": "c-boundary-probe-record-0.1.1",
   "record_type": "boundary_probe_record",
   "record_id": "boundary-probe-17",
   "created_at": "2026-08-27T00:15:00+02:00",
@@ -10,7 +10,8 @@
   "distinct_agents": 4,
   "distinct_providers": 3,
   "signals": {"refusal_differencing":true,"timing_signal_used":true,"memory_assisted":true,"cross_agent_aggregation":true,"provider_rotation":true},
-  "budget": {"max_queries":20,"max_agents":2,"max_providers":2},
+  "aggregation_keys": {"owner_ref":"owner:ivan-kotov","project_ref":"project:c-hardening-pack","protected_policy_surface_ref":"policy:continuity-sensitive-release","time_window_ref":"window:2026-08-27T00:00:00+02:00/2026-08-27T00:15:00+02:00","provider_family_refs":["provider-family:A","provider-family:B","provider-family:C"],"shared_memory_lineage_refs":["memory-lineage:evaluation-17"],"consequence_target_refs":["target:continuity-sensitive-release"],"session_refs":["session:17-a","session:17-b"]},
+  "budget": {"budget_profile_ref":{"artifact_id":"opaque-budget-profile:continuity-sensitive-release","version":"0.1","hash":"db5113ec275404c617f78d55626ae7d13f5423cc8b923819f64d8ccb465021e7"},"evaluation_state":"EXCEEDED"},
   "risk_flags": ["THRESHOLD_RECONSTRUCTION","TIMING_SIDE_CHANNEL","CROSS_AGENT_AGGREGATION","PROVIDER_ROTATION_BYPASS","MEMORY_ASSISTED_EXTRACTION","BUDGET_EXCEEDED"],
   "decision": "QUARANTINE",
   "protected_details_disclosed": false,

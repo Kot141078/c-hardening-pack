@@ -1,0 +1,10 @@
+{
+  "artifact_id": "synthetic-dependency-proof:code-reuse-test",
+  "version": "0.1",
+  "evidence_scope": "SYNTHETIC_NEGATIVE_FIXTURE_ONLY",
+  "evidence_kind": "LOCAL_DEPENDENCY",
+  "source_artifact_id": "synthetic-external-source:code-reuse-test",
+  "local_target": "tools/validate_runtime_integrity_extension.py",
+  "verification_test": "tests/test_runtime_integrity_extension.py#test_synthetic_code_reuse_manual_stop",
+  "dependency_present": true
+}

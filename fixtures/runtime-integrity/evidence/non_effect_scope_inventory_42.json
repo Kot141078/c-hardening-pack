@@ -1,0 +1,13 @@
+{
+  "schema_version": "c-non-effect-scope-inventory-0.1",
+  "evidence_ids": ["evidence:scope-inventory-42"],
+  "effect_scope_ref": "deploy:staging:A-to-B",
+  "effect_target_ref": "endpoint:A",
+  "protected_effects": [
+    "staging deployment command emitted",
+    "deployment queue item created",
+    "target revision changed"
+  ],
+  "observation_surface_ids": ["deployment-api", "deployment-queue", "target-state"],
+  "alternate_path_ids": ["primary-cli-connector", "retry-worker", "secondary-api-client"]
+}

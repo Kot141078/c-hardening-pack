@@ -1,23 +1,699 @@
 {
-  "schema_version": "c-runtime-integrity-fixture-manifest-0.1",
+  "schema_version": "c-runtime-integrity-fixture-manifest-0.1.1",
+  "record_registry": {
+    "decision-basis-42": "positive/decision_basis_valid.json",
+    "decision-basis-retry-b-43": "positive/decision_basis_retry_b_valid.json",
+    "memory-reliance-42": "positive/memory_reliance_valid.json",
+    "consequence-commit-deploy-42": "positive/consequence_commit_denied_valid.json",
+    "consequence-commit-deploy-43": "positive/consequence_commit_retry_b_valid.json",
+    "non-effect-42": "positive/non_effect_witness_valid.json"
+  },
+  "evidence_registry": {
+    "evidence:scope-inventory-42": {
+      "path": "fixtures/runtime-integrity/evidence/non_effect_scope_inventory_42.json",
+      "hash": "344b4f79bb7e70a99af2917f91b8d93b8475540598f1281da2e8e666a7ffc569"
+    },
+    "evidence:event-log-42": {
+      "path": "fixtures/runtime-integrity/evidence/non_effect_event_log_42.json",
+      "hash": "0e9c1f6aeb4a5508068ed930903ed7e65e69416c186478c1958e18cbc2d2aef7"
+    },
+    "clock:monotonic-utc-42": {
+      "path": "fixtures/runtime-integrity/evidence/non_effect_clock_42.json",
+      "hash": "1bf4d43ec8c214221468de9dafba4f8627cab38b5a4ba391268743c70eda59fd"
+    },
+    "collector:deployment-surfaces-42": {
+      "path": "fixtures/runtime-integrity/evidence/non_effect_collector_42.json",
+      "hash": "8d7766e9f78f62eb43405c2431a236e60777c5d4ce4115e188bc05550ad95932"
+    },
+    "evidence:connector-disabled": {
+      "path": "fixtures/runtime-integrity/evidence/non_effect_routes_42.json",
+      "hash": "801e2e0aab1c59f22017cc2f57f0981ca2beac11874edf98dd43d5a2935d7caf"
+    },
+    "evidence:retry-cancelled": {
+      "path": "fixtures/runtime-integrity/evidence/non_effect_routes_42.json",
+      "hash": "801e2e0aab1c59f22017cc2f57f0981ca2beac11874edf98dd43d5a2935d7caf"
+    },
+    "evidence:capability-revoked": {
+      "path": "fixtures/runtime-integrity/evidence/non_effect_routes_42.json",
+      "hash": "801e2e0aab1c59f22017cc2f57f0981ca2beac11874edf98dd43d5a2935d7caf"
+    },
+    "opaque-budget-profile:continuity-sensitive-release": {
+      "path": "fixtures/runtime-integrity/evidence/boundary_budget_profile_42.json",
+      "hash": "db5113ec275404c617f78d55626ae7d13f5423cc8b923819f64d8ccb465021e7"
+    },
+    "judge-independence-attestation:42": {
+      "path": "fixtures/runtime-integrity/evidence/judge_independence_attestation_42.json",
+      "hash": "b069cbd00e9d926c9d2ab8c0cc976d25a4bb5cbcf20c51cb1e1a23c05024ec74"
+    },
+    "CLI_AGENT_PERMISSION_GRANT:grant-42": {
+      "path": "fixtures/runtime-integrity/evidence/permission_grant_42.json",
+      "hash": "8a341ab84dfbe4bf006ed2ce14f1a97d4ef9b8a001d71dc04cff774421fb36c2"
+    },
+    "task-contract:deploy-42": {
+      "path": "fixtures/runtime-integrity/evidence/task_contract_deploy_42.json",
+      "hash": "198a74fe207e00a54fe84b4dcff3cb4429790233e692922ae97de08753d72795"
+    },
+    "current-conditions:earth-42": {
+      "path": "fixtures/runtime-integrity/evidence/current_conditions_earth_42.json",
+      "hash": "fab5341a506787fec013823316bb215057e4b8638ed19074b711b26eb1afd998"
+    },
+    "CLI_AGENT_PERMISSION_GRANT:grant-43": {
+      "path": "fixtures/runtime-integrity/evidence/permission_grant_endpoint_b.json",
+      "hash": "c43c67c775c8cce6d62d4fe26d3d6000a9e9da10e723deaeac3c69c81646c2f5"
+    },
+    "task-contract:deploy-43": {
+      "path": "fixtures/runtime-integrity/evidence/task_contract_endpoint_b.json",
+      "hash": "74d57e8e95e50e86ce56f47cc987cc08a63fa03324604448dda84636d8cf3c9b"
+    },
+    "current-conditions:earth-retry-b": {
+      "path": "fixtures/runtime-integrity/evidence/current_conditions_retry_b.json",
+      "hash": "5c35e4fe8153540e1d993cd84341529c4bca05dad81d27099280d6614c07e749"
+    },
+    "target-transition:earth-42-A-to-B": {
+      "path": "fixtures/runtime-integrity/evidence/target_transition_endpoint_b.json",
+      "hash": "84e99a93c143574becc67b2657e47438c077e6a1c18d0c6e4e3066931e7b033f"
+    },
+    "target-transition:earth-42-A-to-B-future": {
+      "path": "fixtures/runtime-integrity/evidence/target_transition_endpoint_b_future.json",
+      "hash": "71188851c1511f3f2fe72496e78c8996facd7ee4b3fb7066de341c217944e47f"
+    }
+  },
   "fixtures": [
-    {"path":"positive/decision_basis_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:decision-basis-record:0.1","expected_valid":true},
-    {"path":"positive/memory_reliance_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:memory-reliance-record:0.1","expected_valid":true},
-    {"path":"positive/non_effect_witness_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:non-effect-witness-record:0.1","expected_valid":true},
-    {"path":"positive/consequence_commit_denied_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1","expected_valid":true},
-    {"path":"positive/boundary_probe_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:boundary-probe-record:0.1","expected_valid":true},
-    {"path":"positive/judge_deliberation_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:judge-deliberation-record:0.1","expected_valid":true},
-    {"path":"positive/external_intake_max_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1","expected_valid":true},
-    {"path":"positive/external_intake_richard_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1","expected_valid":true},
-    {"path":"positive/external_intake_elyria_valid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1","expected_valid":true},
-    {"path":"positive/continuity_history_cases.json","schema_id":null,"expected_valid":true,"semantic_kind":"continuity_history_cases"},
-    {"path":"positive/continuity_carry_cost_profile.json","schema_id":null,"expected_valid":true,"semantic_kind":"continuity_carry_cost_profile"},
-    {"path":"negative/decision_basis_hash_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:decision-basis-record:0.1","expected_valid":false,"semantic_kind":"basis_hash_mismatch"},
-    {"path":"negative/memory_reliance_revoked_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:memory-reliance-record:0.1","expected_valid":false,"semantic_kind":"revoked_memory_cannot_be_used"},
-    {"path":"negative/non_effect_open_route_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:non-effect-witness-record:0.1","expected_valid":false,"semantic_kind":"alternate_path_not_closed"},
-    {"path":"negative/consequence_commit_stale_authority_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1","expected_valid":false,"semantic_kind":"failed_precondition_cannot_bind_effect"},
-    {"path":"negative/external_intake_code_reuse_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1","expected_valid":false,"semantic_kind":"code_reuse_requires_license_clearance"},
-    {"path":"negative/boundary_probe_budget_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:boundary-probe-record:0.1","expected_valid":false,"semantic_kind":"high_risk_probe_cannot_be_allowed"},
-    {"path":"negative/judge_majority_vote_invalid.json","schema_id":"urn:ivan-kotov:c-runtime-integrity:judge-deliberation-record:0.1","expected_valid":false,"semantic_kind":"schema"}
+    {
+      "path": "positive/decision_basis_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:decision-basis-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/decision_basis_retry_b_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:decision-basis-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/memory_reliance_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:memory-reliance-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/non_effect_witness_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:non-effect-witness-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/consequence_commit_denied_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/consequence_commit_retry_b_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/boundary_probe_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:boundary-probe-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/judge_deliberation_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:judge-deliberation-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/external_intake_max_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/external_intake_richard_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/external_intake_elyria_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/external_taxonomy_comparison_only_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/external_taxonomy_no_dependency_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/external_taxonomy_test_surface_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/external_taxonomy_functional_analog_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/external_taxonomy_interface_adaptation_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/external_taxonomy_formal_dependency_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/external_taxonomy_code_reuse_valid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": true
+    },
+    {
+      "path": "positive/continuity_history_cases.json",
+      "schema_id": null,
+      "expected_valid": true,
+      "semantic_kind": "continuity_history_cases"
+    },
+    {
+      "path": "positive/continuity_carry_cost_profile.json",
+      "schema_id": null,
+      "expected_valid": true,
+      "semantic_kind": "continuity_carry_cost_profile"
+    },
+    {
+      "path": "positive/earth_test_runtime_integrity_valid.json",
+      "schema_id": null,
+      "expected_valid": true,
+      "semantic_kind": "earth_test_bundle"
+    },
+    {
+      "path": "negative/decision_basis_hash_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:decision-basis-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "basis_hash_mismatch"
+      ]
+    },
+    {
+      "path": "negative/memory_reliance_revoked_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:memory-reliance-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "revoked_memory_cannot_be_used"
+      ]
+    },
+    {
+      "path": "negative/non_effect_open_route_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:non-effect-witness-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "alternate_path_not_closed"
+      ]
+    },
+    {
+      "path": "negative/consequence_commit_stale_authority_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "failed_precondition_cannot_bind_effect"
+      ]
+    },
+    {
+      "path": "negative/consequence_commit_changed_target_without_new_grant_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "target_transition_new_grant_required"
+      ]
+    },
+    {
+      "path": "negative/consequence_commit_changed_target_without_new_task_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "target_transition_new_task_required"
+      ]
+    },
+    {
+      "path": "negative/consequence_commit_missing_transition_evidence_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "target_transition_evidence_unresolved"
+      ]
+    },
+    {
+      "path": "negative/consequence_commit_unrelated_lineage_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "previous_commit_lineage_mismatch"
+      ]
+    },
+    {
+      "path": "negative/consequence_commit_predecessor_rewritten_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "previous_commit_record_unresolved"
+      ]
+    },
+    {
+      "path": "negative/consequence_commit_old_target_as_current_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "target_transition_current_authority_mismatch"
+      ]
+    },
+    {
+      "path": "negative/consequence_commit_old_basis_new_target_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "graph_decision_basis_context_mismatch"
+      ]
+    },
+    {
+      "path": "negative/consequence_commit_future_transition_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "target_transition_time_invalid"
+      ]
+    },
+    {
+      "path": "negative/external_intake_code_reuse_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "code_reuse_record_requires_manual_review"
+      ]
+    },
+    {
+      "path": "negative/external_taxonomy_comparison_only_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "bounded_relation_claim_inflation"
+      ]
+    },
+    {
+      "path": "negative/external_taxonomy_no_dependency_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "bounded_relation_claim_inflation"
+      ]
+    },
+    {
+      "path": "negative/external_taxonomy_test_surface_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "bounded_relation_claim_inflation"
+      ]
+    },
+    {
+      "path": "negative/external_taxonomy_functional_analog_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "functional_analog_proof_mismatch"
+      ]
+    },
+    {
+      "path": "negative/external_taxonomy_interface_adaptation_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "interface_adaptation_proof_mismatch"
+      ]
+    },
+    {
+      "path": "negative/external_taxonomy_formal_dependency_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "formal_dependency_proof_mismatch"
+      ]
+    },
+    {
+      "path": "negative/external_taxonomy_code_reuse_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:external-construct-intake-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "code_reuse_record_requires_manual_review"
+      ]
+    },
+    {
+      "path": "negative/boundary_probe_budget_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:boundary-probe-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "high_risk_probe_cannot_be_allowed"
+      ]
+    },
+    {
+      "path": "negative/judge_majority_vote_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:judge-deliberation-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "schema"
+      ]
+    },
+    {
+      "path": "negative/consequence_commit_duplicate_preconditions_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "precondition_set_incomplete_or_duplicate"
+      ]
+    },
+    {
+      "path": "negative/consequence_commit_hash_domain_substitution_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "current_conditions_hash_domain_substitution"
+      ]
+    },
+    {
+      "path": "negative/consequence_commit_hidden_memory_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "memory_influence_precondition_mismatch"
+      ]
+    },
+    {
+      "path": "negative/consequence_commit_memory_status_mismatch_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "memory_precondition_verdict_mismatch"
+      ]
+    },
+    {
+      "path": "negative/memory_reliance_unresolved_use_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:memory-reliance-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "memory_qualification_requires_limits_or_denial"
+      ]
+    },
+    {
+      "path": "negative/memory_reliance_self_certification_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:memory-reliance-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "memory_self_certification_forbidden"
+      ]
+    },
+    {
+      "path": "negative/non_effect_reversed_window_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:non-effect-witness-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "invalid_observation_window"
+      ]
+    },
+    {
+      "path": "negative/non_effect_queue_not_applicable_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:non-effect-witness-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "queue_surface_requires_queue_state"
+      ]
+    },
+    {
+      "path": "negative/non_effect_global_claim_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:non-effect-witness-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "narrative_claim_exceeds_structured_scope"
+      ]
+    },
+    {
+      "path": "negative/boundary_probe_signal_flag_mismatch_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:boundary-probe-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "probe_signal_flag_mismatch",
+        "high_risk_probe_cannot_be_allowed"
+      ]
+    },
+    {
+      "path": "negative/boundary_probe_count_signal_mismatch_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:boundary-probe-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "probe_count_signal_mismatch"
+      ]
+    },
+    {
+      "path": "negative/judge_same_instance_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:judge-deliberation-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "judge_reviewer_independence_spoofed"
+      ]
+    },
+    {
+      "path": "negative/continuity_resume_without_evidence_invalid.json",
+      "schema_id": null,
+      "expected_valid": false,
+      "semantic_kind": "continuity_history_cases",
+      "expected_issue_codes": [
+        "continuity_required_cases_missing_or_duplicate",
+        "resume_requires_transition_evidence"
+      ]
+    },
+    {
+      "path": "negative/continuity_carry_cost_identity_smuggling_invalid.json",
+      "schema_id": null,
+      "expected_valid": false,
+      "semantic_kind": "continuity_carry_cost_profile",
+      "expected_issue_codes": [
+        "carry_cost_structure_invalid"
+      ]
+    },
+    {
+      "path": "negative/earth_test_dangling_graph_invalid.json",
+      "schema_id": null,
+      "expected_valid": false,
+      "semantic_kind": "earth_test_bundle",
+      "expected_issue_codes": [
+        "graph_decision_basis_link_invalid"
+      ]
+    }
+  ],
+  "evidence_artifact_inventory": [
+    {
+      "path": "fixtures/runtime-integrity/evidence/boundary_budget_profile_42.json",
+      "hash": "db5113ec275404c617f78d55626ae7d13f5423cc8b923819f64d8ccb465021e7",
+      "logical_ids": [
+        "opaque-budget-profile:continuity-sensitive-release"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/continuity_transition_registry_42.json",
+      "hash": "50e2065ec2c69e24f19fbcd9c4adb3d4e522987d2fb7bda6f7ef07ab3f18c82b",
+      "logical_ids": [
+        "continuity-transition-registry:42"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/corpus_passport_c_integrity_r0.json",
+      "hash": "8c110ee7f3e27e09509b838107e198a942e140a6bef312371228d16266fc8e9a",
+      "logical_ids": [
+        "corpus-passport:c-integrity-r1f"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/current_conditions_earth_42.json",
+      "hash": "fab5341a506787fec013823316bb215057e4b8638ed19074b711b26eb1afd998",
+      "logical_ids": [
+        "current-conditions:earth-42"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/current_conditions_retry_b.json",
+      "hash": "5c35e4fe8153540e1d993cd84341529c4bca05dad81d27099280d6614c07e749",
+      "logical_ids": [
+        "current-conditions:earth-retry-b"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/judge_independence_attestation_42.json",
+      "hash": "b069cbd00e9d926c9d2ab8c0cc976d25a4bb5cbcf20c51cb1e1a23c05024ec74",
+      "logical_ids": [
+        "judge-independence-attestation:42"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/memory_qualification_registry_42.json",
+      "hash": "9fd81c12c89fdeffef79dcc274a82bdc73c598bcc75ae2f9b769485c6c1bc42a",
+      "logical_ids": [
+        "memory-qualification-registry:42"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/non_effect_clock_42.json",
+      "hash": "1bf4d43ec8c214221468de9dafba4f8627cab38b5a4ba391268743c70eda59fd",
+      "logical_ids": [
+        "clock:monotonic-utc-42"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/non_effect_collector_42.json",
+      "hash": "8d7766e9f78f62eb43405c2431a236e60777c5d4ce4115e188bc05550ad95932",
+      "logical_ids": [
+        "collector:deployment-surfaces-42"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/non_effect_event_log_42.json",
+      "hash": "0e9c1f6aeb4a5508068ed930903ed7e65e69416c186478c1958e18cbc2d2aef7",
+      "logical_ids": [
+        "evidence:event-log-42"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/non_effect_routes_42.json",
+      "hash": "801e2e0aab1c59f22017cc2f57f0981ca2beac11874edf98dd43d5a2935d7caf",
+      "logical_ids": [
+        "evidence:connector-disabled",
+        "evidence:retry-cancelled",
+        "evidence:capability-revoked"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/non_effect_scope_inventory_42.json",
+      "hash": "344b4f79bb7e70a99af2917f91b8d93b8475540598f1281da2e8e666a7ffc569",
+      "logical_ids": [
+        "evidence:scope-inventory-42"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/permission_grant_42.json",
+      "hash": "8a341ab84dfbe4bf006ed2ce14f1a97d4ef9b8a001d71dc04cff774421fb36c2",
+      "logical_ids": [
+        "CLI_AGENT_PERMISSION_GRANT:grant-42"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/permission_grant_endpoint_b.json",
+      "hash": "c43c67c775c8cce6d62d4fe26d3d6000a9e9da10e723deaeac3c69c81646c2f5",
+      "logical_ids": [
+        "CLI_AGENT_PERMISSION_GRANT:grant-43"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/synthetic_dependency_proof.json",
+      "hash": "a4bac34765c913cf6cf6a78585ccc734dd73bb48d9f81a99ad10f33d6bb94ffc",
+      "logical_ids": [
+        "synthetic-dependency-proof:code-reuse-test"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/synthetic_external_source.json",
+      "hash": "11427bcb13e90ccf7adf6ff57798c039a5377924b74992300fbe6c5fcde78b49",
+      "logical_ids": [
+        "synthetic-external-source:code-reuse-test"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/synthetic_license_clearance.json",
+      "hash": "fd0950344db7ff002a6378e9db12169de365a53e3578a661d4e83be54d06aeca",
+      "logical_ids": [
+        "synthetic-license-clearance:code-reuse-test"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/synthetic_removal_breaks_test.json",
+      "hash": "98e6a14d74e51c6b4b7b56ee91d4c70d41a58a6f2c5ad8e8e41b0cd85dd2293b",
+      "logical_ids": [
+        "synthetic-removal-test:code-reuse-test"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/target_transition_endpoint_b.json",
+      "hash": "84e99a93c143574becc67b2657e47438c077e6a1c18d0c6e4e3066931e7b033f",
+      "logical_ids": [
+        "target-transition:earth-42-A-to-B"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/target_transition_endpoint_b_future.json",
+      "hash": "71188851c1511f3f2fe72496e78c8996facd7ee4b3fb7066de341c217944e47f",
+      "logical_ids": [
+        "target-transition:earth-42-A-to-B-future"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/task_contract_deploy_42.json",
+      "hash": "198a74fe207e00a54fe84b4dcff3cb4429790233e692922ae97de08753d72795",
+      "logical_ids": [
+        "task-contract:deploy-42"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/task_contract_endpoint_b.json",
+      "hash": "74d57e8e95e50e86ce56f47cc987cc08a63fa03324604448dda84636d8cf3c9b",
+      "logical_ids": [
+        "task-contract:deploy-43"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/taxonomy_dependency_proof.json",
+      "hash": "68d758400688906bff310f584cce870766cc703b2bd6611255e48a21f6a1f853",
+      "logical_ids": [
+        "taxonomy-dependency-proof:0.1"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/taxonomy_external_source.json",
+      "hash": "44f9c1e59bed6a24c7b114807775815668d8fba51cde0cc56160b809f936c324",
+      "logical_ids": [
+        "synthetic-taxonomy-source:0.1"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/taxonomy_license_clearance.json",
+      "hash": "31d45a92e02cef20d384de98488a980313c0100fa0513501c103b4797a270666",
+      "logical_ids": [
+        "taxonomy-license-clearance:0.1"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/taxonomy_manual_gate.json",
+      "hash": "314082421c08d79eec598565179732ecc9513bf059205642822ab583a6eb9930",
+      "logical_ids": [
+        "taxonomy-manual-gate:0.1"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/taxonomy_provenance.json",
+      "hash": "2a8d3ab2b72d01235e61ac60c957cc03a0dbbfe1e00e2ad236da0a4d9359c810",
+      "logical_ids": [
+        "taxonomy-provenance:0.1"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/taxonomy_removal_breaks.json",
+      "hash": "4e6086b6293969fb3b9eb7024aabaec6d8a269aac9c997f94c40f0d41cac1f5a",
+      "logical_ids": [
+        "taxonomy-removal-breaks:0.1"
+      ]
+    },
+    {
+      "path": "fixtures/runtime-integrity/evidence/taxonomy_transformation.json",
+      "hash": "3dd18653c834be0bdb377ea49c9c1f04e6e23f99c58b6694d93631d6e3241a32",
+      "logical_ids": [
+        "taxonomy-transformation:0.1"
+      ]
+    }
   ]
 }
