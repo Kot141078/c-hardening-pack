@@ -34,7 +34,10 @@ def load_validator():
     return module
 
 
-def evaluate_window(window: dict[str, str]) -> set[str]:
+def evaluate_window(
+    window: dict[str, str],
+    attempt_time: str | None = None,
+) -> set[str]:
     validator = load_validator()
     schemas, schema_registry = validator.build_registry()
     manifest = copy.deepcopy(validator.load_json(FIXTURE_ROOT / "MANIFEST.json"))
@@ -44,6 +47,10 @@ def evaluate_window(window: dict[str, str]) -> set[str]:
     witness_path = FIXTURE_ROOT / mutation["witness_fixture"]
     commit = original_load_json(commit_path)
     witness = original_load_json(witness_path)
+    if attempt_time is not None:
+        commit["created_at"] = attempt_time
+        commit["permission_checked_at"] = attempt_time
+        commit["task_contract_checked_at"] = attempt_time
     witness["observation_window"] = copy.deepcopy(window)
     overrides: dict[Path, object] = {}
 

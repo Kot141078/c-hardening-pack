@@ -54,6 +54,22 @@ class RuntimeIntegrityR2ClosureTest(unittest.TestCase):
         self.assertEqual(set(), self.interval_probe.evaluate_window(equal_start))
         self.assertEqual(set(), self.interval_probe.evaluate_window(longer_window))
 
+    def test_r2_c1_submicrosecond_order_is_exact(self) -> None:
+        attempt = "2026-08-27T10:03:00.0000004+02:00"
+        later_start = {
+            "start": "2026-08-27T10:03:00.0000005+02:00",
+            "end": "2026-08-27T10:03:01+02:00",
+        }
+        self.assertIn(
+            "non_effect_witness_interval_excludes_attempt",
+            self.interval_probe.evaluate_window(later_start, attempt),
+        )
+        validator = self.interval_probe.load_validator()
+        self.assertLess(
+            validator.parse_timestamp(attempt),
+            validator.parse_timestamp(later_start["start"]),
+        )
+
     def test_r2_c2_unique_failed_scenario_count_is_not_diagnostic_count(self) -> None:
         real_run = self.runner.subprocess.run
 

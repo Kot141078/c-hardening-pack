@@ -35,7 +35,7 @@
     {
       "path": "docs/Runtime_Consequence_Integrity_Profile_for_c_v0_1.md",
       "hash_domain": "UNIFORM_UTF8_TEXT_TO_LF_SHA256_V1",
-      "sha256": "015590b913e1b08bd4306a1483f12ce0cb26a9351135e0bcdd36a2a6b1fc948c"
+      "sha256": "0592e3d354e086fed465c49f4d90467c3b9ad16c45632ef704fd4632ddb6e053"
     },
     {
       "path": "docs/Runtime_Integrity_Traceability_Matrix_v0_1.md",

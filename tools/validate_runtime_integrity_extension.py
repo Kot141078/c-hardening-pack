@@ -20,7 +20,8 @@ import re
 import sys
 from collections import Counter
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
+from fractions import Fraction
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
@@ -258,8 +259,8 @@ def state_at(artifact: dict[str, Any], timestamp: Any) -> dict[str, Any] | None:
     at = parse_timestamp(timestamp)
     if at is None:
         return None
-    candidates: list[tuple[datetime, dict[str, Any]]] = []
-    seen_times: set[datetime] = set()
+    candidates: list[tuple[Fraction, dict[str, Any]]] = []
+    seen_times: set[Fraction] = set()
     for entry in artifact.get("status_history", []):
         if not isinstance(entry, dict):
             return None
@@ -289,15 +290,33 @@ def grant_is_valid_at(artifact: dict[str, Any], timestamp: Any) -> bool:
         return False
 
 
-def parse_timestamp(value: Any) -> datetime | None:
-    if not isinstance(value, str) or re.fullmatch(
-        r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})",
+def parse_timestamp(value: Any) -> Fraction | None:
+    """Parse the supported RFC 3339 profile into an exact UTC-second value."""
+    if not isinstance(value, str):
+        return None
+    matched = re.fullmatch(
+        r"(?P<whole>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})"
+        r"(?:\.(?P<fraction>\d+))?(?P<zone>Z|[+-]\d{2}:\d{2})",
         value,
-    ) is None:
+    )
+    if matched is None:
         return None
     try:
-        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
-        return parsed if parsed.utcoffset() is not None else None
+        zone = "+00:00" if matched.group("zone") == "Z" else matched.group("zone")
+        parsed = datetime.fromisoformat(matched.group("whole") + zone)
+        if parsed.utcoffset() is None:
+            return None
+        utc = parsed.astimezone(timezone.utc)
+        epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)
+        delta = utc - epoch
+        whole_seconds = delta.days * 86_400 + delta.seconds
+        fraction_text = matched.group("fraction") or ""
+        fractional_seconds = (
+            Fraction(int(fraction_text), 10 ** len(fraction_text))
+            if fraction_text
+            else Fraction(0)
+        )
+        return Fraction(whole_seconds) + fractional_seconds
     except ValueError:
         return None
 
