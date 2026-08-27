@@ -20,7 +20,8 @@ import re
 import sys
 from collections import Counter
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
+from fractions import Fraction
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
@@ -258,8 +259,8 @@ def state_at(artifact: dict[str, Any], timestamp: Any) -> dict[str, Any] | None:
     at = parse_timestamp(timestamp)
     if at is None:
         return None
-    candidates: list[tuple[datetime, dict[str, Any]]] = []
-    seen_times: set[datetime] = set()
+    candidates: list[tuple[Fraction, dict[str, Any]]] = []
+    seen_times: set[Fraction] = set()
     for entry in artifact.get("status_history", []):
         if not isinstance(entry, dict):
             return None
@@ -289,16 +290,34 @@ def grant_is_valid_at(artifact: dict[str, Any], timestamp: Any) -> bool:
         return False
 
 
-def parse_timestamp(value: Any) -> datetime | None:
-    if not isinstance(value, str) or re.fullmatch(
-        r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})",
+def parse_timestamp(value: Any) -> Fraction | None:
+    """Parse the supported RFC 3339 profile into an exact UTC-second value."""
+    if not isinstance(value, str):
+        return None
+    matched = re.fullmatch(
+        r"(?P<whole>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})"
+        r"(?:\.(?P<fraction>\d+))?(?P<zone>Z|[+-]\d{2}:\d{2})",
         value,
-    ) is None:
+    )
+    if matched is None:
         return None
     try:
-        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
-        return parsed if parsed.utcoffset() is not None else None
-    except ValueError:
+        zone = "+00:00" if matched.group("zone") == "Z" else matched.group("zone")
+        parsed = datetime.fromisoformat(matched.group("whole") + zone)
+        if parsed.utcoffset() is None:
+            return None
+        utc = parsed.astimezone(timezone.utc)
+        epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)
+        delta = utc - epoch
+        whole_seconds = delta.days * 86_400 + delta.seconds
+        fraction_text = matched.group("fraction") or ""
+        fractional_seconds = (
+            Fraction(int(fraction_text), 10 ** len(fraction_text))
+            if fraction_text
+            else Fraction(0)
+        )
+        return Fraction(whole_seconds) + fractional_seconds
+    except (ValueError, OverflowError):
         return None
 
 
@@ -399,7 +418,7 @@ def semantic_decision_basis(data: dict[str, Any]) -> list[ValidationIssue]:
     basis = data.get("basis") or {}
     created = parse_timestamp(data.get("created_at"))
     captured = parse_timestamp(basis.get("captured_at"))
-    if created and captured and created < captured:
+    if created is not None and captured is not None and created < captured:
         issues.append(issue("decision_created_before_basis_capture", "Decision record created_at must not precede basis.captured_at."))
     issues.extend(duplicate_artifact_ref_issues(
         basis,
@@ -558,9 +577,25 @@ def semantic_non_effect(data: dict[str, Any]) -> list[ValidationIssue]:
     window = data.get("observation_window") or {}
     issues.extend(temporal_window_issues(window.get("start"), window.get("end"), data.get("created_at"), "observation_window"))
 
+    if data.get("attempt_ref") != data.get("gate_record_ref"):
+        issues.append(issue(
+            "non_effect_witness_attempt_mismatch",
+            "A non-effect witness attempt_ref must exactly equal its gate_record_ref.",
+        ))
+
     duplicate_surfaces = duplicate_values(s.get("surface_id") for s in surfaces)
     if duplicate_surfaces:
         issues.append(issue("duplicate_surface_id", f"Duplicate surface_id values: {sorted(duplicate_surfaces)!r}"))
+    logical_coordinates = [
+        (surface.get("target_ref"), surface.get("target_coordinate"), surface.get("hash_domain"))
+        for surface in surfaces
+    ]
+    duplicate_coordinates = duplicate_values(logical_coordinates)
+    if duplicate_coordinates:
+        issues.append(issue(
+            "duplicate_logical_observation_coordinate",
+            "Distinct surface IDs or kinds cannot count the same target_ref, target_coordinate, and hash_domain as independent observations.",
+        ))
     duplicate_paths = duplicate_values(r.get("path_id") for r in routes)
     if duplicate_paths:
         issues.append(issue("duplicate_path_id", f"Duplicate path_id values: {sorted(duplicate_paths)!r}"))
@@ -689,6 +724,11 @@ def semantic_commit(data: dict[str, Any]) -> list[ValidationIssue]:
         ))
     if effect_state == "NOT_BOUND" and data.get("effect_artifact_hash") is not None:
         issues.append(issue("not_bound_cannot_have_effect_hash", "NOT_BOUND must not claim a bound effect artifact hash."))
+    if effect_state == "NOT_BOUND" and data.get("claim_boundary") != NOT_BOUND_COMMIT_CLAIM_BOUNDARY:
+        issues.append(issue(
+            "commit_claim_exceeds_linked_witness_scope",
+            "Every NOT_BOUND consequence commit requires the fixed bounded claim ceiling; only the linked witness may state a scoped negative-effect conclusion.",
+        ))
     if effect_state != "NOT_BOUND" and data.get("non_effect_witness_ref") is not None:
         issues.append(issue("non_effect_witness_effect_state_mismatch", "Only a NOT_BOUND effect state may carry a non-effect witness reference."))
     conditions_ref = data.get("current_conditions_ref") or {}
@@ -748,9 +788,9 @@ def semantic_commit(data: dict[str, Any]) -> list[ValidationIssue]:
     checked = parse_timestamp(data.get("permission_checked_at"))
     task_checked = parse_timestamp(data.get("task_contract_checked_at"))
     created = parse_timestamp(data.get("created_at"))
-    if checked and created and checked != created:
+    if checked is not None and created is not None and checked != created:
         issues.append(issue("permission_check_not_at_commit", "permission_checked_at must equal the consequence-commit timestamp."))
-    if task_checked and created and task_checked != created:
+    if task_checked is not None and created is not None and task_checked != created:
         issues.append(issue("task_contract_check_not_at_commit", "task_contract_checked_at must equal the consequence-commit timestamp."))
     if binding_outcome:
         if data.get("permission_status") != "VALID":
@@ -761,7 +801,7 @@ def semantic_commit(data: dict[str, Any]) -> list[ValidationIssue]:
                 "A binding commit requires a CURRENT task contract whose endpoint matches the consequence target.",
             ))
         valid_until = parse_timestamp(data.get("permission_valid_until"))
-        if valid_until and created and valid_until < created:
+        if valid_until is not None and created is not None and valid_until < created:
             issues.append(issue("current_permission_expired", "A binding commit cannot use a grant expired before created_at."))
         if data.get("permission_subject_ref") != agent:
             issues.append(issue("permission_subject_mismatch", "The current permission subject must be the declared executor."))
@@ -1508,7 +1548,7 @@ def semantic_carry_cost(data: dict[str, Any]) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     if not isinstance(data, dict):
         return [issue("carry_cost_structure_invalid", "Carry-cost profile must be an object.")]
-    allowed_top = {"schema_version", "profile_id", "dimensions", "rules"}
+    allowed_top = {"schema_version", "profile_id", "dimensions", "non_entailment_codes"}
     extras = set(data) - allowed_top
     if extras:
         issues.append(issue("carry_cost_structure_invalid", f"Unexpected carry-cost fields: {sorted(extras)!r}"))
@@ -1516,17 +1556,26 @@ def semantic_carry_cost(data: dict[str, Any]) -> list[ValidationIssue]:
         issues.append(issue("carry_cost_structure_invalid", "Carry-cost profile requires schema_version and profile_id."))
     dimensions = data.get("dimensions", [])
     if not isinstance(dimensions, list) or not dimensions:
-        return issues + [issue("carry_cost_dimensions_missing", "At least one carry-cost dimension is required.")]
+        return issues + [
+            issue("carry_cost_dimensions_missing", "The exact closed carry-cost dimension map is required."),
+            issue("carry_cost_dimension_map_invalid", "Carry-cost dimensions must exactly match the closed dimension/unit map."),
+        ]
+    raw_codes = data.get("non_entailment_codes")
     if (
-        not isinstance(data.get("rules"), list)
-        or not data.get("rules")
-        or any(not isinstance(rule, str) or not rule.strip() for rule in data.get("rules", []))
+        not isinstance(raw_codes, list)
+        or any(not isinstance(code, str) for code in raw_codes)
+        or len(raw_codes) != len(CARRY_COST_NON_ENTAILMENT_CODES)
+        or set(raw_codes) != CARRY_COST_NON_ENTAILMENT_CODES
     ):
-        issues.append(issue("carry_cost_structure_invalid", "Carry-cost profile requires at least one explicit rule."))
+        issues.append(issue(
+            "carry_cost_rule_set_invalid",
+            "Carry-cost machine rules must be exactly the closed non-entailment code set; free prose, duplicates, omissions, and additions are forbidden.",
+        ))
     names = [item.get("dimension") for item in dimensions if isinstance(item, dict) and isinstance(item.get("dimension"), str)]
     duplicates = duplicate_values(names)
     if duplicates:
         issues.append(issue("carry_cost_duplicate_dimension", f"Duplicate carry-cost dimensions: {sorted(duplicates)!r}"))
+    observed_map: dict[str, str] = {}
     for item in dimensions:
         if not isinstance(item, dict):
             issues.append(issue("carry_cost_structure_invalid", "Each carry-cost dimension must be an object."))
@@ -1543,6 +1592,8 @@ def semantic_carry_cost(data: dict[str, Any]) -> list[ValidationIssue]:
             or not isinstance(item.get("identity_bearing"), bool)
         ):
             issues.append(issue("carry_cost_structure_invalid", "Each carry-cost dimension requires nonblank dimension/unit and identity_bearing fields only."))
+        elif item["dimension"] not in observed_map:
+            observed_map[item["dimension"]] = item["unit"]
     if any(
         not isinstance(item, dict) or item.get("identity_bearing") is not False
         for item in dimensions
@@ -1551,6 +1602,16 @@ def semantic_carry_cost(data: dict[str, Any]) -> list[ValidationIssue]:
     for required in {"human_anchor_attention", "witness_chain_maintenance", "recovery_reserve"}:
         if required not in set(names):
             issues.append(issue("carry_cost_required_dimension_missing", f"Required dimension missing: {required}"))
+    if (
+        len(dimensions) != len(CARRY_COST_DIMENSION_UNITS)
+        or duplicates
+        or observed_map != CARRY_COST_DIMENSION_UNITS
+        or any(not isinstance(item, dict) or item.get("identity_bearing") is not False for item in dimensions)
+    ):
+        issues.append(issue(
+            "carry_cost_dimension_map_invalid",
+            "Carry-cost dimensions and units must exactly match the closed non-identity-bearing map.",
+        ))
     return issues
 
 
@@ -1650,6 +1711,7 @@ def semantic_earth_bundle(
         or witness_ref.get("version") != record_version(witness)
         or witness_ref.get("hash") != jcs_sha256(witness)
         or witness.get("gate_record_ref") != commit.get("record_id")
+        or witness.get("attempt_ref") != commit.get("record_id")
     ):
         issues.append(issue("graph_witness_link_invalid", "Commit and non-effect witness IDs are not reciprocal and resolvable."))
     if witness.get("effect_scope_ref") != (commit.get("target_effect") or {}).get("effect_id"):
@@ -1691,7 +1753,7 @@ def semantic_earth_bundle(
     decision_created = parse_timestamp(decision.get("created_at"))
     basis_captured = parse_timestamp((decision.get("basis") or {}).get("captured_at"))
     memory_created = parse_timestamp(memory.get("created_at"))
-    if planning_time and any(
+    if planning_time is not None and any(
         timestamp is None or timestamp > planning_time
         for timestamp in (decision_created, basis_captured, memory_created)
     ):
@@ -1848,7 +1910,77 @@ KNOWN_EXPECTED_ISSUE_CODES = {
     "previous_commit_lineage_mismatch", "target_transition_evidence_unresolved",
     "target_transition_time_invalid", "target_transition_new_grant_required",
     "target_transition_new_task_required", "target_transition_current_authority_mismatch",
+    "non_effect_witness_interval_excludes_attempt",
+    "duplicate_logical_observation_coordinate", "non_effect_witness_attempt_mismatch",
+    "commit_claim_exceeds_linked_witness_scope", "carry_cost_rule_set_invalid",
+    "carry_cost_dimension_map_invalid",
 }
+
+NOT_BOUND_COMMIT_CLAIM_BOUNDARY = (
+    "This record proves only the bounded commit-time decision and declared effect state. "
+    "It does not prove global or universal effect absence. Any negative-effect conclusion "
+    "is limited to the linked non-effect witness's declared surfaces and observation window."
+)
+
+SURFACE_DESCRIPTOR_FIELDS = (
+    "surface_id",
+    "surface_kind",
+    "target_ref",
+    "target_coordinate",
+    "hash_domain",
+)
+
+CARRY_COST_DIMENSION_UNITS = {
+    "idle_power": "joule",
+    "storage_refresh_and_scrub": "operation",
+    "backup_verification": "operation",
+    "witness_chain_maintenance": "operation",
+    "certificate_and_key_rotation": "operation",
+    "provider_and_interface_drift_adaptation": "work_unit",
+    "security_patch_and_maintenance": "work_unit",
+    "human_anchor_attention": "minute",
+    "recovery_reserve": "mcu",
+}
+
+CARRY_COST_NON_ENTAILMENT_CODES = {
+    "RESOURCE_RECOVERY_DOES_NOT_ENTAIL_IDENTITY_RECOVERY",
+    "UPTIME_DOES_NOT_ENTAIL_IDENTITY_CONTINUITY",
+    "STORAGE_COMPLETENESS_DOES_NOT_ENTAIL_IDENTITY_CONTINUITY",
+    "CARRY_COST_DOES_NOT_ENTAIL_IDENTITY_CONTINUITY",
+    "RESOURCE_EXHAUSTION_DOES_NOT_CHANGE_LINEAGE_CLASSIFICATION",
+    "RESOURCE_RESTORATION_DOES_NOT_REPAIR_BROKEN_LINEAGE",
+}
+
+
+def linked_witness_interval_contains_attempt(
+    commit: dict[str, Any],
+    witness: dict[str, Any],
+) -> bool:
+    """Return whether the witness interval inclusively contains the commit attempt."""
+    attempt_time = parse_timestamp(commit.get("created_at"))
+    window = witness.get("observation_window")
+    if not isinstance(window, dict):
+        return False
+    start = parse_timestamp(window.get("start"))
+    end = parse_timestamp(window.get("end"))
+    if attempt_time is None or start is None or end is None:
+        return False
+    try:
+        return start <= attempt_time <= end
+    except TypeError:
+        return False
+
+
+def linked_witness_interval_issues(
+    commit: dict[str, Any],
+    witness: dict[str, Any],
+) -> list[ValidationIssue]:
+    if linked_witness_interval_contains_attempt(commit, witness):
+        return []
+    return [issue(
+        "non_effect_witness_interval_excludes_attempt",
+        "A linked high-assurance NOT_BOUND witness interval must inclusively contain the consequence commit created_at attempt time.",
+    )]
 
 
 def validate_registered_links(
@@ -2008,7 +2140,15 @@ def validate_registered_links(
         witness_ref = data.get("non_effect_witness_ref")
         if witness_ref:
             witness = resolve(witness_ref.get("artifact_id")) if isinstance(witness_ref, dict) else None
-            if (
+            if witness is not None and (
+                witness.get("attempt_ref") != data.get("record_id")
+                or witness.get("gate_record_ref") != data.get("record_id")
+            ):
+                issues.append(issue(
+                    "non_effect_witness_attempt_mismatch",
+                    "The linked witness attempt_ref and gate_record_ref must both exactly equal the consequence commit record_id.",
+                ))
+            witness_link_invalid = (
                 witness is None
                 or witness.get("record_type") != "non_effect_witness_record"
                 or witness_ref.get("version") != record_version(witness)
@@ -2018,8 +2158,11 @@ def validate_registered_links(
                 or witness.get("effect_target_ref") != (data.get("target_effect") or {}).get("target_ref")
                 or data.get("effect_state") != "NOT_BOUND"
                 or witness.get("conclusion") != "NO_EFFECT_OBSERVED_WITHIN_DECLARED_SCOPE"
-            ):
+            )
+            if witness_link_invalid:
                 issues.append(issue("graph_witness_link_invalid", "Consequence commit has no reciprocal strongest scoped non-effect witness bound to the same effect and target."))
+            elif witness is not None:
+                issues.extend(linked_witness_interval_issues(data, witness))
         previous_ref = data.get("previous_commit_record_ref")
         if previous_ref:
             previous = resolve(previous_ref.get("artifact_id")) if isinstance(previous_ref, dict) else None
@@ -2111,7 +2254,15 @@ def validate_registered_links(
 
     if record_type == "non_effect_witness_record":
         commit = resolve(data.get("gate_record_ref"))
-        if (
+        if commit is not None and (
+            data.get("attempt_ref") != commit.get("record_id")
+            or data.get("gate_record_ref") != commit.get("record_id")
+        ):
+            issues.append(issue(
+                "non_effect_witness_attempt_mismatch",
+                "The witness attempt_ref and gate_record_ref must both exactly equal the registered consequence commit record_id.",
+            ))
+        witness_link_invalid = (
             commit is None
             or commit.get("record_type") != "consequence_commit_record"
             or not isinstance(commit.get("non_effect_witness_ref"), dict)
@@ -2122,8 +2273,11 @@ def validate_registered_links(
             or (commit.get("target_effect") or {}).get("target_ref") != data.get("effect_target_ref")
             or commit.get("effect_state") != "NOT_BOUND"
             or data.get("conclusion") != "NO_EFFECT_OBSERVED_WITHIN_DECLARED_SCOPE"
-        ):
+        )
+        if witness_link_invalid:
             issues.append(issue("graph_witness_link_invalid", "Non-effect witness has no reciprocal NOT_BOUND commit bound to the same effect and target."))
+        elif commit is not None:
+            issues.extend(linked_witness_interval_issues(commit, data))
     return issues
 
 
@@ -2460,7 +2614,7 @@ def validate_registered_evidence(
             changed_at = parse_timestamp(changed.get("observed_at"))
             captured_at = parse_timestamp(current.get("captured_at"))
             ordered_condition_times = False
-            if planning_at and changed_at and captured_at:
+            if planning_at is not None and changed_at is not None and captured_at is not None:
                 try:
                     ordered_condition_times = planning_at < changed_at < captured_at
                 except TypeError:
@@ -2536,18 +2690,60 @@ def validate_registered_evidence(
             issues.append(issue("non_effect_scope_inventory_unresolved", "The declared scope inventory is not resolvable and hash-bound."))
         else:
             inventory_data = inventory[0]
+            expected_descriptors = sorted(
+                [
+                    {field: surface.get(field) for field in SURFACE_DESCRIPTOR_FIELDS}
+                    for surface in surfaces
+                ],
+                key=lambda item: str(item.get("surface_id")),
+            )
+            inventory_descriptors = inventory_data.get("observation_surface_descriptors")
+            inventory_shape_valid = (
+                set(inventory_data) == {
+                    "schema_version", "evidence_ids", "effect_scope_ref", "effect_target_ref",
+                    "protected_effects", "observation_surface_descriptors", "alternate_path_ids",
+                }
+                and inventory_data.get("schema_version") == "c-non-effect-scope-inventory-0.1"
+                and isinstance(inventory_descriptors, list)
+                and all(
+                    isinstance(item, dict) and set(item) == set(SURFACE_DESCRIPTOR_FIELDS)
+                    for item in inventory_descriptors
+                )
+            )
+            observed_descriptors = sorted(
+                inventory_descriptors if inventory_shape_valid else [],
+                key=lambda item: str(item.get("surface_id")),
+            )
             if (
-                inventory_data.get("effect_scope_ref") != data.get("effect_scope_ref")
+                not inventory_shape_valid
+                or inventory_data.get("effect_scope_ref") != data.get("effect_scope_ref")
                 or inventory_data.get("effect_target_ref") != data.get("effect_target_ref")
                 or inventory_data.get("protected_effects") != data.get("protected_effects")
-                or set(inventory_data.get("observation_surface_ids", [])) != {item.get("surface_id") for item in surfaces}
+                or observed_descriptors != expected_descriptors
+                or not isinstance(inventory_data.get("alternate_path_ids"), list)
+                or len(inventory_data.get("alternate_path_ids", [])) != len(routes)
                 or set(inventory_data.get("alternate_path_ids", [])) != {item.get("path_id") for item in routes}
             ):
-                issues.append(issue("non_effect_scope_inventory_mismatch", "The frozen scope inventory does not match the witness surfaces, routes, or protected effects."))
-        if clock is None or clock[0].get("correlation_window") != window:
+                issues.append(issue("non_effect_scope_inventory_mismatch", "The frozen scope inventory must exactly match every static surface descriptor, route, target, and protected effect without logical aliases."))
+        clock_shape_valid = clock is not None and (
+            set(clock[0]) == {"schema_version", "evidence_ids", "clock_kind", "correlation_window"}
+            and clock[0].get("schema_version") == "c-clock-evidence-0.1"
+            and clock[0].get("clock_kind") == "MONOTONIC_WITH_UTC_CORRELATION"
+        )
+        if clock is None or not clock_shape_valid or clock[0].get("correlation_window") != window:
             issues.append(issue("non_effect_clock_evidence_unresolved", "The clock source is not resolvable for the observation window."))
+        collector_shape_valid = collector is not None and (
+            set(collector[0]) == {
+                "schema_version", "evidence_ids", "availability", "continuous_event_log_ref",
+                "surface_ids", "window",
+            }
+            and collector[0].get("schema_version") == "c-collector-evidence-0.1"
+            and isinstance(collector[0].get("surface_ids"), list)
+            and len(collector[0].get("surface_ids", [])) == len(surfaces)
+        )
         if collector is None or (
-            collector[0].get("availability") != "COMPLETE"
+            not collector_shape_valid
+            or collector[0].get("availability") != "COMPLETE"
             or collector[0].get("continuous_event_log_ref") != collection.get("continuous_event_log_ref")
             or collector[0].get("window") != window
             or set(collector[0].get("surface_ids", [])) != {item.get("surface_id") for item in surfaces}
@@ -2569,8 +2765,22 @@ def validate_registered_evidence(
             ],
             key=lambda item: str(item.get("surface_id")),
         )
+        event_log_shape_valid = event_log is not None and (
+            set(event_log[0]) == {
+                "schema_version", "evidence_ids", "collector_ref", "window", "availability",
+                "surface_observations", "events",
+            }
+            and event_log[0].get("schema_version") == "c-non-effect-event-log-0.1"
+            and isinstance(event_log[0].get("surface_observations"), list)
+            and all(
+                isinstance(surface, dict) and set(surface) == set(surface_fields)
+                for surface in event_log[0].get("surface_observations", [])
+            )
+            and isinstance(event_log[0].get("events"), list)
+        )
         if event_log is None or (
-            event_log[0].get("collector_ref") != collection.get("collector_ref")
+            not event_log_shape_valid
+            or event_log[0].get("collector_ref") != collection.get("collector_ref")
             or event_log[0].get("availability") != "COMPLETE"
             or event_log[0].get("window") != window
             or observed_observations != expected_observations
@@ -2589,7 +2799,21 @@ def validate_registered_evidence(
         resolved_route_artifacts: dict[str, dict[str, Any]] = {}
         for route in routes:
             evidence = resolve_registered_evidence(route.get("evidence_ref"), evidence_registry)
-            if evidence is None or evidence[0].get("window") != window or evidence[0].get("collector_ref") != collection.get("collector_ref"):
+            route_shape_valid = evidence is not None and (
+                set(evidence[0]) == {"schema_version", "evidence_ids", "collector_ref", "window", "path_states"}
+                and evidence[0].get("schema_version") == "c-route-evidence-0.1"
+                and isinstance(evidence[0].get("path_states"), list)
+                and all(
+                    isinstance(item, dict) and set(item) == {"path_id", "status"}
+                    for item in evidence[0].get("path_states", [])
+                )
+            )
+            if (
+                evidence is None
+                or not route_shape_valid
+                or evidence[0].get("window") != window
+                or evidence[0].get("collector_ref") != collection.get("collector_ref")
+            ):
                 issues.append(issue("alternate_path_evidence_unresolved", f"Alternate path evidence is unresolved for {route.get('path_id')}."))
             else:
                 resolved_route_artifacts[evidence[1]] = evidence[0]

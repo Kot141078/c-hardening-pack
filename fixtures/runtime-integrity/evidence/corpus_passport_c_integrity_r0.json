@@ -35,12 +35,12 @@
     {
       "path": "docs/Runtime_Consequence_Integrity_Profile_for_c_v0_1.md",
       "hash_domain": "UNIFORM_UTF8_TEXT_TO_LF_SHA256_V1",
-      "sha256": "0d3b096156914a0b5cab9392a36a36baeac836018e1bc9bde59ca490a7e94f1a"
+      "sha256": "762d0e116dd5968e23aed9f0a76b8be0817a2b141349c6f9ec1e4826735dd506"
     },
     {
       "path": "docs/Runtime_Integrity_Traceability_Matrix_v0_1.md",
       "hash_domain": "UNIFORM_UTF8_TEXT_TO_LF_SHA256_V1",
-      "sha256": "28ccad11e63041e79b940d9f0761e7efa0f192fb2190c655f7135848cae0a046"
+      "sha256": "a14b9898a0e551b35af47340be1b1732a41ac676a8971cc4021531e8d57c75d8"
     },
     {
       "path": "docs/Runtime_JSON_Canonicalization_Profile_v0_1_1.md",

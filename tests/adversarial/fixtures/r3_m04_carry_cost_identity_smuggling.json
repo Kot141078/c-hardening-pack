@@ -1,0 +1,14 @@
+{
+  "scenario_id": "r3_m04_carry_cost_identity_smuggling",
+  "category": "CONTINUITY_L4",
+  "base_fixture": "fixtures/runtime-integrity/positive/continuity_carry_cost_profile.json",
+  "runtime_negative_fixture": "fixtures/runtime-integrity/negative/r3_carry_cost_rule_set_invalid.json",
+  "mutation": {
+    "path": "/non_entailment_codes/0",
+    "from": "RESOURCE_RECOVERY_DOES_NOT_ENTAIL_IDENTITY_RECOVERY",
+    "to": "CARRY_COST_ENTAILS_IDENTITY_CONTINUITY"
+  },
+  "coherent_hash_cascade": [],
+  "expected_issue_codes": ["carry_cost_rule_set_invalid"],
+  "forbidden_cause": "structure or identity_bearing flag mutation; only one closed machine rule changes"
+}

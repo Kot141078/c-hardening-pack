@@ -1,0 +1,18 @@
+{
+  "scenario_id": "r3_m02_attempt_ref_mismatch",
+  "category": "CONSEQUENCE_GRAPH",
+  "base_fixture": "fixtures/runtime-integrity/positive/non_effect_witness_valid.json",
+  "runtime_negative_fixture": "fixtures/runtime-integrity/negative/r3_non_effect_witness_attempt_mismatch_invalid.json",
+  "mutation": {
+    "path": "/attempt_ref",
+    "from": "consequence-commit-deploy-42",
+    "to": "attempt:unrelated-endpoint-B-resource-identity"
+  },
+  "coherent_hash_cascade": [
+    "rebind the witness hash in the denied commit",
+    "rebind the denied-commit hash in the retry and Earth bundle",
+    "rebind the retry hash in the Earth bundle and dependent fixtures"
+  ],
+  "expected_issue_codes": ["non_effect_witness_attempt_mismatch"],
+  "forbidden_cause": "stale witness, predecessor, or Earth hash"
+}

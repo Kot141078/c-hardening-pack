@@ -11,7 +11,7 @@
   "evidence_registry": {
     "evidence:scope-inventory-42": {
       "path": "fixtures/runtime-integrity/evidence/non_effect_scope_inventory_42.json",
-      "hash": "344b4f79bb7e70a99af2917f91b8d93b8475540598f1281da2e8e666a7ffc569"
+      "hash": "b53173f188bca1d051ece68d035eb579b7d15f812c4b8ae735d340efd8a87cb1"
     },
     "evidence:event-log-42": {
       "path": "fixtures/runtime-integrity/evidence/non_effect_event_log_42.json",
@@ -480,6 +480,39 @@
       ]
     },
     {
+      "path": "negative/r3_duplicate_logical_observation_coordinate_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:non-effect-witness-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "duplicate_logical_observation_coordinate"
+      ]
+    },
+    {
+      "path": "negative/r3_non_effect_witness_attempt_mismatch_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:non-effect-witness-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "non_effect_witness_attempt_mismatch"
+      ]
+    },
+    {
+      "path": "negative/r3_commit_claim_exceeds_linked_witness_scope_invalid.json",
+      "schema_id": "urn:ivan-kotov:c-runtime-integrity:consequence-commit-record:0.1.1",
+      "expected_valid": false,
+      "expected_issue_codes": [
+        "commit_claim_exceeds_linked_witness_scope"
+      ]
+    },
+    {
+      "path": "negative/r3_carry_cost_rule_set_invalid.json",
+      "schema_id": null,
+      "expected_valid": false,
+      "semantic_kind": "continuity_carry_cost_profile",
+      "expected_issue_codes": [
+        "carry_cost_rule_set_invalid"
+      ]
+    },
+    {
       "path": "negative/earth_test_dangling_graph_invalid.json",
       "schema_id": null,
       "expected_valid": false,
@@ -506,7 +539,7 @@
     },
     {
       "path": "fixtures/runtime-integrity/evidence/corpus_passport_c_integrity_r0.json",
-      "hash": "8c110ee7f3e27e09509b838107e198a942e140a6bef312371228d16266fc8e9a",
+      "hash": "2eeb43185e8de996ea083d3a1d926654af19d324bc49bb9f4dff1e4ca16e5148",
       "logical_ids": [
         "corpus-passport:c-integrity-r1f"
       ]
@@ -571,7 +604,7 @@
     },
     {
       "path": "fixtures/runtime-integrity/evidence/non_effect_scope_inventory_42.json",
-      "hash": "344b4f79bb7e70a99af2917f91b8d93b8475540598f1281da2e8e666a7ffc569",
+      "hash": "b53173f188bca1d051ece68d035eb579b7d15f812c4b8ae735d340efd8a87cb1",
       "logical_ids": [
         "evidence:scope-inventory-42"
       ]

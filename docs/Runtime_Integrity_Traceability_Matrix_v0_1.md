@@ -1,7 +1,7 @@
 # Runtime Integrity Traceability Matrix v0.1.1
 
-**Status:** Development matrix  
-**Date:** 2026-08-27  
+**Status:** Development matrix
+**Date:** 2026-08-27
 **Parent:** `Runtime_Consequence_Integrity_Profile_for_c_v0_1.md`
 
 ## 1. Purpose
@@ -13,12 +13,13 @@ Each new object must close a specific residual gap while leaving the parent laye
 | Requirement | Native antecedent | Residual gap | Extension object or fixture | Failure test |
 |---|---|---|---|---|
 | Revalidate at consequence commit | AGL; Initiation Gates | No compact final machine record | `consequence_commit_record` | stale authority plus `OPEN` must fail |
-| Prove scoped absence of effect | L4 Witness; CGAM refusal semantics | `DENY` alone does not inspect downstream state | `non_effect_witness_record` | open alternate route plus no-effect conclusion must fail |
+| Prove scoped absence of effect | L4 Witness; CGAM refusal semantics | `DENY` alone does not inspect downstream state | `non_effect_witness_record` linked to the commit attempt and an exact frozen surface-descriptor inventory | open alternate route, duplicate logical coordinate, mismatched attempt identity, or an observation interval excluding the commit `created_at` attempt must fail |
+| Bound every `NOT_BOUND` claim | scoped witness discipline | commit prose could inflate declared-scope evidence into a universal claim | fixed consequence-commit claim ceiling | any changed, global, or universal `NOT_BOUND` claim text must fail |
 | Bind exact rule and authority basis | AGL; CGAM permission; witness refs | Source provenance does not freeze the decision rule basis | `decision_basis_record` | mismatched canonical basis hash must fail |
 | Requalify memory at use time | Memory Gate; CGAM memory record | Admission does not establish present purpose, consent, freshness or authority | `memory_reliance_record` | revoked memory plus `USE` must fail |
 | Distinguish endpoint similarity from lineage | Beacon; SER; Continuity Bundle | No paired machine fixture proving snapshot insufficiency | `continuity_history_cases.json` | endpoint-equal histories must retain different classifications |
 | Separate viability from identity | L4; Beacon; Continuity Bundle | Independence not expressed as cross-layer executable rule | continuity cases and carry-cost profile | resource restoration must not repair lineage |
-| Account for idle presence cost | L4 runtime enforcement | Passive continuity overhead is not grouped explicitly | `continuity_carry_cost_profile.json` | carry dimensions cannot be identity-bearing |
+| Account for idle presence cost | L4 runtime enforcement | Passive continuity overhead is not grouped explicitly | exact closed dimension/unit map and machine-readable non-entailment codes in `continuity_carry_cost_profile.json` | missing, extra, renamed, prose, or identity-bearing carry rules must fail |
 | Detect boundary extraction by use | Capability restrictions; Memory Gate; L4 budgets | Repeated-query leakage is not a first-class record | `boundary_probe_record` | high-risk budget-exceeded probe plus `ALLOW` must fail |
 | Preserve synthesis disagreement | Judge concept; evidence discipline | Model outputs can be flattened into a single verdict | `judge_deliberation_record` | majority voting or one model family must fail |
 | Bound external influence claims | citation/provenance practices | Vague "inspired by" or "derived from" statements | `external_construct_intake_record` | code reuse without license clearance must fail |

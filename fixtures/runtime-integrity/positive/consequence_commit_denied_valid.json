@@ -113,7 +113,7 @@
   "non_effect_witness_ref": {
     "artifact_id": "non-effect-42",
     "version": "0.1.1",
-    "hash": "7f65c5176fa947aa8f440d6e5d8d920b7e3950df73e887425fe26c93034f06ad"
+    "hash": "02f8140a044c493e92e4617107123a2a3e255f9d8e4cd791f5951312825ecf6d"
   },
   "previous_commit_record_ref": null,
   "change_reason": null,
@@ -124,7 +124,7 @@
   },
   "current_conditions_hash": "fab5341a506787fec013823316bb215057e4b8638ed19074b711b26eb1afd998",
   "witness_chain_head": "c6d9afe0cd399fcb982337473a0556891cd28ba76ddd55a7f92b231c3f3f4325",
-  "claim_boundary": "This record proves the bounded commit-time decision and declared effect state. It does not by itself prove global effect absence; that claim is delegated to the linked non-effect witness.",
+  "claim_boundary": "This record proves only the bounded commit-time decision and declared effect state. It does not prove global or universal effect absence. Any negative-effect conclusion is limited to the linked non-effect witness's declared surfaces and observation window.",
   "change_reason_code": null,
   "target_transition_evidence_ref": null,
   "consequence_lineage_id": "consequence-lineage:earth-deploy-42"

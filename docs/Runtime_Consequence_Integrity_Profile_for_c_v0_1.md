@@ -124,6 +124,12 @@ For high-impact paths, a stronger claim that the effect did not form requires a 
 
 A non-effect witness must state its observation window, surfaces, coverage, and claim boundary.
 
+When a high-assurance `NOT_BOUND` commit relies on that witness, the commit's existing `created_at` field is the consequence-attempt time and must fall inside the linked observation interval, inclusively. The comparison retains every declared fractional-second digit rather than truncating to platform microsecond precision. Epoch zero remains an ordinary timestamp rather than a missing value. Inputs whose declared offset would place the UTC instant outside years 0001 through 9999 are outside this strict profile and fail closed. A later observation may remain valid for its own declared scope, but it cannot prove non-effect for an earlier attempt.
+
+The witness `attempt_ref` and `gate_record_ref` both equal the linked consequence commit `record_id`; v0.1.1 does not admit an independent unbound attempt identity. Its frozen scope inventory contains the exact static descriptor for every observation surface: `surface_id`, `surface_kind`, `target_ref`, `target_coordinate`, and `hash_domain`. Two differently named or differently typed surfaces cannot count the same logical target coordinate and hash domain twice. The event, route, collector, clock, and inventory evidence objects use a closed fixture-level shape so delayed work or an undeclared open path cannot be smuggled through ignored fields.
+
+Every `NOT_BOUND` consequence commit uses one fixed bounded claim ceiling. It proves only its commit-time decision and declared effect state; any negative-effect conclusion remains limited to the linked witness's declared surfaces and observation window. Commit prose cannot promote that scoped witness to global or universal effect absence.
+
 ```text
 no effect observed within declared scope
   != no effect existed anywhere
@@ -373,6 +379,8 @@ This is called **continuity carry cost**.
 
 It is an L4 resource category, not an identity primitive.
 
+The machine profile therefore fixes the nine dimension/unit pairs listed above and requires each dimension to state `identity_bearing=false`. Its machine rules are a closed set of non-entailment codes: resource recovery, uptime, storage completeness, and carry-cost facts do not establish identity continuity; resource exhaustion does not change lineage classification; resource restoration does not repair a broken lineage. Explanatory prose remains documentation-only and is not accepted as a machine rule.
+
 ```text
 zero visible action
   does not entail
@@ -491,11 +499,13 @@ The development validator performs:
 9. strict RFC 3339 timestamp checks;
 10. RFC 8785/I-JSON canonicalization checks.
 
-The reviewed-head baseline pack includes:
+The R3 runtime successor pack includes:
 
 - 8 schemas;
-- 58 manifest-enumerated fixture expectations;
+- 62 manifest-enumerated fixture expectations;
 - 62 exactly reconstructed adversarial scenarios (`62 recovered / 0 unrecovered`);
+- 1 separately counted R2 interval scenario;
+- 4 separately counted R3 Medium-closure scenarios;
 - positive and negative cases;
 - deterministic validation;
 - a four-cell Windows/Linux and Python 3.10/3.12 exact-event-head workflow with hash-locked dependencies.

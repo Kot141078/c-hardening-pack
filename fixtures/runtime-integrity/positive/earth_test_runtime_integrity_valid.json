@@ -29,7 +29,7 @@
     "preserves_old_records": true,
     "previous_commit_record_ref": "consequence-commit-deploy-42",
     "old_decision_basis_hash": "cb29e6e3adb218704ee6eb08a67b27fbe2e3114cb990bc23eb1a48c10ff6d254",
-    "old_consequence_commit_hash": "5b98405b977d9b28079ac690dd5ef03bc77e370de2b97e4dc9fb67d4fe3a3d3b",
+    "old_consequence_commit_hash": "83c7d323bf6e0ebf987fedf95b5a31ee8189233bb022075c0f1205c69aa93c06",
     "endpoint_ref": "endpoint:B",
     "retry_instantiated_at": "2026-08-27T10:06:00+02:00",
     "new_decision_basis_ref": {
@@ -40,7 +40,7 @@
     "new_consequence_commit_ref": {
       "artifact_id": "consequence-commit-deploy-43",
       "version": "0.1.1",
-      "hash": "8349dfb5ec386c8c3c3947130836bca027e417b09b375270dff04d9436da273f"
+      "hash": "c57f86f59915a4d86381c0970c18303ecc47a4980187042f9f2cbdf7ff397257"
     },
     "new_permission_grant_ref": {
       "artifact_id": "CLI_AGENT_PERMISSION_GRANT:grant-43",

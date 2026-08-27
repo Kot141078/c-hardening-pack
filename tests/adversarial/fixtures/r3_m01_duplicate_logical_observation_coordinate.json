@@ -1,0 +1,22 @@
+{
+  "scenario_id": "r3_m01_duplicate_logical_observation_coordinate",
+  "category": "NON_EFFECT",
+  "base_fixture": "fixtures/runtime-integrity/positive/non_effect_witness_valid.json",
+  "runtime_negative_fixture": "fixtures/runtime-integrity/negative/r3_duplicate_logical_observation_coordinate_invalid.json",
+  "mutation": {
+    "path": "/observation_surfaces/1/target_coordinate",
+    "from": "endpoint:A/deployment-queue",
+    "to": "endpoint:A/deployment-api"
+  },
+  "coherent_hash_cascade": [
+    "apply the same coordinate change to evidence/non_effect_event_log_42.json",
+    "apply the same descriptor change to evidence/non_effect_scope_inventory_42.json",
+    "rebind both evidence hashes in the evidence registry and inventory",
+    "rebind scope_inventory_hash in the witness",
+    "rebind the witness hash in the denied commit",
+    "rebind the denied-commit hash in the retry and Earth bundle",
+    "rebind the retry hash in the Earth bundle and dependent fixtures"
+  ],
+  "expected_issue_codes": ["duplicate_logical_observation_coordinate"],
+  "forbidden_cause": "stale hash or unpropagated evidence content; the coherently duplicated inventory coordinate may independently trigger its own logical-alias rejection"
+}

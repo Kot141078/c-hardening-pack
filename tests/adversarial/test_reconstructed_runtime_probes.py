@@ -11,6 +11,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = json.loads((ROOT / "tests/adversarial/MANIFEST.json").read_text(encoding="utf-8"))
 SCENARIOS = MANIFEST["scenarios"]
+R2_SCENARIOS = MANIFEST["r2_closure_scenarios"]
+R3_SCENARIOS = MANIFEST["r3_medium_scenarios"]
 
 
 def parse_line(line: str):
@@ -84,6 +86,56 @@ def make_test(entry):
 for index, scenario in enumerate(SCENARIOS, start=1):
     safe_id = re.sub(r"[^a-z0-9_]+", "_", scenario["id"].casefold())
     setattr(ReconstructedRuntimeProbes, f"test_{index:02d}_{safe_id}", make_test(scenario))
+
+
+class RuntimeR2ClosureProbes(unittest.TestCase):
+    def test_r2_c1_non_effect_witness_interval_excludes_attempt(self):
+        entry = R2_SCENARIOS[0]
+        self.assertEqual("r2_c1_non_effect_witness_interval_excludes_attempt", entry["id"])
+        proc = subprocess.run(
+            [sys.executable, str(ROOT / entry["candidate_path"])],
+            cwd=ROOT,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+        )
+        self.assertEqual(0, proc.returncode, f"{proc.stdout}\n{proc.stderr}")
+        emitted = [parsed for line in proc.stdout.splitlines() if (parsed := parse_line(line))]
+        self.assertEqual(1, len(emitted))
+        scenario_id, actual = emitted[0]
+        self.assertEqual(entry["id"], scenario_id)
+        self.assertTrue(set(entry["expected_issue_codes"]).issubset(actual))
+
+
+class RuntimeR3MediumClosureProbes(unittest.TestCase):
+    pass
+
+
+def make_r3_test(entry):
+    def test(self):
+        proc = subprocess.run(
+            [sys.executable, str(ROOT / entry["candidate_path"])],
+            cwd=ROOT,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+        )
+        self.assertEqual(0, proc.returncode, f"{proc.stdout}\n{proc.stderr}")
+        self.assertEqual("", proc.stderr)
+        emitted = [parsed for line in proc.stdout.splitlines() if (parsed := parse_line(line))]
+        self.assertEqual(1, len(emitted))
+        scenario_id, actual = emitted[0]
+        self.assertEqual(entry["id"], scenario_id)
+        self.assertTrue(set(entry["expected_issue_codes"]).issubset(actual))
+        self.assertTrue(actual, "invalid R3 mutation was accepted")
+    return test
+
+
+for index, scenario in enumerate(R3_SCENARIOS, start=1):
+    safe_id = re.sub(r"[^a-z0-9_]+", "_", scenario["id"].casefold())
+    setattr(RuntimeR3MediumClosureProbes, f"test_{index:02d}_{safe_id}", make_r3_test(scenario))
 
 
 if __name__ == "__main__":
