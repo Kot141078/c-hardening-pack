@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import contextlib
 import importlib.util
 import json
 import os
@@ -381,7 +382,7 @@ class CgamDurableBindingCrashTest(unittest.TestCase):
         self._assert_no_temp_residue()
 
         database = self.sandbox / ".c_binding" / "binding_state.sqlite3"
-        with sqlite3.connect(database) as connection:
+        with contextlib.closing(sqlite3.connect(database)) as connection, connection:
             stored = connection.execute(
                 "SELECT state,temp_basename FROM attempts WHERE attempt_id=?",
                 (attempt_id,),
@@ -411,7 +412,7 @@ class CgamDurableBindingCrashTest(unittest.TestCase):
         )
 
         database = self.sandbox / ".c_binding" / "binding_state.sqlite3"
-        with sqlite3.connect(database) as connection:
+        with contextlib.closing(sqlite3.connect(database)) as connection, connection:
             prepared = connection.execute(
                 "SELECT state,record_inputs_json FROM attempts WHERE attempt_id=?",
                 (attempt_id,),
@@ -610,7 +611,7 @@ class CgamDurableBindingCrashTest(unittest.TestCase):
         self.assertEqual("FAIL", preconditions["BLOCKING_STATE"])
 
         database = self.sandbox / ".c_binding" / "binding_state.sqlite3"
-        with sqlite3.connect(database) as connection:
+        with contextlib.closing(sqlite3.connect(database)) as connection, connection:
             stored = connection.execute(
                 "SELECT state,reason_code,temp_basename,record_inputs_json "
                 "FROM attempts WHERE attempt_id=?",
@@ -698,7 +699,7 @@ class CgamDurableBindingCrashTest(unittest.TestCase):
         self._assert_no_temp_residue()
 
         database = self.sandbox / ".c_binding" / "binding_state.sqlite3"
-        with sqlite3.connect(database) as connection:
+        with contextlib.closing(sqlite3.connect(database)) as connection, connection:
             state = connection.execute(
                 "SELECT state,temp_basename FROM attempts WHERE attempt_id=?",
                 (second_attempt,),
@@ -723,7 +724,7 @@ class CgamDurableBindingCrashTest(unittest.TestCase):
         self.assertEqual(payload_a, target.read_bytes())
 
         database = self.sandbox / ".c_binding" / "binding_state.sqlite3"
-        with sqlite3.connect(database) as connection:
+        with contextlib.closing(sqlite3.connect(database)) as connection, connection:
             observed_at = connection.execute(
                 "SELECT observed_at FROM authority_heads"
             ).fetchone()[0]
@@ -753,7 +754,7 @@ class CgamDurableBindingCrashTest(unittest.TestCase):
             )
         self.assertEqual("RECORDED_NOT_BOUND", revoked["state"])
         self.assertEqual("ALREADY_SATISFIED", revoked["reason_code"])
-        with sqlite3.connect(database) as connection:
+        with contextlib.closing(sqlite3.connect(database)) as connection, connection:
             head = connection.execute(
                 "SELECT authority_revision,effective_status,observed_at "
                 "FROM authority_heads"
@@ -850,7 +851,7 @@ class CgamDurableBindingCrashTest(unittest.TestCase):
         )
         self.assertEqual(payload_text.encode("utf-8"), target.read_bytes())
         database = self.sandbox / ".c_binding" / "binding_state.sqlite3"
-        with sqlite3.connect(database) as connection:
+        with contextlib.closing(sqlite3.connect(database)) as connection, connection:
             stored = connection.execute(
                 "SELECT state,temp_basename,record_inputs_json FROM attempts "
                 "WHERE attempt_id=?",
@@ -1073,9 +1074,9 @@ class CgamDurableBindingCrashTest(unittest.TestCase):
         )
         self.assertEqual("R6A_CGAM_BINDING_LOCK_v0.1", sentinel["magic"])
         self.assertEqual(instance, sentinel["journal_instance_id"])
-        with sqlite3.connect(
+        with contextlib.closing(sqlite3.connect(
             race_sandbox / ".c_binding" / "binding_state.sqlite3"
-        ) as connection:
+        )) as connection, connection:
             stored_instance = connection.execute(
                 "SELECT value FROM journal_meta WHERE key='journal_instance_id'"
             ).fetchone()
@@ -1254,7 +1255,7 @@ class CgamDurableBindingCrashTest(unittest.TestCase):
             (self.sandbox / "output.txt").read_bytes(),
         )
         database = self.sandbox / ".c_binding" / "binding_state.sqlite3"
-        with sqlite3.connect(database) as connection:
+        with contextlib.closing(sqlite3.connect(database)) as connection, connection:
             state, reason, inputs_size = connection.execute(
                 "SELECT state,reason_code,length(record_inputs_json) "
                 "FROM attempts WHERE attempt_id=?",
@@ -1547,7 +1548,7 @@ class CgamDurableBindingCrashTest(unittest.TestCase):
         self._assert_no_temp_residue()
 
         database = self.sandbox / ".c_binding" / "binding_state.sqlite3"
-        with sqlite3.connect(database) as connection:
+        with contextlib.closing(sqlite3.connect(database)) as connection, connection:
             head_revision = connection.execute(
                 "SELECT authority_revision FROM authority_heads"
             ).fetchone()
@@ -1707,7 +1708,7 @@ class CgamDurableBindingCrashTest(unittest.TestCase):
         self.assertEqual(0, inspected["prepared_count"])
         self.assertEqual(0, inspected["quarantined_count"])
         database = self.sandbox / ".c_binding" / "binding_state.sqlite3"
-        with sqlite3.connect(database) as connection:
+        with contextlib.closing(sqlite3.connect(database)) as connection, connection:
             head_revision = connection.execute(
                 "SELECT authority_revision FROM authority_heads"
             ).fetchone()

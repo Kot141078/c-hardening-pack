@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import contextlib
 import importlib.util
 import json
 import os
@@ -86,7 +87,7 @@ class CgamDurableBindingTest(unittest.TestCase):
         self.assertEqual("ok", self.initial["integrity_check"])
         self.assertEqual(4, self.initial["table_count"])
         database = self.sandbox / ".c_binding" / "binding_state.sqlite3"
-        with sqlite3.connect(database) as conn:
+        with contextlib.closing(sqlite3.connect(database)) as conn, conn:
             names = {
                 row[0]
                 for row in conn.execute(
@@ -150,7 +151,7 @@ class CgamDurableBindingTest(unittest.TestCase):
             result["records"]["non_effect_witness"]["conclusion"],
         )
         database = self.sandbox / ".c_binding" / "binding_state.sqlite3"
-        with sqlite3.connect(database) as conn:
+        with contextlib.closing(sqlite3.connect(database)) as conn, conn:
             self.assertEqual(0, conn.execute("SELECT COUNT(*) FROM attempts WHERE state='PREPARED'").fetchone()[0])
         self.assertEqual([], list(self.sandbox.glob(".c_binding_payload_*")))
 

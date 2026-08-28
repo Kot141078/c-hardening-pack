@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import contextlib
 import copy
 import importlib.util
 import json
@@ -148,7 +149,7 @@ class CgamDurableBindingSecurityTest(unittest.TestCase):
         return (sandbox or self.sandbox) / ".c_binding" / "binding_state.sqlite3"
 
     def _head(self, sandbox: Path | None = None) -> dict:
-        with sqlite3.connect(self._database(sandbox)) as conn:
+        with contextlib.closing(sqlite3.connect(self._database(sandbox))) as conn, conn:
             conn.row_factory = sqlite3.Row
             row = conn.execute("SELECT * FROM authority_heads").fetchone()
             self.assertIsNotNone(row)
@@ -671,7 +672,7 @@ class CgamDurableBindingSecurityTest(unittest.TestCase):
             "NO_EFFECT_OBSERVED_WITHIN_DECLARED_SCOPE",
             result["records"]["non_effect_witness"]["conclusion"],
         )
-        with sqlite3.connect(self._database()) as conn:
+        with contextlib.closing(sqlite3.connect(self._database())) as conn, conn:
             self.assertEqual(
                 0,
                 conn.execute(
@@ -755,7 +756,7 @@ class CgamDurableBindingSecurityTest(unittest.TestCase):
                 sandbox, instance = self._make_sandbox(mode)
                 self._bind(b"tamper-seed\n", sandbox=sandbox, instance=instance)
                 target_before = (sandbox / "output.txt").read_bytes()
-                with sqlite3.connect(self._database(sandbox)) as conn:
+                with contextlib.closing(sqlite3.connect(self._database(sandbox))) as conn, conn:
                     if mode == "journal-instance":
                         replacement = str(uuid.uuid4())
                         meta = self.binding._meta_row("journal_instance_id", replacement)
@@ -799,7 +800,7 @@ class CgamDurableBindingSecurityTest(unittest.TestCase):
                 payload = b"attempt-binding-inputs\n"
                 (sandbox / "output.txt").write_bytes(payload)
                 result = self._bind(payload, sandbox=sandbox, instance=instance)
-                with sqlite3.connect(self._database(sandbox)) as conn:
+                with contextlib.closing(sqlite3.connect(self._database(sandbox))) as conn, conn:
                     conn.row_factory = sqlite3.Row
                     attempt = dict(
                         conn.execute(
@@ -838,7 +839,7 @@ class CgamDurableBindingSecurityTest(unittest.TestCase):
             b"authority-lineage-denied\n", sandbox=sandbox, instance=instance
         )
         self.assertEqual("REVOKED_PERMISSION", denied["reason_code"])
-        with sqlite3.connect(self._database(sandbox)) as conn:
+        with contextlib.closing(sqlite3.connect(self._database(sandbox))) as conn, conn:
             conn.row_factory = sqlite3.Row
             head = dict(conn.execute("SELECT * FROM authority_heads").fetchone())
             head["authority_revision"] = 1
@@ -860,7 +861,7 @@ class CgamDurableBindingSecurityTest(unittest.TestCase):
     def _coherently_reseal_record_mutation(self, sandbox: Path, kind: str, mutate) -> None:
         """Model a trusted-journal edit that recomputes every local hash seal."""
 
-        with sqlite3.connect(self._database(sandbox)) as conn:
+        with contextlib.closing(sqlite3.connect(self._database(sandbox))) as conn, conn:
             conn.row_factory = sqlite3.Row
             rows = [
                 dict(row)
@@ -981,7 +982,7 @@ class CgamDurableBindingSecurityTest(unittest.TestCase):
         payload = b"duplicate-terminal\n"
         (self.sandbox / "output.txt").write_bytes(payload)
         result = self._bind(payload)
-        with sqlite3.connect(self._database()) as conn:
+        with contextlib.closing(sqlite3.connect(self._database())) as conn, conn:
             conn.row_factory = sqlite3.Row
             source = dict(
                 conn.execute(
