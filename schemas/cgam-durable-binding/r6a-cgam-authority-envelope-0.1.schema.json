@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ivan-kotov:r6a-cgam-authority-envelope:0.1",
+  "title": "R6A bounded local CGAM authority envelope v0.1",
+  "$defs": {
+    "bounded_section": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary", "status", "decision", "refs",
+        "direct_memory_write_allowed", "self_approval_allowed",
+        "uncontrolled_network_allowed", "cloud_secret_upload_allowed"
+      ],
+      "properties": {
+        "summary": {"type": "string"},
+        "status": {"type": "string"},
+        "decision": {"type": "string"},
+        "refs": {"type": "array", "items": {"type": "string"}},
+        "direct_memory_write_allowed": {"const": false},
+        "self_approval_allowed": {"const": false},
+        "uncontrolled_network_allowed": {"const": false},
+        "cloud_secret_upload_allowed": {"const": false}
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["profile", "authority_revision", "previous_grant_hash", "grant_payload"],
+  "properties": {
+    "profile": {"const": "R6A_CGAM_AUTHORITY_ENVELOPE_v0.1"},
+    "authority_revision": {"type": "integer", "minimum": 1},
+    "previous_grant_hash": {
+      "oneOf": [
+        {"type": "null"},
+        {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      ]
+    },
+    "grant_payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version", "grant_id", "task_id", "agent_id",
+        "governing_entity_id", "human_anchor_ref", "task_contract_ref",
+        "created_at", "updated_at", "expires_at", "grant_status",
+        "permissions", "capability_bindings", "source_profile", "scope",
+        "revocation", "direct_memory_write_allowed", "self_approval_allowed",
+        "witness_tampering_allowed", "secret_prompting_allowed",
+        "live_external_exploitation_allowed", "hack_back_allowed",
+        "autonomous_retaliation_allowed", "malware_behavior_allowed",
+        "credential_theft_allowed", "covert_persistence_allowed",
+        "uncontrolled_network_allowed", "cloud_secret_upload_allowed"
+      ],
+      "properties": {
+        "schema_version": {"const": "cli-agent-permission-grant-0.1"},
+        "grant_id": {"type": "string"},
+        "task_id": {"type": "string"},
+        "agent_id": {"type": "string", "minLength": 1, "maxLength": 256},
+        "governing_entity_id": {"type": "string", "minLength": 3, "maxLength": 256},
+        "human_anchor_ref": {"type": "string", "minLength": 1, "maxLength": 256},
+        "task_contract_ref": {"type": "string"},
+        "created_at": {"type": "string", "format": "date-time"},
+        "updated_at": {"type": "string", "format": "date-time"},
+        "expires_at": {"type": "string", "format": "date-time"},
+        "grant_status": {"type": "string"},
+        "permissions": {"type": "array", "items": {"type": "string"}},
+        "capability_bindings": {"type": "object"},
+        "source_profile": {"type": "string"},
+        "scope": {"$ref": "#/$defs/bounded_section"},
+        "revocation": {"$ref": "#/$defs/bounded_section"},
+        "direct_memory_write_allowed": {"const": false},
+        "self_approval_allowed": {"const": false},
+        "witness_tampering_allowed": {"const": false},
+        "secret_prompting_allowed": {"const": false},
+        "live_external_exploitation_allowed": {"const": false},
+        "hack_back_allowed": {"const": false},
+        "autonomous_retaliation_allowed": {"const": false},
+        "malware_behavior_allowed": {"const": false},
+        "credential_theft_allowed": {"const": false},
+        "covert_persistence_allowed": {"const": false},
+        "uncontrolled_network_allowed": {"const": false},
+        "cloud_secret_upload_allowed": {"const": false}
+      }
+    }
+  }
+}

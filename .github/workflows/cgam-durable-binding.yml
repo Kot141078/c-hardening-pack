@@ -1,0 +1,160 @@
+name: CGAM durable local binding
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "feat/cgam-durable-binding-v0.1-*"
+
+permissions:
+  contents: read
+
+jobs:
+  exact-head-r6a:
+    name: ${{ matrix.os }} / Python ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.10", "3.12"]
+    env:
+      EXPECTED_EVENT_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+      CGAM_SOURCE_ROOT: ${{ github.workspace }}/../c-governed-cli-agent-mesh
+      GIT_OPTIONAL_LOCKS: "0"
+      GIT_CONFIG_COUNT: "1"
+      GIT_CONFIG_KEY_0: "core.autocrlf"
+      GIT_CONFIG_VALUE_0: "false"
+      PYTHONDONTWRITEBYTECODE: "1"
+      RUNTIME_REVIEW_CONTEXT_SHA256: "d8359a9145539eb660ab38994aebe14aa1ac00a2525c2973801770f646bb36ac"
+      RUNTIME_EXPECTED_REPOSITORY: "https://github.com/Kot141078/c-hardening-pack"
+      RUNTIME_EXPECTED_BASE_SHA: "9a33e3866cde19939be22a903967bc94f566db76"
+      RUNTIME_EXPECTED_REVIEWED_PARENT_SHA: "ead3fe6c69d99aafb84b8db98d3df4329ea3c918"
+      RUNTIME_EXPECTED_CANDIDATE_SCOPE: "RUNTIME_SEMANTIC_CLOSURE_FROM_REVIEWED_PARENT"
+      RUNTIME_EXPECTED_TRUST_ROOT_CLASS: "CONTRACT_SHA256_PINNED_OWNER_INPUT"
+    steps:
+      - name: Check out exact candidate head
+        # actions/checkout immutable v4 commit observed in accepted source run 33068805134
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ env.EXPECTED_EVENT_HEAD }}
+          fetch-depth: 0
+
+      - name: Set up matrix Python
+        # actions/setup-python immutable v5 commit observed in accepted source run 33068805134
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: requirements-runtime-integrity.lock
+
+      - name: Set up accepted Node runtime
+        # actions/setup-node immutable v4 commit observed in accepted source run 33068805134
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "20"
+
+      - name: Assert exact event head and clean checkout
+        shell: bash
+        run: |
+          actual="$(git rev-parse HEAD)"
+          printf 'expected_head=%s\nactual_head=%s\n' "$EXPECTED_EVENT_HEAD" "$actual"
+          test "$actual" = "$EXPECTED_EVENT_HEAD"
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+
+      - name: Acquire exact detached read-only CGAM source
+        shell: bash
+        run: |
+          git clone --no-tags https://github.com/Kot141078/c-governed-cli-agent-mesh "$CGAM_SOURCE_ROOT"
+          git -C "$CGAM_SOURCE_ROOT" checkout --detach c3b004d7439a8c608f08233fc17be1150c442b44
+          test "$(git -C "$CGAM_SOURCE_ROOT" rev-parse 'HEAD^{tree}')" = "9a0b25d162f40347a4434b2bc9482b92e0170e85"
+          test -z "$(git -C "$CGAM_SOURCE_ROOT" status --porcelain=v1 --untracked-files=all)"
+
+      - name: Enforce read-only CGAM checkout on POSIX
+        if: runner.os != 'Windows'
+        shell: bash
+        run: chmod -R a-w "$CGAM_SOURCE_ROOT"
+
+      - name: Enforce read-only CGAM checkout on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Get-ChildItem -LiteralPath $env:CGAM_SOURCE_ROOT -Recurse -Force -File |
+            ForEach-Object { $_.IsReadOnly = $true }
+
+      - name: Install exact hash-locked predecessor dependencies
+        run: python -m pip install --require-hashes -r requirements-runtime-integrity.lock
+
+      - name: Verify exact source custody and additive architecture
+        run: python -B tools/verify_cgam_durable_binding_source.py --cgam-root "$env:CGAM_SOURCE_ROOT"
+        if: runner.os == 'Windows'
+
+      - name: Verify exact source custody and additive architecture on POSIX
+        run: python -B tools/verify_cgam_durable_binding_source.py --cgam-root "$CGAM_SOURCE_ROOT"
+        if: runner.os != 'Windows'
+
+      - name: Run full R6A fixture, crash, recovery, lock, path, and tamper suite
+        run: python -B tools/run_cgam_durable_binding_suite.py
+
+      - name: Replay checksum and protected-blob predecessor gates
+        run: |
+          python -B tools/verify_checksum_domain.py --source worktree
+          python -B tools/verify_checksum_domain.py --source git-blob --git-ref "$env:EXPECTED_EVENT_HEAD"
+          python -B -m unittest discover -s tests -p "test_checksum_domain.py" -v
+        if: runner.os == 'Windows'
+
+      - name: Replay checksum and protected-blob predecessor gates on POSIX
+        run: |
+          python -B tools/verify_checksum_domain.py --source worktree
+          python -B tools/verify_checksum_domain.py --source git-blob --git-ref "$EXPECTED_EVENT_HEAD"
+          python -B -m unittest discover -s tests -p "test_checksum_domain.py" -v
+        if: runner.os != 'Windows'
+
+      - name: Replay dependency, workflow-pin, and R4A gates
+        run: |
+          python -B tools/verify_runtime_lock.py
+          python -B tools/verify_github_actions_pins.py
+          python -B tools/verify_r4a_integration.py
+
+      - name: Replay cross-language JCS gates
+        run: |
+          python -B tools/verify_runtime_jcs.py
+          node tools/verify_runtime_jcs.mjs
+
+      - name: Replay complete Runtime Consequence Integrity baseline
+        run: |
+          python -B tools/validate_runtime_integrity_extension.py --verbose
+          python -B -m unittest discover -s tests -p "test_runtime_integrity*.py" -v
+          python -B tools/run_runtime_adversarial_suite.py
+          python -B -m unittest discover -s tests/adversarial -p "test_*.py" -v
+
+      - name: Reverify immutable read-only CGAM custody on POSIX
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          test -z "$(find "$CGAM_SOURCE_ROOT" -type f -perm /222 -print -quit)"
+          test "$(git -C "$CGAM_SOURCE_ROOT" rev-parse HEAD)" = "c3b004d7439a8c608f08233fc17be1150c442b44"
+          test "$(git -C "$CGAM_SOURCE_ROOT" rev-parse 'HEAD^{tree}')" = "9a0b25d162f40347a4434b2bc9482b92e0170e85"
+          test -z "$(git -C "$CGAM_SOURCE_ROOT" status --porcelain=v1 --untracked-files=all)"
+
+      - name: Reverify immutable read-only CGAM custody on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $writable = @(
+            Get-ChildItem -LiteralPath $env:CGAM_SOURCE_ROOT -Recurse -Force -File |
+              Where-Object { -not $_.IsReadOnly }
+          )
+          if ($writable.Count -ne 0) { throw "CGAM writable files: $($writable.Count)" }
+          if ((git -C $env:CGAM_SOURCE_ROOT rev-parse HEAD) -ne 'c3b004d7439a8c608f08233fc17be1150c442b44') { throw 'CGAM commit drift' }
+          if ((git -C $env:CGAM_SOURCE_ROOT rev-parse 'HEAD^{tree}') -ne '9a0b25d162f40347a4434b2bc9482b92e0170e85') { throw 'CGAM tree drift' }
+          if (git -C $env:CGAM_SOURCE_ROOT status --porcelain=v1 --untracked-files=all) { throw 'CGAM worktree drift' }
+
+      - name: Final exact-head, diff, cache, and custody check
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_EVENT_HEAD"
+          git diff --check
+          test -z "$(git status --porcelain=v1 --untracked-files=all)"
+          python -B -c "from pathlib import Path; r=Path('.'); bad=[str(p) for p in r.rglob('*') if p.name in {'__pycache__','.pytest_cache'} or p.suffix in {'.pyc','.pyo'}]; print('cache_artifacts='+str(len(bad))); raise SystemExit(bool(bad))"
