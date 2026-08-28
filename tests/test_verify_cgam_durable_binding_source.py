@@ -129,8 +129,17 @@ PRAGMAS = ('journal_mode', 'DELETE', 'synchronous', 'FULL',
 """,
                 encoding="utf-8",
             )
+            runner = tools / "run_cgam_durable_binding_suite.py"
+            runner.write_text(
+                "from r6a_scenario_registry import EXPECTED_SCENARIO_IDS\n",
+                encoding="utf-8",
+            )
             issues, evidence = self.verifier.inspect_binding_sources(
-                root, ["tools/cgam_durable_binding.py"]
+                root,
+                [
+                    "tools/cgam_durable_binding.py",
+                    "tools/run_cgam_durable_binding_suite.py",
+                ],
             )
         self.assertEqual([], issues)
         self.assertEqual(4, evidence["table_create_statements"])
@@ -159,13 +168,26 @@ CREATE TABLE plugins (id TEXT PRIMARY KEY);
 """,
                 encoding="utf-8",
             )
+            runner = tools / "run_cgam_durable_binding_suite.py"
+            runner.write_text(
+                "import arbitrary_local_module\n",
+                encoding="utf-8",
+            )
             issues, _ = self.verifier.inspect_binding_sources(
-                root, ["tools/cgam_durable_binding.py"]
+                root,
+                [
+                    "tools/cgam_durable_binding.py",
+                    "tools/run_cgam_durable_binding_suite.py",
+                ],
             )
         self.assertIn("r6a_sqlite_table_surface_invalid", issues)
         self.assertIn("r6a_sqlite_autoincrement_forbidden", issues)
         self.assertTrue(
             any(item.endswith(":requests") for item in issues),
+            issues,
+        )
+        self.assertTrue(
+            any(item.endswith(":arbitrary_local_module") for item in issues),
             issues,
         )
 

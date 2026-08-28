@@ -282,9 +282,13 @@ def inspect_binding_sources(
     source_parts: list[str] = []
     direct_imports: set[str] = set()
     stdlib = set(getattr(sys, "stdlib_module_names", ()))
-    allowed_local = {
-        "cgam_durable_binding_runtime_adapter",
-        "validate_runtime_integrity_extension",
+    allowed_local_by_path = {
+        "tools/cgam_durable_binding.py": frozenset(
+            {"cgam_durable_binding_runtime_adapter"}
+        ),
+        "tools/run_cgam_durable_binding_suite.py": frozenset(
+            {"r6a_scenario_registry"}
+        ),
     }
     for relative in python_paths:
         path = root / relative
@@ -301,7 +305,11 @@ def inspect_binding_sources(
         for name in sorted(imports):
             if name in FORBIDDEN_DIRECT_IMPORTS:
                 issues.append(f"r6a_forbidden_direct_import:{relative}:{name}")
-            elif stdlib and name not in stdlib and name not in allowed_local:
+            elif (
+                stdlib
+                and name not in stdlib
+                and name not in allowed_local_by_path.get(relative, frozenset())
+            ):
                 issues.append(f"r6a_nonstdlib_direct_import:{relative}:{name}")
 
     core_source = "\n".join(source_parts)
