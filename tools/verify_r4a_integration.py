@@ -26,6 +26,7 @@ POSTIMAGE_BLOB = "b87a696978b570665ce603102300cea924c183bc"
 PREIMAGE_SHA256 = "3c2462af0049d801ea7e07519f2e2ed9d5377e33c4f72c1bd2d7476b825f55fe"
 POSTIMAGE_SHA256 = "1e4a2d70802e66621a142b845eb9a355ac44a94e7792885fa34ba628f4e11d4c"
 EXPECTED_PATCH_SHA256 = "1fae3efa86292f3e0ab578d5aa1667785143f423b8438fc64c6d12079c2f22fb"
+R4A_FINAL = "47fed105d7b1df1df7375aa203a551b0f684c13d"
 MANIFESTS = ("SHA256SUMS.txt", "manifests/SHA256SUMS.txt")
 WORKFLOWS = (
     ".github/workflows/integrity.yml",
@@ -44,6 +45,31 @@ NEW_INTEGRATION_PATHS = {
     "RUNTIME_INTEGRITY_R4A_STATUS.md",
     "tools/verify_r4a_integration.py",
     "tests/test_runtime_integrity_r4a_integration.py",
+}
+R6A_REQUIRED_MODIFICATIONS = {
+    "tools/verify_github_actions_pins.py",
+    "tools/verify_r4a_integration.py",
+    "tests/test_runtime_integrity_r2_closure.py",
+    "tests/test_runtime_integrity_r4a_integration.py",
+}
+R6A_REQUIRED_ADDITIONS = {
+    ".github/workflows/cgam-durable-binding.yml",
+    "docs/CGAM_DURABLE_BINDING_R6A_STATUS.md",
+    "fixtures/cgam-durable-binding/MANIFEST.json",
+    "fixtures/cgam-durable-binding/r6a_authority_revision_1_active.json",
+    "fixtures/cgam-durable-binding/r6a_authority_revision_2_revoked.json",
+    "fixtures/cgam-durable-binding/r6a_task_output.json",
+    "schemas/cgam-durable-binding/r6a-cgam-authority-envelope-0.1.schema.json",
+    "tests/r6a_scenario_registry.py",
+    "tests/test_cgam_durable_binding.py",
+    "tests/test_cgam_durable_binding_crash.py",
+    "tests/test_cgam_durable_binding_runtime_adapter.py",
+    "tests/test_cgam_durable_binding_security.py",
+    "tests/test_verify_cgam_durable_binding_source.py",
+    "tools/cgam_durable_binding.py",
+    "tools/cgam_durable_binding_runtime_adapter.py",
+    "tools/run_cgam_durable_binding_suite.py",
+    "tools/verify_cgam_durable_binding_source.py",
 }
 OLD_STATUS = b"**Status:** Development governance note  \n"
 NEW_STATUS = b"**Status:** Development governance note\\\n"
@@ -100,6 +126,10 @@ def blob(ref: str, path: str) -> str:
     return text("rev-parse", f"{ref}:{path}")
 
 
+def r6a_additive_path(path: str) -> bool:
+    return path.replace("\\", "/") in R6A_REQUIRED_ADDITIONS
+
+
 def protected_paths() -> set[str]:
     result = set(MANIFESTS)
     for manifest in MANIFESTS:
@@ -137,8 +167,17 @@ def normalization_evidence() -> dict[str, object]:
 
 def audit(*, check_worktree: bool = True) -> tuple[list[str], dict[str, object]]:
     issues: list[str] = []
-    head = text("rev-parse", "HEAD")
-    head_tree = tree("HEAD")
+    candidate_head = text("rev-parse", "HEAD")
+    candidate_tree = tree("HEAD")
+    if not object_exists(R4A_FINAL) or not is_ancestor(R4A_FINAL, candidate_head):
+        issues.append("r4a_final_not_candidate_ancestor")
+        head = candidate_head
+    else:
+        # Audit the immutable R4A result at its exact accepted commit.  A
+        # descendant candidate is checked separately below; its additive files
+        # cannot redefine the historical R4A topology or union.
+        head = R4A_FINAL
+    head_tree = tree(head)
     checksum_paths = changed(MAIN, CHECKSUM)
     runtime_paths = changed(MAIN, RUNTIME)
     union = checksum_paths | runtime_paths
@@ -201,6 +240,31 @@ def audit(*, check_worktree: bool = True) -> tuple[list[str], dict[str, object]]
     if changed(MAIN, head, diff_filter="D"):
         issues.append("r4a_deletion_detected")
 
+    candidate_paths = changed(R4A_FINAL, candidate_head) if head == R4A_FINAL else set()
+    candidate_added = (
+        changed(R4A_FINAL, candidate_head, diff_filter="A") if head == R4A_FINAL else set()
+    )
+    candidate_modified = candidate_paths - candidate_added
+    expected_modifications = set() if candidate_head == R4A_FINAL else R6A_REQUIRED_MODIFICATIONS
+    if candidate_modified != expected_modifications:
+        issues.append("r6a_predecessor_modification_scope_invalid")
+    expected_additions = set() if candidate_head == R4A_FINAL else R6A_REQUIRED_ADDITIONS
+    unexpected_candidate_additions = sorted(candidate_added - expected_additions)
+    missing_candidate_additions = sorted(expected_additions - candidate_added)
+    if candidate_added != expected_additions:
+        issues.append("r6a_additive_scope_invalid")
+    candidate_deletions = (
+        changed(R4A_FINAL, candidate_head, diff_filter="D") if head == R4A_FINAL else set()
+    )
+    if candidate_deletions:
+        issues.append("r6a_deletion_detected")
+    candidate_protected_mismatches = [
+        path for path in sorted(protected)
+        if blob(candidate_head, path) != blob(R4A_FINAL, path)
+    ] if head == R4A_FINAL else []
+    if candidate_protected_mismatches:
+        issues.append("r6a_protected_blob_mismatch")
+
     component_blob_mismatches: list[str] = []
     for path in sorted(checksum_paths - HARDENING_ALLOWLIST):
         if blob(head, path) != blob(CHECKSUM, path):
@@ -221,6 +285,15 @@ def audit(*, check_worktree: bool = True) -> tuple[list[str], dict[str, object]]
     diff_check = git("diff", "--check", f"{MAIN}..{head}", check=False)
     if diff_check.returncode != 0 or diff_check.stdout or diff_check.stderr:
         issues.append("r4a_diff_check_failed")
+    candidate_diff_check = git(
+        "diff", "--check", f"{R4A_FINAL}..{candidate_head}", check=False
+    )
+    if (
+        candidate_diff_check.returncode != 0
+        or candidate_diff_check.stdout
+        or candidate_diff_check.stderr
+    ):
+        issues.append("r6a_diff_check_failed")
 
     workflow_text = {
         path: (ROOT / path).read_text(encoding="utf-8") for path in WORKFLOWS
@@ -265,8 +338,10 @@ def audit(*, check_worktree: bool = True) -> tuple[list[str], dict[str, object]]
         issues.append("r4a_worktree_dirty")
 
     evidence: dict[str, object] = {
-        "head": head,
-        "tree": head_tree,
+        "head": candidate_head,
+        "tree": candidate_tree,
+        "r4a_audited_head": head,
+        "r4a_audited_tree": head_tree,
         "checksum_ancestor": is_ancestor(CHECKSUM, head),
         "runtime_ancestor": is_ancestor(RUNTIME, head),
         "failed_r2_nonancestor": not is_ancestor(FAILED_R2, head),
@@ -281,16 +356,24 @@ def audit(*, check_worktree: bool = True) -> tuple[list[str], dict[str, object]]
         "protected_mismatches": protected_mismatches,
         "component_blob_mismatches": component_blob_mismatches,
         "deletions": len(changed(MAIN, head, diff_filter="D")),
+        "candidate_paths": sorted(candidate_paths),
+        "candidate_added_paths": sorted(candidate_added),
+        "candidate_modified_paths": sorted(candidate_modified),
+        "candidate_deletions": sorted(candidate_deletions),
+        "candidate_protected_mismatches": candidate_protected_mismatches,
+        "unexpected_candidate_additions": unexpected_candidate_additions,
+        "missing_candidate_additions": missing_candidate_additions,
         "normalization": normalization,
         "diff_check_exit": diff_check.returncode,
         "diff_check_stdout_bytes": len(diff_check.stdout),
         "diff_check_stderr_bytes": len(diff_check.stderr),
+        "candidate_diff_check_exit": candidate_diff_check.returncode,
         "cache_artifacts": caches,
         "worktree_status": status,
         "event_expected_head": os.environ.get("EXPECTED_EVENT_HEAD") or os.environ.get("EXPECTED_HEAD"),
     }
     expected_event_head = evidence["event_expected_head"]
-    if expected_event_head is not None and expected_event_head != head:
+    if expected_event_head is not None and expected_event_head != candidate_head:
         issues.append("r4a_event_head_mismatch")
     return issues, evidence
 

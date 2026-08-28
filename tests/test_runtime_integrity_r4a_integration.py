@@ -68,8 +68,18 @@ class RuntimeIntegrityR4AIntegrationTest(unittest.TestCase):
     def test_repository_action_inventory_and_pins(self) -> None:
         issues, workflows, refs = self.pins.audit_repository()
         self.assertEqual([], issues)
-        self.assertEqual(2, workflows)
-        self.assertEqual(5, refs)
+        self.assertEqual(3, workflows)
+        self.assertEqual(8, refs)
+        self.assertEqual(17, len(self.integration.R6A_REQUIRED_ADDITIONS))
+        for path in self.integration.R6A_REQUIRED_ADDITIONS:
+            with self.subTest(path=path):
+                self.assertTrue(self.integration.r6a_additive_path(path))
+        self.assertFalse(self.integration.r6a_additive_path("tools/r6a_extra.py"))
+        self.assertFalse(
+            self.integration.r6a_additive_path(
+                "docs/CGAM_DURABLE_BINDING_R6A_EXTRA.md"
+            )
+        )
 
     def test_duplicate_omitted_and_ambiguous_inventory_fails(self) -> None:
         runtime = ".github/workflows/runtime-integrity-extension.yml"

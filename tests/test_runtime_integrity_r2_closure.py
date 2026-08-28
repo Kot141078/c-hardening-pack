@@ -152,8 +152,8 @@ class RuntimeIntegrityR2ClosureTest(unittest.TestCase):
     def test_r2_c3_all_external_actions_are_verified_immutable_shas(self) -> None:
         issues, workflow_count, external_refs = self.action_pins.audit_repository()
         self.assertEqual([], issues)
-        self.assertEqual(2, workflow_count)
-        self.assertEqual(5, external_refs)
+        self.assertEqual(3, workflow_count)
+        self.assertEqual(8, external_refs)
 
     def test_r2_c3_mutable_and_malformed_action_refs_fail_closed(self) -> None:
         bad_refs = (

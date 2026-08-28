@@ -1,0 +1,73 @@
+{
+  "schema_version": "cli-agent-task-contract-0.1",
+  "contract_id": "r6a-task-contract-output-v0.1",
+  "task_id": "r6a-task-output-001",
+  "created_at": "2026-08-28T00:00:00Z",
+  "updated_at": "2026-08-28T00:00:00Z",
+  "governing_entity_id": "c:ester-r6a-local",
+  "human_anchor_ref": "a:ivan-kotov",
+  "assigned_agent_ref": "agent:r6a-local-adapter",
+  "permission_grant_ref": "grant:r6a-output-001",
+  "decision": "ALLOW",
+  "gate_status": "PASS",
+  "source_profile": "CLI_Agent_Task_Contract_Schema_v0_1.md",
+  "source_refs": [
+    {"file": "README.md", "hash_ref": "461194018e88e25720ffee0a94f14218e6c4b1a0"},
+    {"file": "CHECKSUM_SCOPE.json", "hash_ref": "ef2ebc2ba2ac435800d7eb1d6da8d029218c8c6b"},
+    {"file": "tools/verify_tagged_tree_manifest.py", "hash_ref": "0ca80bd93ac040af895e897504ef1e753540574d"},
+    {"file": "docs/markdown/CLI_Agent_Task_Contract_Schema_v0_1.md", "hash_ref": "4f0e88fa196f9a8220a885cf71e8b615d673e9da"},
+    {"file": "docs/markdown/CLI_Agent_Permission_and_Capability_Model_v0_1.md", "hash_ref": "af50f2b5cf3c4c88b947ec261fdaa6862c3d7ffa"},
+    {"file": "schemas/common/cgam-common-defs-0.1.schema.json", "hash_ref": "62398a016ab67a5f1af98f45db0e9f239060c03d"},
+    {"file": "schemas/task-contract/cli-agent-task-contract-0.1.schema.json", "hash_ref": "b17d33a06421565f2ff63b67118b32005a873d50"},
+    {"file": "schemas/permission-capability/cli-agent-permission-grant-0.1.schema.json", "hash_ref": "9c0625a239cf91848bfeeb106a528c6932896fd2"},
+    {"file": "schemas/SCHEMA_INDEX.json", "hash_ref": "6f8c383099ce7615e415890fcaf938729169b4d6"},
+    {"file": "validator/SEMANTIC_RULES_INDEX.json", "hash_ref": "b059c5e8b1e77b1c6ed633bbdf0d98e020f14910"},
+    {"file": "fixtures/FIXTURE_MANIFEST.json", "hash_ref": "a423fb1d60bca982e9a51f67354308f22c35c180"}
+  ],
+  "authority": {
+    "summary": "Pinned R6A local authority only",
+    "status": "CURRENT",
+    "decision": "ALLOW",
+    "refs": ["grant:r6a-output-001"],
+    "direct_memory_write_allowed": false,
+    "self_approval_allowed": false,
+    "uncontrolled_network_allowed": false,
+    "cloud_secret_upload_allowed": false
+  },
+  "scope": {
+    "summary": "One exact sandbox basename",
+    "status": "CURRENT",
+    "decision": "ALLOW",
+    "refs": ["target-basename:output.txt"],
+    "direct_memory_write_allowed": false,
+    "self_approval_allowed": false,
+    "uncontrolled_network_allowed": false,
+    "cloud_secret_upload_allowed": false
+  },
+  "permission_requirements": {
+    "summary": "One permission, one capability, one effect",
+    "status": "CURRENT",
+    "decision": "ALLOW",
+    "refs": [
+      "permission:PERM-WRITE-SANDBOX",
+      "capability:CAP-WRITE-SANDBOX",
+      "effect:WRITE_SANDBOX_TEXT_V1"
+    ],
+    "direct_memory_write_allowed": false,
+    "self_approval_allowed": false,
+    "uncontrolled_network_allowed": false,
+    "cloud_secret_upload_allowed": false
+  },
+  "direct_memory_write_allowed": false,
+  "self_approval_allowed": false,
+  "witness_tampering_allowed": false,
+  "secret_prompting_allowed": false,
+  "live_external_exploitation_allowed": false,
+  "hack_back_allowed": false,
+  "autonomous_retaliation_allowed": false,
+  "malware_behavior_allowed": false,
+  "credential_theft_allowed": false,
+  "covert_persistence_allowed": false,
+  "uncontrolled_network_allowed": false,
+  "cloud_secret_upload_allowed": false
+}

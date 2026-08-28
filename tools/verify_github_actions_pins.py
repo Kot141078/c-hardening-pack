@@ -13,6 +13,7 @@ WORKFLOW_ROOT = ROOT / ".github" / "workflows"
 EXPECTED_WORKFLOW_PATHS = (
     ".github/workflows/integrity.yml",
     ".github/workflows/runtime-integrity-extension.yml",
+    ".github/workflows/cgam-durable-binding.yml",
 )
 EXPECTED_ACTION_SHAS = {
     "actions/checkout": "11d5960a326750d5838078e36cf38b85af677262",

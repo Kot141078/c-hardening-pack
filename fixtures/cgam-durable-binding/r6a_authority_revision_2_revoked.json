@@ -1,0 +1,55 @@
+{
+  "profile": "R6A_CGAM_AUTHORITY_ENVELOPE_v0.1",
+  "authority_revision": 2,
+  "previous_grant_hash": "2645406f40af73388467ff6c60bbedc1e1f0baf523d0a327ed2cf3625f7d0db1",
+  "grant_payload": {
+    "schema_version": "cli-agent-permission-grant-0.1",
+    "grant_id": "grant:r6a-output-001",
+    "task_id": "r6a-task-output-001",
+    "agent_id": "agent:r6a-local-adapter",
+    "governing_entity_id": "c:ester-r6a-local",
+    "human_anchor_ref": "a:ivan-kotov",
+    "task_contract_ref": "r6a-task-contract-output-v0.1",
+    "created_at": "2026-08-28T00:00:00Z",
+    "updated_at": "2026-08-28T00:01:00Z",
+    "expires_at": "2099-01-01T00:00:00Z",
+    "grant_status": "REVOKED",
+    "permissions": ["PERM-WRITE-SANDBOX"],
+    "capability_bindings": {
+      "PERM-WRITE-SANDBOX": ["CAP-WRITE-SANDBOX"]
+    },
+    "source_profile": "CLI_Agent_Permission_and_Capability_Model_v0_1.md",
+    "scope": {
+      "summary": "One exact sandbox basename",
+      "status": "CURRENT",
+      "decision": "ALLOW",
+      "refs": ["target-basename:output.txt"],
+      "direct_memory_write_allowed": false,
+      "self_approval_allowed": false,
+      "uncontrolled_network_allowed": false,
+      "cloud_secret_upload_allowed": false
+    },
+    "revocation": {
+      "summary": "Owner revoked before consequence",
+      "status": "REVOKED",
+      "decision": "DENY",
+      "refs": ["owner-revocation:r6a-output-001"],
+      "direct_memory_write_allowed": false,
+      "self_approval_allowed": false,
+      "uncontrolled_network_allowed": false,
+      "cloud_secret_upload_allowed": false
+    },
+    "direct_memory_write_allowed": false,
+    "self_approval_allowed": false,
+    "witness_tampering_allowed": false,
+    "secret_prompting_allowed": false,
+    "live_external_exploitation_allowed": false,
+    "hack_back_allowed": false,
+    "autonomous_retaliation_allowed": false,
+    "malware_behavior_allowed": false,
+    "credential_theft_allowed": false,
+    "covert_persistence_allowed": false,
+    "uncontrolled_network_allowed": false,
+    "cloud_secret_upload_allowed": false
+  }
+}
