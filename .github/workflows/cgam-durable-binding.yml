@@ -23,6 +23,9 @@ jobs:
       EXPECTED_EVENT_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
       CGAM_SOURCE_ROOT: ${{ github.workspace }}/../c-governed-cli-agent-mesh
       GIT_OPTIONAL_LOCKS: "0"
+      GIT_CONFIG_COUNT: "1"
+      GIT_CONFIG_KEY_0: "core.autocrlf"
+      GIT_CONFIG_VALUE_0: "false"
       PYTHONDONTWRITEBYTECODE: "1"
       RUNTIME_REVIEW_CONTEXT_SHA256: "d8359a9145539eb660ab38994aebe14aa1ac00a2525c2973801770f646bb36ac"
       RUNTIME_EXPECTED_REPOSITORY: "https://github.com/Kot141078/c-hardening-pack"
