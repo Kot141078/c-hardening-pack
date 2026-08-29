@@ -33,10 +33,74 @@ class RuntimeIntegrityR4AIntegrationTest(unittest.TestCase):
     def test_final_integration_lineage_union_scope_and_cleanliness(self) -> None:
         issues, evidence = self.integration.audit()
         self.assertEqual([], issues)
+        self.assertEqual(self.integration.R4A_FINAL, evidence["r4a_audited_head"])
         self.assertEqual(143, evidence["union_paths"])
         self.assertEqual(39, evidence["protected"])
         self.assertEqual(0, evidence["deletions"])
         self.assertEqual(0, evidence["diff_check_exit"])
+        self.assertEqual(0, evidence["candidate_diff_check_exit"])
+        self.assertEqual(
+            [self.integration.AGENTS_R0_PATH],
+            evidence["candidate_added_paths"],
+        )
+        self.assertEqual(
+            sorted(self.integration.AGENTS_R0_REQUIRED_MODIFICATIONS),
+            evidence["candidate_modified_paths"],
+        )
+        self.assertEqual([], evidence["candidate_deletions"])
+        self.assertEqual([], evidence["candidate_unclassified_paths"])
+        self.assertEqual([], evidence["candidate_merge_commits"])
+        self.assertEqual([], evidence["candidate_protected_mismatches"])
+
+    def test_agents_r0_content_is_exact_and_claim_bounded(self) -> None:
+        issues, evidence = self.integration.audit()
+        self.assertEqual([], issues)
+        self.assertTrue(evidence["agents_r0_content_commit_ancestor"])
+        self.assertTrue(evidence["agents_r0_content_commit_parent_ok"])
+        self.assertTrue(evidence["agents_r0_content_commit_scope_ok"])
+        agents = evidence["agents_r0"]
+        self.assertTrue(agents["present"])
+        self.assertEqual(self.integration.AGENTS_R0_BLOB, agents["blob"])
+        self.assertEqual(self.integration.AGENTS_R0_SHA256, agents["sha256"])
+        self.assertTrue(agents["utf8"])
+        self.assertTrue(agents["lf_only"])
+        self.assertTrue(agents["no_bom"])
+        self.assertTrue(agents["final_lf"])
+        self.assertTrue(agents["required_markers_present"])
+        self.assertGreaterEqual(agents["word_count"], 200)
+        self.assertLessEqual(agents["word_count"], 400)
+
+    def test_agents_r0_scope_fails_closed_on_extra_or_missing_paths(self) -> None:
+        issues = self.integration.validate_agents_r0_scope(
+            candidate_is_r4a_final=False,
+            added={
+                self.integration.AGENTS_R0_PATH,
+                "README.md",
+            },
+            modified=set(self.integration.AGENTS_R0_REQUIRED_MODIFICATIONS),
+            deleted=set(),
+            unclassified=set(),
+        )
+        self.assertIn("agents_r0_additive_scope_invalid", issues)
+
+        issues = self.integration.validate_agents_r0_scope(
+            candidate_is_r4a_final=False,
+            added=set(self.integration.AGENTS_R0_REQUIRED_ADDITIONS),
+            modified={"tools/verify_r4a_integration.py"},
+            deleted=set(),
+            unclassified=set(),
+        )
+        self.assertIn("agents_r0_modification_scope_invalid", issues)
+
+        issues = self.integration.validate_agents_r0_scope(
+            candidate_is_r4a_final=False,
+            added=set(self.integration.AGENTS_R0_REQUIRED_ADDITIONS),
+            modified=set(self.integration.AGENTS_R0_REQUIRED_MODIFICATIONS),
+            deleted={"RUNTIME_INTEGRITY_R4A_STATUS.md"},
+            unclassified={"docs/unclassified.txt"},
+        )
+        self.assertIn("agents_r0_deletion_detected", issues)
+        self.assertIn("agents_r0_unclassified_delta_detected", issues)
 
     def test_exact_normalization_bytes(self) -> None:
         evidence = self.integration.normalization_evidence()

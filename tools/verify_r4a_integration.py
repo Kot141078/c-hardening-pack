@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deterministic R4A lineage, union, normalization, and scope verifier."""
+"""Deterministic R4A lineage, union, normalization, and bounded descendant verifier."""
 
 from __future__ import annotations
 
@@ -26,6 +26,27 @@ POSTIMAGE_BLOB = "b87a696978b570665ce603102300cea924c183bc"
 PREIMAGE_SHA256 = "3c2462af0049d801ea7e07519f2e2ed9d5377e33c4f72c1bd2d7476b825f55fe"
 POSTIMAGE_SHA256 = "1e4a2d70802e66621a142b845eb9a355ac44a94e7792885fa34ba628f4e11d4c"
 EXPECTED_PATCH_SHA256 = "1fae3efa86292f3e0ab578d5aa1667785143f423b8438fc64c6d12079c2f22fb"
+R4A_FINAL = "47fed105d7b1df1df7375aa203a551b0f684c13d"
+
+AGENTS_R0_CONTENT_COMMIT = "d9934d0ddc6b24a41a12d379cfd42a9d76a23e1c"
+AGENTS_R0_PATH = "AGENTS.md"
+AGENTS_R0_BLOB = "460060bb9f706c1b27a03fd93406e635d90ded35"
+AGENTS_R0_SHA256 = "75ea2b206c5c09349d30f6d6fbfe8a7132a7b8843630aa05d7055d10434e3353"
+AGENTS_R0_REQUIRED_ADDITIONS = {AGENTS_R0_PATH}
+AGENTS_R0_REQUIRED_MODIFICATIONS = {
+    "tools/verify_r4a_integration.py",
+    "tests/test_runtime_integrity_r4a_integration.py",
+}
+AGENTS_R0_REQUIRED_MARKERS = (
+    "# Repository Guidelines",
+    "model, agent, or validator != `c`",
+    "capability or permission != current authority",
+    "local resource envelope != full L4",
+    "signature or hash != truth",
+    "replay, restart, or durable bytes != continuity",
+    "Passing tests do not authorize merge, release, publication, deployment, or the next gate.",
+)
+
 MANIFESTS = ("SHA256SUMS.txt", "manifests/SHA256SUMS.txt")
 WORKFLOWS = (
     ".github/workflows/integrity.yml",
@@ -72,7 +93,9 @@ def object_exists(ref: str) -> bool:
 def is_ancestor(ancestor: str, descendant: str = "HEAD") -> bool:
     if not object_exists(ancestor):
         return False
-    return git("merge-base", "--is-ancestor", ancestor, descendant, check=False).returncode == 0
+    return git(
+        "merge-base", "--is-ancestor", ancestor, descendant, check=False
+    ).returncode == 0
 
 
 def parents(ref: str) -> list[str]:
@@ -98,6 +121,76 @@ def changed(base: str, head: str, *, diff_filter: str | None = None) -> set[str]
 
 def blob(ref: str, path: str) -> str:
     return text("rev-parse", f"{ref}:{path}")
+
+
+def merge_commits(base: str, head: str) -> list[str]:
+    value = text("rev-list", "--min-parents=2", f"{base}..{head}")
+    return value.splitlines() if value else []
+
+
+def validate_agents_r0_scope(
+    *,
+    candidate_is_r4a_final: bool,
+    added: set[str],
+    modified: set[str],
+    deleted: set[str],
+    unclassified: set[str],
+) -> list[str]:
+    issues: list[str] = []
+    expected_added = set() if candidate_is_r4a_final else AGENTS_R0_REQUIRED_ADDITIONS
+    expected_modified = (
+        set() if candidate_is_r4a_final else AGENTS_R0_REQUIRED_MODIFICATIONS
+    )
+    if added != expected_added:
+        issues.append("agents_r0_additive_scope_invalid")
+    if modified != expected_modified:
+        issues.append("agents_r0_modification_scope_invalid")
+    if deleted:
+        issues.append("agents_r0_deletion_detected")
+    if unclassified:
+        issues.append("agents_r0_unclassified_delta_detected")
+    return issues
+
+
+def agents_r0_evidence(ref: str) -> dict[str, object]:
+    result: dict[str, object] = {
+        "present": False,
+        "blob": None,
+        "sha256": None,
+        "bytes": 0,
+        "word_count": 0,
+        "utf8": False,
+        "lf_only": False,
+        "no_bom": False,
+        "final_lf": False,
+        "required_markers_present": False,
+    }
+    object_ref = f"{ref}:{AGENTS_R0_PATH}"
+    if not object_exists(object_ref):
+        return result
+
+    data = raw("show", object_ref)
+    result.update(
+        {
+            "present": True,
+            "blob": blob(ref, AGENTS_R0_PATH),
+            "sha256": hashlib.sha256(data).hexdigest(),
+            "bytes": len(data),
+            "lf_only": b"\r" not in data,
+            "no_bom": not data.startswith(b"\xef\xbb\xbf"),
+            "final_lf": data.endswith(b"\n"),
+        }
+    )
+    try:
+        decoded = data.decode("utf-8")
+    except UnicodeDecodeError:
+        return result
+    result["utf8"] = True
+    result["word_count"] = len(decoded.split())
+    result["required_markers_present"] = all(
+        marker in decoded for marker in AGENTS_R0_REQUIRED_MARKERS
+    )
+    return result
 
 
 def protected_paths() -> set[str]:
@@ -137,8 +230,21 @@ def normalization_evidence() -> dict[str, object]:
 
 def audit(*, check_worktree: bool = True) -> tuple[list[str], dict[str, object]]:
     issues: list[str] = []
-    head = text("rev-parse", "HEAD")
-    head_tree = tree("HEAD")
+    candidate_head = text("rev-parse", "HEAD")
+    candidate_tree = tree("HEAD")
+    candidate_descends_from_r4a = (
+        object_exists(R4A_FINAL) and is_ancestor(R4A_FINAL, candidate_head)
+    )
+    if not candidate_descends_from_r4a:
+        issues.append("r4a_final_not_candidate_ancestor")
+        head = candidate_head
+    else:
+        # Audit the immutable R4A result at its exact accepted commit. The
+        # descendant documentation candidate is checked separately below and
+        # cannot redefine the historical R4A topology, union, or protected set.
+        head = R4A_FINAL
+
+    head_tree = tree(head)
     checksum_paths = changed(MAIN, CHECKSUM)
     runtime_paths = changed(MAIN, RUNTIME)
     union = checksum_paths | runtime_paths
@@ -201,6 +307,102 @@ def audit(*, check_worktree: bool = True) -> tuple[list[str], dict[str, object]]
     if changed(MAIN, head, diff_filter="D"):
         issues.append("r4a_deletion_detected")
 
+    candidate_paths = (
+        changed(R4A_FINAL, candidate_head) if candidate_descends_from_r4a else set()
+    )
+    candidate_added = (
+        changed(R4A_FINAL, candidate_head, diff_filter="A")
+        if candidate_descends_from_r4a
+        else set()
+    )
+    candidate_modified = (
+        changed(R4A_FINAL, candidate_head, diff_filter="M")
+        if candidate_descends_from_r4a
+        else set()
+    )
+    candidate_deletions = (
+        changed(R4A_FINAL, candidate_head, diff_filter="D")
+        if candidate_descends_from_r4a
+        else set()
+    )
+    candidate_unclassified = (
+        candidate_paths
+        - candidate_added
+        - candidate_modified
+        - candidate_deletions
+    )
+    issues.extend(
+        validate_agents_r0_scope(
+            candidate_is_r4a_final=candidate_head == R4A_FINAL,
+            added=candidate_added,
+            modified=candidate_modified,
+            deleted=candidate_deletions,
+            unclassified=candidate_unclassified,
+        )
+    )
+
+    agents_content_commit_exists = object_exists(AGENTS_R0_CONTENT_COMMIT)
+    agents_content_commit_ancestor = (
+        agents_content_commit_exists
+        and is_ancestor(AGENTS_R0_CONTENT_COMMIT, candidate_head)
+    )
+    agents_content_commit_parent_ok = (
+        agents_content_commit_exists
+        and parents(AGENTS_R0_CONTENT_COMMIT) == [R4A_FINAL]
+    )
+    agents_content_commit_scope_ok = (
+        agents_content_commit_exists
+        and changed(R4A_FINAL, AGENTS_R0_CONTENT_COMMIT) == {AGENTS_R0_PATH}
+        and changed(
+            R4A_FINAL, AGENTS_R0_CONTENT_COMMIT, diff_filter="A"
+        ) == {AGENTS_R0_PATH}
+    )
+    candidate_merge_commits = (
+        merge_commits(AGENTS_R0_CONTENT_COMMIT, candidate_head)
+        if agents_content_commit_ancestor
+        else []
+    )
+    agents_evidence = agents_r0_evidence(candidate_head)
+
+    if candidate_head != R4A_FINAL:
+        if not agents_content_commit_ancestor:
+            issues.append("agents_r0_content_commit_not_ancestor")
+        if not agents_content_commit_parent_ok:
+            issues.append("agents_r0_content_commit_parent_invalid")
+        if not agents_content_commit_scope_ok:
+            issues.append("agents_r0_content_commit_scope_invalid")
+        if candidate_merge_commits:
+            issues.append("agents_r0_descendant_merge_detected")
+        if not agents_evidence["present"]:
+            issues.append("agents_r0_file_missing")
+        if agents_evidence["blob"] != AGENTS_R0_BLOB:
+            issues.append("agents_r0_blob_mismatch")
+        if agents_evidence["sha256"] != AGENTS_R0_SHA256:
+            issues.append("agents_r0_sha256_mismatch")
+        if not (
+            agents_evidence["utf8"]
+            and agents_evidence["lf_only"]
+            and agents_evidence["no_bom"]
+            and agents_evidence["final_lf"]
+        ):
+            issues.append("agents_r0_text_encoding_invalid")
+        if not 200 <= int(agents_evidence["word_count"]) <= 400:
+            issues.append("agents_r0_word_count_out_of_bounds")
+        if not agents_evidence["required_markers_present"]:
+            issues.append("agents_r0_required_markers_missing")
+
+    candidate_protected_mismatches = (
+        [
+            path
+            for path in sorted(protected)
+            if blob(candidate_head, path) != blob(R4A_FINAL, path)
+        ]
+        if candidate_descends_from_r4a
+        else []
+    )
+    if candidate_protected_mismatches:
+        issues.append("agents_r0_protected_blob_mismatch")
+
     component_blob_mismatches: list[str] = []
     for path in sorted(checksum_paths - HARDENING_ALLOWLIST):
         if blob(head, path) != blob(CHECKSUM, path):
@@ -221,6 +423,15 @@ def audit(*, check_worktree: bool = True) -> tuple[list[str], dict[str, object]]
     diff_check = git("diff", "--check", f"{MAIN}..{head}", check=False)
     if diff_check.returncode != 0 or diff_check.stdout or diff_check.stderr:
         issues.append("r4a_diff_check_failed")
+    candidate_diff_check = git(
+        "diff", "--check", f"{R4A_FINAL}..{candidate_head}", check=False
+    )
+    if (
+        candidate_diff_check.returncode != 0
+        or candidate_diff_check.stdout
+        or candidate_diff_check.stderr
+    ):
+        issues.append("agents_r0_diff_check_failed")
 
     workflow_text = {
         path: (ROOT / path).read_text(encoding="utf-8") for path in WORKFLOWS
@@ -236,7 +447,9 @@ def audit(*, check_worktree: bool = True) -> tuple[list[str], dict[str, object]]
     ):
         issues.append("r4a_exact_head_assertion_missing")
 
-    status_text = (ROOT / "RUNTIME_INTEGRITY_R4A_STATUS.md").read_text(encoding="utf-8")
+    status_text = (ROOT / "RUNTIME_INTEGRITY_R4A_STATUS.md").read_text(
+        encoding="utf-8"
+    )
     if not all(
         marker in status_text
         for marker in (
@@ -264,9 +477,16 @@ def audit(*, check_worktree: bool = True) -> tuple[list[str], dict[str, object]]
     if check_worktree and status:
         issues.append("r4a_worktree_dirty")
 
+    candidate_commit_count = (
+        int(text("rev-list", "--count", f"{R4A_FINAL}..{candidate_head}") or "0")
+        if candidate_descends_from_r4a
+        else 0
+    )
     evidence: dict[str, object] = {
-        "head": head,
-        "tree": head_tree,
+        "head": candidate_head,
+        "tree": candidate_tree,
+        "r4a_audited_head": head,
+        "r4a_audited_tree": head_tree,
         "checksum_ancestor": is_ancestor(CHECKSUM, head),
         "runtime_ancestor": is_ancestor(RUNTIME, head),
         "failed_r2_nonancestor": not is_ancestor(FAILED_R2, head),
@@ -281,16 +501,33 @@ def audit(*, check_worktree: bool = True) -> tuple[list[str], dict[str, object]]
         "protected_mismatches": protected_mismatches,
         "component_blob_mismatches": component_blob_mismatches,
         "deletions": len(changed(MAIN, head, diff_filter="D")),
+        "candidate_commit_count": candidate_commit_count,
+        "candidate_paths": sorted(candidate_paths),
+        "candidate_added_paths": sorted(candidate_added),
+        "candidate_modified_paths": sorted(candidate_modified),
+        "candidate_deletions": sorted(candidate_deletions),
+        "candidate_unclassified_paths": sorted(candidate_unclassified),
+        "candidate_merge_commits": candidate_merge_commits,
+        "candidate_protected_mismatches": candidate_protected_mismatches,
+        "agents_r0_content_commit_ancestor": agents_content_commit_ancestor,
+        "agents_r0_content_commit_parent_ok": agents_content_commit_parent_ok,
+        "agents_r0_content_commit_scope_ok": agents_content_commit_scope_ok,
+        "agents_r0": agents_evidence,
         "normalization": normalization,
         "diff_check_exit": diff_check.returncode,
         "diff_check_stdout_bytes": len(diff_check.stdout),
         "diff_check_stderr_bytes": len(diff_check.stderr),
+        "candidate_diff_check_exit": candidate_diff_check.returncode,
+        "candidate_diff_check_stdout_bytes": len(candidate_diff_check.stdout),
+        "candidate_diff_check_stderr_bytes": len(candidate_diff_check.stderr),
         "cache_artifacts": caches,
         "worktree_status": status,
-        "event_expected_head": os.environ.get("EXPECTED_EVENT_HEAD") or os.environ.get("EXPECTED_HEAD"),
+        "event_expected_head": (
+            os.environ.get("EXPECTED_EVENT_HEAD") or os.environ.get("EXPECTED_HEAD")
+        ),
     }
     expected_event_head = evidence["event_expected_head"]
-    if expected_event_head is not None and expected_event_head != head:
+    if expected_event_head is not None and expected_event_head != candidate_head:
         issues.append("r4a_event_head_mismatch")
     return issues, evidence
 
@@ -303,7 +540,9 @@ def main() -> int:
     print(
         "R4A_INTEGRATION "
         f"head={evidence['head']} tree={evidence['tree']} "
+        f"r4a={evidence['r4a_audited_head']} "
         f"union={evidence['union_paths']}/143 protected={evidence['protected']}/39 "
+        f"candidate_paths={len(evidence['candidate_paths'])} "
         f"pass={int(not issues)} fail={len(issues)}"
     )
     return 0 if not issues else 1
